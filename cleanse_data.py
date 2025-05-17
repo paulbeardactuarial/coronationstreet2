@@ -17,10 +17,27 @@ c_life_death = c_life_death.pivot(
 c_life_death
 
 # %%
+# triage the dates
 date_string_series = c_life_death["Born"]
 
 full_date_pattern = r'^\s*\d{1,2}(st|nd|rd|th)\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$'
+month_year_pattern = r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$'
+year_pattern = r'(c.\s*|)\d{4}$'
 
+date_string_formats = date_string_series.case_when(
+    [
+        (date_string_series.str.match(full_date_pattern).fillna(False), "full"),
+        (date_string_series.str.match(month_year_pattern).fillna(False), "month_year"),
+        (date_string_series.str.match(year_pattern).fillna(False), "year"),
+        (date_string_series.notna(), "other")
+    ]
+
+)
+date_string_formats.value_counts(dropna=False)
+# date_string_series[date_string_series.str.match(year_pattern).fillna(False)]
+# date_string_series[~date_string_series.str.match(full_date_pattern).fillna(True)]
+
+# %%
 date_strings = date_string_series.loc[
     date_string_series.str.match(full_date_pattern).fillna(False)
 ]
@@ -88,7 +105,7 @@ date_strings_left = date_string_series.loc[
     ~date_string_series.str.match(full_date_pattern).fillna(True)
 ]
 
-month_year_only_pattern = r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$'
+
 date_strings_year_month = date_strings_left[
     date_strings_left.str.match(month_year_only_pattern)
 ]
