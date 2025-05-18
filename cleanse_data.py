@@ -18,24 +18,38 @@ c_life_death
 
 # %%
 # triage the dates
-date_string_series = c_life_death["Born"]
+date_string_series = c_life_death["Died"]
 
-full_date_pattern = r'^\s*\d{1,2}(st|nd|rd|th)\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$'
-month_year_pattern = r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$'
-year_pattern = r'(c.\s*|)\d{4}$'
 
-date_string_formats = date_string_series.case_when(
-    [
-        (date_string_series.str.match(full_date_pattern).fillna(False), "full"),
-        (date_string_series.str.match(month_year_pattern).fillna(False), "month_year"),
-        (date_string_series.str.match(year_pattern).fillna(False), "year"),
-        (date_string_series.notna(), "other")
-    ]
+def triage_date_string_fmt(
+        date_string_series,
+        string_patterns={
+            "full": r'^\s*\d{1,2}(st|nd|rd|th)\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$',
+            "month_year": r'(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*$',
+            "year": r'(c.\s*|)\d{4}$'
+        }
+):
 
-)
-date_string_formats.value_counts(dropna=False)
-# date_string_series[date_string_series.str.match(year_pattern).fillna(False)]
-# date_string_series[~date_string_series.str.match(full_date_pattern).fillna(True)]
+    patterns = list(string_patterns.values())
+    format_names = list(string_patterns.keys())
+
+    conditions = [date_string_series.str.match(
+        pattern).fillna(False) for pattern in patterns]
+
+    date_string_formats = pd.Series(
+        np.select(
+            condlist=conditions,
+            choicelist=format_names,
+            default="other"
+        ),
+        index=date_string_series.index
+    )
+
+    return date_string_formats
+
+
+triage_date_string_fmt(date_string_series).value_counts()
+
 
 # %%
 date_strings = date_string_series.loc[
