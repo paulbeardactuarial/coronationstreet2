@@ -17,8 +17,7 @@ c_life_death = c_life_death.pivot(
 c_life_death
 
 # %%
-# triage the dates
-date_string_series = c_life_death["Died"]
+# define function to triage the dates
 
 
 def triage_date_string_fmt(
@@ -48,30 +47,13 @@ def triage_date_string_fmt(
     return date_string_formats
 
 
-triage_date_string_fmt(date_string_series).value_counts()
-
-
-# %%
-date_strings = date_string_series.loc[
-    date_string_series.str.match(full_date_pattern).fillna(False)
-]
-date_strings = date_strings.str.replace("st|nd|rd|th", "", n=1, regex=True)
-date_strings = date_strings.apply(
-    lambda x: datetime.datetime.strptime(x, "%d %B %Y")
-)
-date_strings
-# end_year_regex = r'(\d{4})\s*$'
-# mid_month_regex = r'(January|February|March|April|May|June|July|August|September|October|November|December)'
-# start_day_regex = r'^\s*(\d{1,2})'
-
-# year = date_strings.str.extract(end_year_regex)[0]
-# month = date_strings.str.extract(mid_month_regex)[0]
-# day = date_strings.str.extract(start_day_regex)[0]
-
-
 # %%
 # define functions that will randomise the day or month of a date
-def randomise_day_of_date(date_series, seed=42):
+def cleanse_month_year(date_series, seed=42):
+
+    date_series = date_series.apply(
+        lambda x: datetime.datetime.strptime(x, "%B %Y")
+    )
 
     # reset date series to first of month (if isn't already)
     date_series = date_series.dt.to_period('M').dt.to_timestamp()
@@ -91,7 +73,12 @@ def randomise_day_of_date(date_series, seed=42):
     return rndmised_date_series
 
 
-def randomise_month_of_date(date_series, seed=42):
+def cleanse_year(date_series, seed=42):
+
+    date_series = date_series.str.re
+    date_series = date_series.apply(
+        lambda x: datetime.datetime.strptime(x, "%Y")
+    )
 
     # reset date series to first of month (if isn't already)
     date_series = date_series.dt.to_period('Y').dt.to_timestamp()
@@ -115,14 +102,26 @@ def randomise_month_of_date(date_series, seed=42):
 
 
 # %%
-date_strings_left = date_string_series.loc[
-    ~date_string_series.str.match(full_date_pattern).fillna(True)
-]
+date_string_series = c_life_death["Born"]
+date_string_formats = triage_date_string_fmt(date_string_series)
 
 
-date_strings_year_month = date_strings_left[
-    date_strings_left.str.match(month_year_only_pattern)
-]
+# %%
+# functions that handle cleansing process
 
-date_strings_year_month = date_strings_year_month.apply(
-    lambda x: datetime.datetime.strptime(x, "%B %Y"))
+def cleanse_full(date_string_series):
+    date_string_series = date_string_series.str.replace(
+        "st|nd|rd|th", "", n=1, regex=True)
+    date_strings = date_string_series.apply(
+        lambda x: datetime.datetime.strptime(x, "%d %B %Y"))
+    return date_strings
+
+
+full_date_strings = date_string_series[date_string_formats == "full"]
+month_year_date_strings = date_string_series[date_string_formats == "month_year"]
+year_strings = date_string_series[date_string_formats == "year"]
+
+month_year_date_strings
+cleanse_full(full_date_strings)
+cleanse_month_year(month_year_date_strings)
+cleanse_year(year_strings)
