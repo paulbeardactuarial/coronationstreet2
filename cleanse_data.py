@@ -183,15 +183,42 @@ df = df.droplevel(level=0, axis=1)
 df = df.reset_index()
 df = df.merge(all_dates_clean, on=["Character"], how="outer")
 
-# exit_classification_dict = {
-#     "death": (df["Died"].notna() & df["Died"] <= df["Last appearance"]),
-#     "alive": (df["Died"].isna() & df["Last appearance"].isna()),
-#     "exit": (df["Died"].isna())
-# }
+exit_classification_dict = {
+    "death": df["Died"] <= df["Last appearance"] + pd.DateOffset(years=1),
+    "alive": df["Died"].isna() & df["Duration"].str.contains("present", case=False),
+    "exit": df["Last appearance"].notna()
+}
+
+exit_status = pd.Series(
+    np.select(
+        condlist=list(exit_classification_dict.values()),
+        choicelist=list(exit_classification_dict.keys()),
+        default=None
+    ),
+    name="exit_status"
+)
 
 
-(df["Died"] <= df["Last appearance"]).value_counts()
-#
+present_date = pd.Series(pd.Timestamp.now().floor('D'),
+                         index=df.index, dtype='<M8[ns]')
+
+exit_date = pd.Series(
+    np.select(
+        condlist=list(exit_classification_dict.values()),
+        choicelist=[df["Died"], present_date, df["Last appearance"]],
+        default=None
+    ),
+    name="exit_date",
+    dtype='<M8[ns]'
+)
+
+pd.DataFrame(
+    {"exit_date": exit_date,
+     "exit_status": exit_status
+     }
+)
+
+
 # exit_classification_dict
 # exit_type = np.select()
 
