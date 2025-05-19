@@ -184,6 +184,7 @@ df = df.reset_index()
 df = df.merge(all_dates_clean, on=["Character"], how="outer")
 
 exit_classification_dict = {
+    # we are classifying as `death` is died within 12 months of `Last appearance`
     "death": df["Died"] <= df["Last appearance"] + pd.DateOffset(years=1),
     "alive": df["Died"].isna() & df["Duration"].str.contains("present", case=False),
     "exit": df["Last appearance"].notna()
@@ -205,25 +206,23 @@ present_date = pd.Series(pd.Timestamp.now().floor('D'),
 exit_date = pd.Series(
     np.select(
         condlist=list(exit_classification_dict.values()),
-        choicelist=[df["Died"], present_date, df["Last appearance"]],
+        choicelist=[
+            df["Died"],  # death
+            present_date,  # alive
+            df["Last appearance"]  # exit
+        ],
         default=None
     ),
     name="exit_date",
     dtype='<M8[ns]'
 )
 
-pd.DataFrame(
-    {"exit_date": exit_date,
-     "exit_status": exit_status
-     }
-)
-
-
-# exit_classification_dict
-# exit_type = np.select()
+df["exit_status"] = exit_status
+df["start_date"] = df["First appearance"]
+df["exit_date"] = exit_date
 
 
 # %%
-
+df.loc[3, "Duration"]
 # add a flag to determine if the character died whilst in exposure
 # also create the exit date accordingly
