@@ -156,31 +156,47 @@ cleansed_dates = {
 }
 
 # get an NA array for anything not triggered
-na_date_string_series = date_string_series.values
-na_date_string_series[:] = pd.NA
+na_date_string_series = pd.Series(np.nan, index=date_string_series.index)
 
 # stitch it all back together
-cleansed_dates_combined = pd.Series()
+cleansed_dates_combined = pd.Series(na_date_string_series, name="Date")
 for key in cleansed_dates.keys():
     cleansed_dates_combined = cleansed_dates_combined.combine_first(
         cleansed_dates[key])
 
-cleansed_dates_combined
-# all_dates.Value
-len(na_date_string_series)
+# ...and pivot back into wider df
+all_dates_clean = all_dates.loc[:, ["Field", "Character"]].merge(
+    cleansed_dates_combined, left_index=True, right_index=True)
+all_dates_clean = all_dates_clean.pivot(
+    index="Character",
+    values="Date",
+    columns="Field"
+).reset_index()
 
 
 # %%
 
-all_dates = c_life_death.melt(
-    id_vars="Character",
-    value_vars=["Born", "Died", "First appearance", "Last appearance"],
-    value_name="Value"
-)
+# re-construct the Corrie data set, using cleansed dates
+df = corrie_data[corrie_data["Field"].isin(
+    ["Character", "Occupation", "Duration"])].pivot(columns=["Field"], index="Character")
+df = df.droplevel(level=0, axis=1)
+df = df.reset_index()
+df = df.merge(all_dates_clean, on=["Character"], how="outer")
 
-leftover_dates = all_dates[(triage_date_string_fmt(
-    all_dates.Value) == "other") & (all_dates.Value.notna())]
+# exit_classification_dict = {
+#     "death": (df["Died"].notna() & df["Died"] <= df["Last appearance"]),
+#     "alive": (df["Died"].isna() & df["Last appearance"].isna()),
+#     "exit": (df["Died"].isna())
+# }
 
-leftover_dates.Value.str.replace('\s\((1|2|3|4)\)', '', regex=True).unique()
+
+(df["Died"] <= df["Last appearance"]).value_counts()
+#
+# exit_classification_dict
+# exit_type = np.select()
+
 
 # %%
+
+# add a flag to determine if the character died whilst in exposure
+# also create the exit date accordingly
