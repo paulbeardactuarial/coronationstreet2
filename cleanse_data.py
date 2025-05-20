@@ -293,15 +293,30 @@ years_out_force = years_in_force.apply(
 
 # %%
 
-years_abscent = years_out_force[years_out_force.apply(len) > 0][399]
-
-[year for year in years_abscent]
-
-# years_actual = cleanse_duration(duration_string, present_year)
+years_abscent = years_out_force[years_out_force.apply(len) > 0][0]
 
 
-# years_abscent = np.setdiff1d(years_cont, years_actual)
-# years_abscent
+def extract_years_out_dict(years_abscent):
+    if len(years_abscent) == 0:
+        return {"start": None, "end": None}
+    if len(years_abscent) == 1:
+        output = {
+            "start": list(years_abscent - 1),
+            "end": list(years_abscent + 1)
+        }
+    else:
+        start_abscent = years_abscent - 1
+        end_abscent = years_abscent
+        unique_start_abscent = start_abscent[1:] != end_abscent[:-1]
+
+        output = {
+            "start": list(start_abscent[np.append(True, unique_start_abscent)]),
+            "end": list(end_abscent[np.append(unique_start_abscent, True)] + 1)
+        }
+    return output
+
+
+years_out_force.apply(lambda x: extract_years_out_dict(x))[399]
 
 
 # %%
