@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import datetime
 import re
+from itertools import chain
 
 # %%
 corrie_data_fp = "./Data/character_data.csv"
@@ -223,6 +224,54 @@ df["exit_date"] = exit_date
 
 
 # %%
-df.loc[3, "Duration"]
+# function to cleanse a single year string, which will be either:
+# "yyyy"
+# "yyyy-zzzz"
+# "yyyytopresent"
+
+# the output is always as a list of integer(s)
+
+def cleanse_single_duration(single_duration, present_year=2025):
+    single_duration = single_duration.replace(" ", "")
+    single_duration = single_duration.replace("topresent", f"-{present_year}")
+
+    assert (single_duration.count("-") <= 1)
+
+    if (single_duration.count("-") == 1):
+        single_duration_as_list = list(
+            range(
+                int(re.findall("^(\d{4})-\d{4}$", single_duration)[0]),
+                int(re.findall("^\d{4}-(\d{4})$", single_duration)[0]) + 1
+            )
+        )
+    else:
+        single_duration_as_list = [int(single_duration)]
+
+    return single_duration_as_list
+
+
+# %%
+
+# input `duration_string`
+duration_string = df.loc[3, "Duration"]
+present_year = 2025
+
+# convert to a list of integer years
+list_o_years = duration_string.split(",")
+list_o_years = [cleanse_single_duration(i, present_year) for i in list_o_years]
+years_actual = np.array(list(chain.from_iterable(list_o_years)))
+years_actual = np.unique(years_actual)
+
+years_cont = np.arange(stop=years_actual.max() + 1,
+                       start=years_actual.min(), step=1)
+
+years_abscent = np.setdiff1d(years_cont, years_actual)
+years_abscent
 # add a flag to determine if the character died whilst in exposure
 # also create the exit date accordingly
+
+
+# %%
+
+
+# %%
