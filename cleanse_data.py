@@ -222,6 +222,8 @@ df["exit_status"] = exit_status
 df["start_date"] = df["First appearance"]
 df["exit_date"] = exit_date
 
+# some extra cleaning on duration
+df["Duration"] = df["Duration"].str.replace("\(.*\)", ",", regex=True)
 
 # %%
 # function to cleanse a single year string, which will be either:
@@ -231,7 +233,8 @@ df["exit_date"] = exit_date
 
 # the output is always as a list of integer(s)
 
-def cleanse_single_duration(single_duration, present_year=2025):
+
+def cleanse_duration_component(single_duration, present_year=2025):
     single_duration = single_duration.replace(" ", "")
     single_duration = single_duration.replace("topresent", f"-{present_year}")
 
@@ -249,26 +252,56 @@ def cleanse_single_duration(single_duration, present_year=2025):
 
     return single_duration_as_list
 
+# function to cleanse the duration string input into numpy array of unique years
+
+
+def cleanse_duration(duration_str, present_year=2025):
+
+    # convert to a list of integer years
+    list_o_years = duration_str.split(",")
+    list_o_years = [years for years in list_o_years if years]
+    list_o_years = [cleanse_duration_component(
+        i, present_year) for i in list_o_years]
+    years_actual = np.array(list(chain.from_iterable(list_o_years)))
+    years_actual = np.unique(years_actual)
+
+    return years_actual
+
 
 # %%
 
-# input `duration_string`
-duration_string = df.loc[3, "Duration"]
+# remove text in brackets from 'Duration'
+
 present_year = 2025
 
-# convert to a list of integer years
-list_o_years = duration_string.split(",")
-list_o_years = [cleanse_single_duration(i, present_year) for i in list_o_years]
-years_actual = np.array(list(chain.from_iterable(list_o_years)))
-years_actual = np.unique(years_actual)
+years_in_force = df["Duration"].dropna().apply(
+    lambda x: cleanse_duration(x, present_year))
 
-years_cont = np.arange(stop=years_actual.max() + 1,
-                       start=years_actual.min(), step=1)
+years_in_force_single = years_in_force[3]
 
-years_abscent = np.setdiff1d(years_cont, years_actual)
-years_abscent
-# add a flag to determine if the character died whilst in exposure
-# also create the exit date accordingly
+
+def calculate_years_out_of_force(years_in_force_single: list[int]) -> list[int]:
+    years_continuous = np.arange(stop=years_in_force_single.max() + 1,
+                                 start=years_in_force_single.min(), step=1)
+    years_abscent = np.setdiff1d(years_continuous, years_in_force_single)
+    return years_abscent
+
+
+years_out_force = years_in_force.apply(
+    lambda x: calculate_years_out_of_force(x))
+
+
+# %%
+
+years_abscent = years_out_force[years_out_force.apply(len) > 0][399]
+
+[year for year in years_abscent]
+
+# years_actual = cleanse_duration(duration_string, present_year)
+
+
+# years_abscent = np.setdiff1d(years_cont, years_actual)
+# years_abscent
 
 
 # %%
