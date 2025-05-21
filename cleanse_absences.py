@@ -193,6 +193,7 @@ def process_absence_data(absences, df):
     """
     # Merge absences with character data
     adf = absences.merge(df, how="left", left_index=True, right_index=True)
+    adf = adf.reset_index(names="__temp_index__")
 
     # Filter out absences that are completely outside the character's valid time range
     absence_before_start = adf["end_abscence"] < adf["start_date"]
@@ -215,6 +216,8 @@ def process_absence_data(absences, df):
         "start_abscence": "start_date",
         "end_abscence": "exit_date",
     })
+
+    absence_df.set_index("__temp_index__")
 
     return absence_df
 

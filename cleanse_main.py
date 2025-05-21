@@ -41,6 +41,8 @@ corrie_master_df = corrie_master_df.merge(
     how="left"
 )
 
+corrie_master_df = add_exit_info(corrie_master_df)
+
 
 # %%
 
@@ -56,6 +58,7 @@ years_out_force = years_in_force.apply(
     lambda x: calculate_years_out_of_force(x))
 
 absences = construct_absence_df(years_out_force)
+
 absence_df = process_absence_data(absences, corrie_master_df)
 
 # %%
