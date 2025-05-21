@@ -301,8 +301,8 @@ def extract_years_out_dict(years_abscent):
         return {"start": None, "end": None}
     if len(years_abscent) == 1:
         output = {
-            "start": list(years_abscent - 1),
-            "end": list(years_abscent + 1)
+            "start": (years_abscent - 1).astype(int).tolist(),
+            "end": (years_abscent + 1).astype(int).tolist()
         }
     else:
         start_abscent = years_abscent - 1
@@ -310,14 +310,22 @@ def extract_years_out_dict(years_abscent):
         unique_start_abscent = start_abscent[1:] != end_abscent[:-1]
 
         output = {
-            "start": list(start_abscent[np.append(True, unique_start_abscent)]),
-            "end": list(end_abscent[np.append(unique_start_abscent, True)] + 1)
+            "start": (start_abscent[np.append(True, unique_start_abscent)]).astype(int).tolist(),
+            "end": (end_abscent[np.append(unique_start_abscent, True)] + 1).astype(int).tolist()
         }
     return output
 
 
-years_out_force.apply(lambda x: extract_years_out_dict(x))[399]
+years_out_summ = years_out_force.apply(lambda x: extract_years_out_dict(x))
+years_out_start = years_out_summ.apply(lambda x: x["start"])
+years_out_end = years_out_summ.apply(lambda x: x["end"])
 
+pd.DataFrame(
+    {"start": years_out_start, "end": years_out_end},
+    index=years_out_summ.index
+).explode(["start", "end"])
+
+# type(years_out_end)
 
 # %%
 
