@@ -293,9 +293,6 @@ years_out_force = years_in_force.apply(
 
 # %%
 
-years_abscent = years_out_force[years_out_force.apply(len) > 0][0]
-
-
 def extract_years_out_dict(years_abscent):
     if len(years_abscent) == 0:
         return {"start": None, "end": None}
@@ -320,10 +317,34 @@ years_out_summ = years_out_force.apply(lambda x: extract_years_out_dict(x))
 years_out_start = years_out_summ.apply(lambda x: x["start"])
 years_out_end = years_out_summ.apply(lambda x: x["end"])
 
-pd.DataFrame(
-    {"start": years_out_start, "end": years_out_end},
+
+absences = pd.DataFrame(
+    {
+        "start": years_out_start,
+        "end": years_out_end
+    },
     index=years_out_summ.index
-).explode(["start", "end"])
+).explode(["start", "end"]).dropna()
+
+# holidays["start"].apply(datetime.datetime.date,
+absences = absences.apply(
+    lambda s: pd.to_datetime((s.astype(str) + "-06-30")),
+    axis=1
+)
+absences
+
+
+# %%
+abscent_gaps = pd.Series(
+    years_out_start.dropna().apply(len), name='Abscent Gaps')
+
+abscent_years = pd.Series(
+    years_out_force.dropna().apply(len), name='Abscent Years')
+
+abscent_years.argmax()
+abscent_years[201]
+df.iloc[201]
+# start_strings = pd.to_datetime((holidays["start"].astype(str) + "-06-30"))
 
 # type(years_out_end)
 
