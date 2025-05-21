@@ -22,19 +22,16 @@ corrie_master_df = corrie_master_df.pivot(
 # replace date fields with the cleansed date fields from 'all_dates_clean'
 
 date_fields_to_clean = ["Born", "Died", "First appearance", "Last appearance"]
-join_fields = {"Character"}
 
 # get cleansed date fields
 all_dates_clean = extract_and_clean_dates(
-    corrie_master_df, date_fields_to_clean)
+    corrie_master_df,
+    date_fields_to_clean
+)
 
 # strip the columns from 'corrie_master_df' that are in 'all_dates_clean'
 corrie_master_df = corrie_master_df.reindex(
-    columns=join_fields.union(
-        corrie_master_df.columns.difference(
-            all_dates_clean.columns
-        )
-    )
+    columns=corrie_master_df.columns.difference(all_dates_clean.columns)
 )
 
 corrie_master_df = corrie_master_df.merge(
@@ -43,8 +40,6 @@ corrie_master_df = corrie_master_df.merge(
     right_index=True,
     how="left"
 )
-
-corrie_master_df
 
 
 # %%

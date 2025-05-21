@@ -144,11 +144,14 @@ def extract_and_clean_dates(
     pd.DataFrame
         A DataFrame with one row per character and cleaned date columns, reshaped into wide format.
     """
+    original_index = df.index
+
+    df = df.reset_index(names="__temp_id__")
 
     all_dates = df.melt(
+        id_vars="__temp_id__",
         value_vars=date_fields,
-        value_name="Value",
-        ignore_index=False
+        value_name="Value"
     )
 
     date_string_series = all_dates["Value"].str.strip()
@@ -178,13 +181,16 @@ def extract_and_clean_dates(
             cleansed_dates[key])
 
     # ...and pivot back into wider df
-    all_dates_clean = all_dates.loc[:, ["Field"]].merge(
+    all_dates_clean = all_dates.loc[:, ["__temp_id__", "Field"]].merge(
         cleansed_dates_combined, left_index=True, right_index=True)
 
     all_dates_clean = all_dates_clean.pivot(
+        index="__temp_id__",
         values="Date",
         columns="Field"
     )
+
+    all_dates_clean.index = original_index
 
     return all_dates_clean
 
