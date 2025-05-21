@@ -261,5 +261,6 @@ def add_exit_info(df):
 
     df["exit_status"] = exit_status
     df["exit_date"] = exit_date
+    df["start_date"] = df["First appearance"]
 
     return df
