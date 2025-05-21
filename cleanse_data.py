@@ -118,7 +118,79 @@ def cleanse_full_incl_multi(
     return date_strings
 
 
+def extract_and_clean_dates(
+    df: pd.DataFrame,
+    date_fields: list = ["Born", "Died", "First appearance", "Last appearance"]
+) -> pd.DataFrame:
+    """
+    Extracts and cleans date-related fields from a character-based dataframe.
+    The function will call the following cleansing functions...
+    - triage_date_string_fmt
+    - cleanse_full
+    - cleanse_month_year
+    - cleanse_year  
+    - cleanse_full_incl_multi
+
+    Parameters:
+    ----------
+    df : pd.DataFrame
+        The input DataFrame containing character information and various date-related columns.
+
+    date_fields : list
+        A list of column names in `df` that contain date information (e.g., ["Born", "Died", "First appearance", "Last appearance"]).
+
+    Returns:
+    -------
+    pd.DataFrame
+        A DataFrame with one row per character and cleaned date columns, reshaped into wide format.
+    """
+
+    all_dates = df.melt(
+        value_vars=date_fields,
+        value_name="Value",
+        ignore_index=False
+    )
+
+    date_string_series = all_dates["Value"].str.strip()
+    date_string_formats = triage_date_string_fmt(date_string_series)
+
+    # get the strings for each type
+    full_date_strings = date_string_series[date_string_formats == "full"]
+    month_year_date_strings = date_string_series[date_string_formats == "month_year"]
+    year_strings = date_string_series[date_string_formats == "year"]
+    multi_strings = date_string_series[date_string_formats == "multi"]
+
+    # get the cleansed strings for each type
+    cleansed_dates = {
+        "full": cleanse_full(full_date_strings),
+        "month_year": cleanse_month_year(month_year_date_strings),
+        "year": cleanse_year(year_strings),
+        "multi": cleanse_full_incl_multi(multi_strings)
+    }
+
+    # get an NA array for anything not triggered
+    na_date_string_series = pd.Series(np.nan, index=date_string_series.index)
+
+    # stitch it all back together
+    cleansed_dates_combined = pd.Series(na_date_string_series, name="Date")
+    for key in cleansed_dates.keys():
+        cleansed_dates_combined = cleansed_dates_combined.combine_first(
+            cleansed_dates[key])
+
+    # ...and pivot back into wider df
+    all_dates_clean = all_dates.loc[:, ["Field"]].merge(
+        cleansed_dates_combined, left_index=True, right_index=True)
+
+    all_dates_clean = all_dates_clean.pivot(
+        values="Date",
+        columns="Field"
+    )
+
+    return all_dates_clean
+
+
 # %%
+
 
 def add_exit_info(df):
     """
