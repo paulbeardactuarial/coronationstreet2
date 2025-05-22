@@ -210,18 +210,16 @@ def process_absence_data(absences, df):
     adf["end_abscence"] = ceilinged_end
 
     # Select and rename relevant columns
-    absence_df = adf[["__temp_index__",
-                      "Character",
+    absence_df = adf[["Character",
                       "start_abscence",
                       "end_abscence",
                       "exit_status",
-                      "First appearance"]]
-    absence_df = absence_df.rename(columns={
-        "start_abscence": "start_date",
-        "end_abscence": "exit_date",
-    })
-
-    absence_df.set_index("__temp_index__")
+                      "start_date",
+                      "exit_date"]]
+    # absence_df = absence_df.rename(columns={
+    #     "start_abscence": "start_date",
+    #     "end_abscence": "exit_date",
+    # })
 
     return absence_df
 

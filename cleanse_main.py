@@ -61,4 +61,49 @@ absences = construct_absence_df(years_out_force)
 
 absence_df = process_absence_data(absences, corrie_master_df)
 
+
+# %%
+# absence_df = absence_df.set_index("__temp_index__")
+absence_summary = absence_df.assign(
+    absence_length=absence_df["exit_date"] - absence_df["start_date"])
+
+first_absence = pd.Series(
+    absence_summary.groupby("Character")["start_date"].agg("min"),
+    name="first_absence")
+
+first_absence
+
+
+# %%
+
+absence_df = absence_df.sort_values(["Character", "start_abscence"])
+absence_df_rev = absence_df.sort_values(["start_abscence"], ascending=False)
+
+absence_orderf = pd.Series(absence_df.groupby("Character")[
+    "Character"].rank(method="first"), name="forward_order").astype(int)
+absence_orderb = pd.Series(absence_df_rev.groupby("Character")[
+    "Character"].rank(method="first",), name="backward_order").astype(int)
+absence_df["orderf"] = absence_orderf
+absence_df["orderb"] = absence_orderb
+
+# calculate first block
+first_block = absence_df[absence_df["orderf"] == 1]
+first_block.loc[:, "exit_date"] = first_block.loc[:, "start_abscence"]
+first_block = first_block.loc[:, ["Character", "start_date", "exit_date"]]
+first_block
+
+# calculate last block
+last_block = absence_df[absence_df["orderb"] == 1]
+last_block.loc[:, "start_date"] = last_block.loc[:, "end_abscence"]
+last_block = last_block.loc[:, [
+    "Character", "start_date", "exit_date", "orderf"]]
+last_block
+
+# calculate other blocks
+other_blocks = absence_df[(absence_df["orderf"] != 1)
+                          & (absence_df["orderb"] != 1)]
+# other_blocks["start_date"] = other_blocks["end_abscence"]
+other_blocks
+
+
 # %%
