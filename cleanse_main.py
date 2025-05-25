@@ -76,34 +76,63 @@ first_absence
 
 # %%
 
-absence_df = absence_df.sort_values(["Character", "start_abscence"])
-absence_df_rev = absence_df.sort_values(["start_abscence"], ascending=False)
+absence_df_2 = absence_df.reset_index().drop("index", axis=1)
+absence_df_2 = absence_df_2.sort_values(["Character", "start_abscence"])
+absence_df_rev = absence_df_2.sort_values(["start_abscence"], ascending=False)
 
-absence_orderf = pd.Series(absence_df.groupby("Character")[
+absence_orderf = pd.Series(absence_df_2.groupby("Character")[
     "Character"].rank(method="first"), name="forward_order").astype(int)
 absence_orderb = pd.Series(absence_df_rev.groupby("Character")[
     "Character"].rank(method="first",), name="backward_order").astype(int)
-absence_df["orderf"] = absence_orderf
-absence_df["orderb"] = absence_orderb
+absence_df_2["orderf"] = absence_orderf
+absence_df_2["orderb"] = absence_orderb
 
 # calculate first block
-first_block = absence_df[absence_df["orderf"] == 1]
+first_block = absence_df_2[absence_df_2["orderf"] == 1]
 first_block.loc[:, "exit_date"] = first_block.loc[:, "start_abscence"]
 first_block = first_block.loc[:, ["Character", "start_date", "exit_date"]]
-first_block
 
 # calculate last block
-last_block = absence_df[absence_df["orderb"] == 1]
+last_block = absence_df_2[absence_df_2["orderb"] == 1]
 last_block.loc[:, "start_date"] = last_block.loc[:, "end_abscence"]
 last_block = last_block.loc[:, [
-    "Character", "start_date", "exit_date", "orderf"]]
-last_block
+    "Character", "start_date", "exit_date"]]
 
-# calculate other blocks
-other_blocks = absence_df[(absence_df["orderf"] != 1)
-                          & (absence_df["orderb"] != 1)]
-# other_blocks["start_date"] = other_blocks["end_abscence"]
-other_blocks
+# calculate the intermeidary blocks
+other_blocks = absence_df_2
+ob_start = other_blocks.loc[other_blocks.index[:-1], "end_abscence"]
+ob_end = other_blocks.loc[other_blocks.index[1:], "start_abscence"]
+ob_start.index = ob_start.index + 1
+other_blocks["start_date"] = ob_start
+other_blocks["exit_date"] = ob_end
+other_blocks = other_blocks[(other_blocks["orderf"] != 1) & (
+    other_blocks["start_date"] != other_blocks["exit_date"])]
 
+other_blocks = other_blocks.loc[:, [
+    "Character", "start_date", "exit_date"]]
+
+
+# combine to get 'all_blocks' ...which contains the exposure breakdown
+# (ONLY FOR THOSE WHO WERE ASBCENT)
+all_blocks = pd.concat(
+    [first_block, other_blocks, last_block]).sort_values(["Character", "start_date"])
+
+all_blocks = all_blocks.reset_index().drop("index", axis=1)
+all_blocks["Segment"] = pd.Series(all_blocks.groupby(
+    "Character")["start_date"].rank().astype(int), name="Segment")
+
+
+# %%
+
+corrie_master_multis = (
+    corrie_master_df
+    .reindex(
+        columns=np.append(np.setdiff1d(corrie_master_df.columns,
+                                       all_blocks.columns), "Character"))
+    .merge(all_blocks, on="Character", how="inner")
+    .reindex_like(corrie_master_df)
+)
+# filter out the singles only
+corrie_master_singles = corrie_master_df
 
 # %%
