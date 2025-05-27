@@ -63,18 +63,19 @@ absence_df = process_absence_data(absences, corrie_master_df)
 
 
 # %%
-# absence_df = absence_df.set_index("__temp_index__")
-absence_summary = absence_df.assign(
-    absence_length=absence_df["exit_date"] - absence_df["start_date"])
+# absence_summary = absence_df.assign(
+#     absence_length=absence_df["exit_date"] - absence_df["start_date"])
 
-first_absence = pd.Series(
-    absence_summary.groupby("Character")["start_date"].agg("min"),
-    name="first_absence")
-
-first_absence
+# first_absence = pd.Series(
+#     absence_summary.groupby("Character")["start_date"].agg("min"),
+#     name="first_absence")
 
 
 # %%
+
+# =============================================================================
+# =============== create a multi-segment dataframe ============================
+# =============================================================================
 
 absence_df_2 = absence_df.reset_index().drop("index", axis=1)
 absence_df_2 = absence_df_2.sort_values(["Character", "start_abscence"])
@@ -121,18 +122,47 @@ all_blocks = all_blocks.reset_index().drop("index", axis=1)
 all_blocks["Segment"] = pd.Series(all_blocks.groupby(
     "Character")["start_date"].rank().astype(int), name="Segment")
 
-
-# %%
-
+# multi
 corrie_master_multis = (
     corrie_master_df
     .reindex(
         columns=np.append(np.setdiff1d(corrie_master_df.columns,
                                        all_blocks.columns), "Character"))
-    .merge(all_blocks, on="Character", how="inner")
-    .reindex_like(corrie_master_df)
+    .merge(all_blocks, on="Character", how="right")
+    .loc[:, corrie_master_df.columns]
 )
-# filter out the singles only
-corrie_master_singles = corrie_master_df
+
+# multi segment no.
+corrie_master_multis["Segment"] = pd.Series(
+    corrie_master_multis.sort_values("start_date").groupby(
+        "Character")["start_date"].rank().astype(int),
+    name="Segment"
+)
+
+# max segment no.
+corrie_master_multis["Max Segment"] = pd.Series(
+    corrie_master_multis.groupby("Character")[
+        "Segment"].transform(max).astype(int),
+    name="Max Segment"
+)
+
+multi_chars = corrie_master_multis["Character"].unique()
+
+# # filter out the singles only
+corrie_master_singles = corrie_master_df[~corrie_master_df["Character"].isin(
+    multi_chars)]
+
+corrie_master_singles["Segment"] = 1
+corrie_master_singles["Max Segment"] = 1
+
+corrie_master_df_clean = pd.concat(
+    [corrie_master_multis, corrie_master_singles])
+
+corrie_master_df_clean = corrie_master_df_clean.sort_values(
+    ["Character", "Segment"]).reset_index().drop("index", axis=1)
+
 
 # %%
+
+corrie_master_df_clean.to_csv(
+    "./Data/character_data_segmented.csv", index=False)
