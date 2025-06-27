@@ -1,5 +1,4 @@
 # %%
-from openai import OpenAI
 import langchain_core.prompts
 import re
 import pandas as pd
@@ -8,7 +7,6 @@ import os
 from langchain.chat_models import init_chat_model
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core import prompts
-import json
 from typing_extensions import List, Optional, Literal
 from pydantic import BaseModel, Field
 
@@ -75,4 +73,5 @@ you are a helpful chatbot that is great at finding contact details. You will be 
         details_complete = pd.concat(output_dfs)
 
         return details_complete
+
 # %%

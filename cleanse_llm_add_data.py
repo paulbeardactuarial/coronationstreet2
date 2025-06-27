@@ -47,7 +47,7 @@ The gender must be either "male" or "female". No other gender is allowed. Return
 system_prompt_detailed = """
 You are a helpful assistant skilled at extracting and formatting character metadata.
 
-You will be given a list of character names from the UK TV show *Coronation Street*. For each character, return a JSON object that includes their "gender" 
+You will be given a list of character names from the UK TV show *Coronation Street*. For each character, return a JSON object that includes their "gender" which can only be "male" or "female". 
 """
 
 google_llm_class = llm_details_puller(
@@ -56,48 +56,6 @@ google_llm_class = llm_details_puller(
     system_prompt=system_prompt_detailed
 )
 char_gender_gemini = google_llm_class.collect_chunked_list(
-    char_list[:3],
+    char_list,
     temperature=0
 )
-
-o = google_llm_class.collect_single_list(
-    char_list[2],
-    temperature=0
-)
-
-
-# %%
-google_llm_class.collect_single_list(char_list[0])
-
-
-# %%
-
-model = init_chat_model(
-    model="gemini-2.0-flash",
-    model_provider="google_genai"
-)
-prompt_template = prompts.ChatPromptTemplate(
-    [
-        ("system", system_prompt),
-        ("user", "{list_of_names}")
-    ]
-)
-prompt = prompt_template.invoke({"list_of_names": char_list[:1]})
-response = model.invoke(prompt)
-
-# %%
-
-
-def llm_response_to_json(content):
-    output = content
-    output = output.removeprefix("```json")
-    output = output.removesuffix("```")
-    return output
-
-
-json_response = llm_response_to_json(response.content)
-list_response = json.loads(json_response)
-df = pd.DataFrame(list_response, index=char_list[:1]).reset_index(
-    names="item_name")
-
-# %%
