@@ -41,6 +41,11 @@ corrie_master_df = corrie_master_df.merge(
     how="left"
 )
 
+# convert to datetime format
+corrie_master_df.loc[:, date_fields_to_clean] = corrie_master_df.loc[:,
+                                                                     date_fields_to_clean].apply(pd.to_datetime)
+
+
 corrie_master_df = add_exit_info(corrie_master_df)
 
 
@@ -166,3 +171,5 @@ corrie_master_df_clean = corrie_master_df_clean.sort_values(
 
 corrie_master_df_clean.to_csv(
     "./Data/character_data_segmented.csv", index=False)
+
+# %%
