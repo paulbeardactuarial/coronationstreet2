@@ -9,7 +9,21 @@ from langchain.chat_models import init_chat_model
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core import prompts
 import json
-import random
+from typing_extensions import List, Optional, Literal
+from pydantic import BaseModel, Field
+
+# %%
+# defining the structure of the outputs...
+
+
+class Item(BaseModel):
+    input: str = Field(..., description="The original input")
+    gender: Optional[Literal["male", "female"]] = Field(
+        None, description="The gender")
+
+
+class ListItems(BaseModel):
+    items: List[Item]
 
 # note instructions on setting up langchain can be found here...
 # https://python.langchain.com/docs/tutorials/llm_chain/
@@ -29,42 +43,36 @@ you are a helpful chatbot that is great at finding contact details. You will be 
         self.model_provider = model_provider
         self.system_prompt = system_prompt
 
-    def llm_response_to_json(self, content):
-        output = content
-        output = output.removeprefix("```json")
-        output = output.removesuffix("```")
-        return output
-
-    def collect_single_list(self, items_list):
-        model = init_chat_model(
+    def collect_single_list(self, items_list, temperature=0):
+        llm = init_chat_model(
             model=self.model,
-            model_provider=self.model_provider
+            model_provider=self.model_provider,
+            temperature=temperature
         )
+        llm_structured = llm.with_structured_output(ListItems)
         prompt_template = prompts.ChatPromptTemplate(
             [
                 ("system", self.system_prompt),
-                ("user", "{list_of_names}")
+                ("user", "{list_of_items}")
             ]
         )
-        prompt = prompt_template.invoke({"list_of_names": items_list})
-        response = model.invoke(prompt)
-        json_response = self.llm_response_to_json(response.content)
-        list_response = json.loads(json_response)
-        df = pd.DataFrame(list_response, index=items_list).reset_index(
-            names="item_name")
+        prompt = prompt_template.invoke(
+            {"list_of_items": items_list}
+        )
+        output = llm_structured.invoke(prompt)
+        df = pd.DataFrame(output.dict()["items"]).set_index("input")
         return df
 
-    def collect_chunked_list(self, items_list):
+    def collect_chunked_list(self, items_list, temperature=0):
         output_dfs = []
         i = 0
         for chunk in items_list:
             i = i + 1
             print(f"collecting for chunk {i} of {len(items_list)}")
-            df = self.collect_single_list(chunk)
+            df = self.collect_single_list(chunk, temperature=temperature)
             output_dfs.append(df)
 
-        details_complete = pd.concat(
-            output_dfs).sort_values("item_name").set_index("item_name")
+        details_complete = pd.concat(output_dfs)
 
         return details_complete
 # %%
