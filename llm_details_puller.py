@@ -15,29 +15,6 @@ import random
 # https://python.langchain.com/docs/tutorials/llm_chain/
 
 
-def chunk_my_list(list_to_be_chunked, chunk_size):
-    no_items = len(list_to_be_chunked)
-    no_chunks = no_items//chunk_size + 1
-    master_list = []
-    for i in range(no_chunks):
-        mini_list = list_to_be_chunked[(
-            chunk_size * i):(chunk_size * i + chunk_size-1)]
-        master_list.append(mini_list)
-    return (master_list)
-
-
-def shuffle_with_seed(input_list, seed=42):
-    rng = random.Random(seed)
-    shuffled = input_list[:]
-    rng.shuffle(shuffled)
-    return shuffled
-
-
-system_prompt = """
-you are a helpful chatbot that is great at finding contact details. You will be given a list of UK-based IELTS schools. Find the contact details of each and return in JSON format. Return only for each item the "phone", "email" and "address" fields populated for that school. Return the JSON only. The JSON object MUST have the same number of items as the number of schools you were given as input.
-"""
-
-
 class llm_details_puller:
     """A class for posting to and pulling from LLM"""
 
