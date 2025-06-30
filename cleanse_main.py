@@ -11,7 +11,7 @@ from cleanse_absences import *
 
 
 # %%
-corrie_data_fp = "./Data/character_data.csv"
+corrie_data_fp = "./Data/character_data_enriched.csv"
 corrie_master_df = pd.read_csv(corrie_data_fp)
 corrie_master_df = corrie_master_df.pivot(
     columns="Field", values="Value", index="Character").reset_index()
@@ -66,17 +66,6 @@ absences = construct_absence_df(years_out_force)
 
 absence_df = process_absence_data(absences, corrie_master_df)
 
-
-# %%
-# absence_summary = absence_df.assign(
-#     absence_length=absence_df["exit_date"] - absence_df["start_date"])
-
-# first_absence = pd.Series(
-#     absence_summary.groupby("Character")["start_date"].agg("min"),
-#     name="first_absence")
-
-
-# %%
 
 # =============================================================================
 # =============== create a multi-segment dataframe ============================
@@ -166,6 +155,22 @@ corrie_master_df_clean = pd.concat(
 corrie_master_df_clean = corrie_master_df_clean.sort_values(
     ["Character", "Segment"]).reset_index().drop("index", axis=1)
 
+
+corrie_master_df_clean = corrie_master_df_clean.rename(
+    lambda x: str.capitalize(x), axis=1)
+
+corrie_master_df_clean.columns = corrie_master_df_clean.columns.str.replace(
+    "_", " ")
+
+corrie_master_df_clean["Exit status"] = corrie_master_df_clean["Exit status"].str.capitalize()
+
+corrie_master_df_clean.loc[
+    (corrie_master_df_clean["Exit status"] == "Death") & (
+        corrie_master_df_clean["Segment"] != corrie_master_df_clean["Max segment"]),
+    "Exit status"
+] = "Exit"
+
+corrie_master_df_clean = corrie_master_df_clean.set_index("Character")
 
 # %%
 
