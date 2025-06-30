@@ -165,8 +165,7 @@ corrie_master_df_clean.columns = corrie_master_df_clean.columns.str.replace(
 corrie_master_df_clean["Exit status"] = corrie_master_df_clean["Exit status"].str.capitalize()
 
 corrie_master_df_clean.loc[
-    (corrie_master_df_clean["Exit status"] == "Death") & (
-        corrie_master_df_clean["Segment"] != corrie_master_df_clean["Max segment"]),
+    corrie_master_df_clean["Segment"] != corrie_master_df_clean["Max segment"],
     "Exit status"
 ] = "Exit"
 
@@ -175,6 +174,6 @@ corrie_master_df_clean = corrie_master_df_clean.set_index("Character")
 # %%
 
 corrie_master_df_clean.to_csv(
-    "./Data/character_data_segmented.csv", index=False)
+    "./Data/character_data_segmented.csv", index=True)
 
 # %%
