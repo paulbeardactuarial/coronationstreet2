@@ -1,10 +1,16 @@
 # %%
+from pydantic import BaseModel, Field
+from typing_extensions import List, Optional, Literal
 import json
 from langchain_core import prompts
 from langchain_core.output_parsers import JsonOutputParser
 from langchain.chat_models import init_chat_model
 from llm_details_puller import llm_details_puller
 import pandas as pd
+from langchain_core.messages import (
+    AIMessage,
+    HumanMessage
+)
 
 
 # %%
@@ -47,7 +53,7 @@ The gender must be either "male" or "female". No other gender is allowed. Return
 system_prompt_detailed = """
 You are a helpful assistant skilled at extracting and formatting character metadata.
 
-You will be given a list of character names from the UK TV show *Coronation Street*. For each character, return a JSON object that includes their "gender" which can only be "male" or "female". 
+You will be given a list of character names from the UK TV show *Coronation Street*. For each character, return a JSON object that best guesses their "gender" which can only be "male" or "female". 
 """
 
 google_llm_class = llm_details_puller(
@@ -59,3 +65,49 @@ char_gender_gemini = google_llm_class.collect_chunked_list(
     char_list,
     temperature=0
 )
+
+# %%
+
+char_gender_gemini = google_llm_class.collect_single_list(
+    char_list[-1],
+    temperature=0
+)
+
+# %%
+
+# ========================================================
+# ========== diving into a single chunk result ===========
+# ========================================================
+items_list = char_list[-1]
+system_prompt = system_prompt_detailed
+
+
+class Item(BaseModel):
+    input: str = Field(..., description="The original input")
+    gender: Literal["male", "female",
+                    "unknown"] = Field(..., description="The gender")
+
+
+class ListItems(BaseModel):
+    items: List[Item]
+
+
+llm = init_chat_model(
+    model="gemini-2.0-flash",
+    model_provider="google_genai",
+    temperature=0
+)
+llm_structured = llm.with_structured_output(ListItems)
+prompt_template = prompts.ChatPromptTemplate(
+    [
+        ("system", system_prompt),
+        ("user", "{list_of_items}")
+    ]
+)
+prompt = prompt_template.invoke(
+    {"list_of_items": items_list}
+)
+output = llm_structured.invoke(prompt)
+
+
+# %%
