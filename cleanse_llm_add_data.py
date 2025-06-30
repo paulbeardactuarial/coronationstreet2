@@ -1,16 +1,6 @@
 # %%
-from pydantic import BaseModel, Field
-from typing_extensions import List, Optional, Literal
-import json
-from langchain_core import prompts
-from langchain_core.output_parsers import JsonOutputParser
-from langchain.chat_models import init_chat_model
 from llm_details_puller import llm_details_puller
 import pandas as pd
-from langchain_core.messages import (
-    AIMessage,
-    HumanMessage
-)
 
 
 # %%
@@ -27,7 +17,7 @@ def chunk_my_list(list_to_be_chunked, chunk_size):
     master_list = []
     for i in range(no_chunks):
         mini_list = list_to_be_chunked[(
-            chunk_size * i):(chunk_size * i + chunk_size-1)]
+            chunk_size * i):(chunk_size * i + chunk_size)]
         master_list.append(mini_list)
     return (master_list)
 
@@ -36,21 +26,18 @@ def chunk_my_list(list_to_be_chunked, chunk_size):
 # get a chunked list of character names
 char_list = chunk_my_list(
     corrie_master_df["Character"].to_list(),
-    50
+    chunk_size=50
 )
+
+# check for duplicates
+all_corrie_chars = [x for l in char_list for x in l]
+assert len(set(all_corrie_chars)) == len(all_corrie_chars)
 
 
 # %%
 
 # ---------------- run through using gemini ---------------
 system_prompt = """
-you are a helpful chatbot that is great at finding contact details. 
-You will be given a list of character names from the UK TV show Coronation Street. Return a JSON object only. 
-For each character you will predict the "gender" and "age" and add them as properties of that character. This will be returned in JSON format. 
-The gender must be either "male" or "female". No other gender is allowed. Return the JSON only. The JSON object MUST have the same number of items as the number of characters you were given as input.
-"""
-
-system_prompt_detailed = """
 You are a helpful assistant skilled at extracting and formatting character metadata.
 
 You will be given a list of character names from the UK TV show *Coronation Street*. For each character, return a JSON object that best guesses their "gender" which can only be "male" or "female". 
@@ -59,7 +46,7 @@ You will be given a list of character names from the UK TV show *Coronation Stre
 google_llm_class = llm_details_puller(
     model="gemini-2.0-flash",
     model_provider="google_genai",
-    system_prompt=system_prompt_detailed
+    system_prompt=system_prompt
 )
 char_gender_gemini = google_llm_class.collect_chunked_list(
     char_list,
@@ -67,47 +54,5 @@ char_gender_gemini = google_llm_class.collect_chunked_list(
 )
 
 # %%
-
-char_gender_gemini = google_llm_class.collect_single_list(
-    char_list[-1],
-    temperature=0
-)
-
-# %%
-
-# ========================================================
-# ========== diving into a single chunk result ===========
-# ========================================================
-items_list = char_list[-1]
-system_prompt = system_prompt_detailed
-
-
-class Item(BaseModel):
-    input: str = Field(..., description="The original input")
-    gender: Literal["male", "female",
-                    "unknown"] = Field(..., description="The gender")
-
-
-class ListItems(BaseModel):
-    items: List[Item]
-
-
-llm = init_chat_model(
-    model="gemini-2.0-flash",
-    model_provider="google_genai",
-    temperature=0
-)
-llm_structured = llm.with_structured_output(ListItems)
-prompt_template = prompts.ChatPromptTemplate(
-    [
-        ("system", system_prompt),
-        ("user", "{list_of_items}")
-    ]
-)
-prompt = prompt_template.invoke(
-    {"list_of_items": items_list}
-)
-output = llm_structured.invoke(prompt)
-
-
-# %%
+corrie_gender_fp = "./Data/character_data_gender.csv"
+char_gender_gemini.to_csv(corrie_gender_fp)
