@@ -159,6 +159,9 @@ corrie_occ_fp = "./Data/occupation_data_sec_sic.csv"
 occupation_info_gemini.to_csv(corrie_occ_fp)
 
 # %%
+# ================================================
+# ========== merge the new data to main ==========
+# ================================================
 
 corrie_master_df = corrie_master_df.merge(
     occupation_info_gemini,
@@ -176,7 +179,6 @@ corrie_master_df = corrie_master_df.merge(
 
 corrie_master_df["gender"] = corrie_master_df["gender"].str.capitalize()
 
-# %%
 corrie_master_df = corrie_master_df.rename(str.capitalize, axis=1)
 corrie_master_df = corrie_master_df.melt(
     id_vars="Character",
