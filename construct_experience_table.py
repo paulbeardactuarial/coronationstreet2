@@ -10,7 +10,7 @@ corrie_segments = corrie_segments[~corrie_segments["Born"].isna(
 
 # convert to datetime format
 date_fields = ["Born", "Died", "First appearance",
-               "Last appearance", "exit_date", "start_date"]
+               "Last appearance", "Exit date", "Start date"]
 corrie_segments.loc[:, date_fields] = corrie_segments.loc[:,
                                                           date_fields].apply(pd.to_datetime)
 
