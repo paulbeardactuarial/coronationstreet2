@@ -16,8 +16,8 @@ from pydantic import BaseModel, Field
 
 class Item(BaseModel):
     input: str = Field(..., description="The original input")
-    gender: Optional[Literal["male", "female", "unknown"]] = Field(
-        None, description="The gender")
+    gender: Literal["male", "female", "unknown"] = Field(
+        ..., description="The gender")
 
 
 class ListItems(BaseModel):
