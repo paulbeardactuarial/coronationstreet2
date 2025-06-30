@@ -31,15 +31,18 @@ class llm_details_puller:
     """A class for posting to and pulling from LLM"""
 
     def __init__(self,
+                 output_class,
+                 system_prompt,
                  model="gemini-2.0-flash",
-                 model_provider="google_genai",
-                 system_prompt="""
-you are a helpful chatbot that is great at finding contact details. You will be given a list of UK-based IELTS schools. Find the contact details of each and return in JSON format. Return only for each item the "phone", "email" and "address" fields populated for that school. Return the JSON only. The JSON object MUST have the same number of items as the number of schools you were given as input.
-"""):
+                 model_provider="google_genai"):
 
         self.model = model
         self.model_provider = model_provider
         self.system_prompt = system_prompt
+        self.output_class = output_class
+
+    def change_output_class(self, output_class):
+        self.output_class = output_class
 
     def collect_single_list(self, items_list, temperature=0):
         llm = init_chat_model(
@@ -47,7 +50,7 @@ you are a helpful chatbot that is great at finding contact details. You will be 
             model_provider=self.model_provider,
             temperature=temperature
         )
-        llm_structured = llm.with_structured_output(ListItems)
+        llm_structured = llm.with_structured_output(self.output_class)
         prompt_template = prompts.ChatPromptTemplate(
             [
                 ("system", self.system_prompt),
