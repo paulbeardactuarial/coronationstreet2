@@ -4,6 +4,14 @@ from typing_extensions import List, Optional, Literal
 from llm_details_puller import llm_details_puller
 import pandas as pd
 
+# The purpose of this script is to read in `character_data.csv`...
+# ...and enrich it using interactions with LLMs
+
+# The script has two LLM sections that do the following:
+# 1. Extract "gender" based on "Character"
+# 2. Extract "sic" and "sec" based on "Occupation"
+
+# I have opted to use Gemini API for the LLM because it is free :)
 
 # %%
 corrie_data_fp = "./Data/character_data.csv"
@@ -56,12 +64,9 @@ class ListItems(BaseModel):
 system_prompt = """
 You are a helpful assistant skilled at extracting and formatting character metadata.
 
-You will be given a list of character names from the UK TV show *Coronation Street*. For each character estimate their characteristics.
+You will be given a list of character names from the UK TV show *Coronation Street*. For each character estimate their gender.
 """
 
-system_prompt = """
-You are a helpful assistant skilled at extracting and formatting character metadata.
-"""
 google_llm_class = llm_details_puller(
     output_class=ListItems,
     system_prompt=system_prompt,
@@ -152,3 +157,31 @@ occupation_info_gemini = google_llm_class.collect_chunked_list(
 # %%
 corrie_occ_fp = "./Data/occupation_data_sec_sic.csv"
 occupation_info_gemini.to_csv(corrie_occ_fp)
+
+# %%
+
+corrie_master_df = corrie_master_df.merge(
+    occupation_info_gemini,
+    how="left",
+    left_on="Occupation",
+    right_index=True
+)
+
+corrie_master_df = corrie_master_df.merge(
+    char_gender_gemini,
+    how="left",
+    left_on="Character",
+    right_index=True
+)
+
+corrie_master_df["gender"] = corrie_master_df["gender"].str.capitalize()
+
+# %%
+corrie_master_df = corrie_master_df.rename(str.capitalize, axis=1)
+corrie_master_df = corrie_master_df.melt(
+    id_vars="Character",
+    var_name="Field",
+    value_name="Value").sort_values(by="Character").dropna(how="any").set_index("Character")
+
+corrie_data_fp = "./Data/character_data_enriched.csv"
+corrie_master_df.to_csv(corrie_data_fp)
