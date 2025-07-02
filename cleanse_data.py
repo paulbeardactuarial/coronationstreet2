@@ -198,7 +198,7 @@ def extract_and_clean_dates(
 # %%
 
 
-def add_exit_info(df):
+def add_exit_info(df, present_date):
     """
     Adds exit information to a DataFrame based on character status.
 
@@ -242,8 +242,17 @@ def add_exit_info(df):
         name="exit_status"
     )
 
-    present_date = pd.Series(pd.Timestamp.now().floor('D'),
-                             index=df.index, dtype='<M8[ns]')
+    # use either provided present_date, or base off run date if not provided
+    if present_date in locals():
+        try:
+            present_date = pd.Series(present_date.floor('D'),
+                                     index=df.index, dtype='<M8[ns]')
+        except:
+            raise AssertionError(
+                '"present_date" input could not be made into date Series"')
+    else:
+        present_date = pd.Series(pd.Timestamp.now().floor('D'),
+                                 index=df.index, dtype='<M8[ns]')
 
     exit_date = pd.Series(
         np.select(
