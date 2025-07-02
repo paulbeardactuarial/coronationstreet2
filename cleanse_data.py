@@ -220,6 +220,7 @@ def add_exit_info(df, present_date):
             - 'Died' (datetime or NaT): Date the character died.
             - 'Last appearance' (datetime or NaT): Date of the character's last appearance.
             - 'Duration' (str): String indicating the time range the character appeared, e.g., "2005–present".
+        present_date (pd.Timestamp): Input single date to be used as present_date. This field can be left blank, and code run date will be used instead
 
     Returns:
         pd.DataFrame: The original DataFrame with two additional columns:
@@ -243,16 +244,16 @@ def add_exit_info(df, present_date):
     )
 
     # use either provided present_date, or base off run date if not provided
-    if present_date in locals():
-        try:
-            present_date = pd.Series(present_date.floor('D'),
-                                     index=df.index, dtype='<M8[ns]')
-        except:
-            raise AssertionError(
-                '"present_date" input could not be made into date Series"')
+    if 'present_date' in locals():
+        if isinstance(present_date, pd.Timestamp):
+            present_date_value = present_date.floor('D')
+        else:
+            raise ValueError('"present_date" must be a pandas Timestamp.')
     else:
-        present_date = pd.Series(pd.Timestamp.now().floor('D'),
-                                 index=df.index, dtype='<M8[ns]')
+        present_date_value = pd.Timestamp.now().floor('D')
+
+    present_date = pd.Series(
+        present_date_value, index=df.index, dtype='datetime64[ns]')
 
     exit_date = pd.Series(
         np.select(
