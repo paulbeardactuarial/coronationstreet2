@@ -154,9 +154,62 @@ occupation_info_gemini = google_llm_class.collect_chunked_list(
     temperature=0
 )
 
-# %%
 corrie_occ_fp = "./Data/occupation_data_sec_sic.csv"
 occupation_info_gemini.to_csv(corrie_occ_fp)
+
+
+# %%
+
+# ================================================
+# === get no. of spouses of each profession ======
+# ================================================
+
+class ItemSpouseCount(BaseModel):
+    input: str = Field(..., description="The original input")
+    no_times_married: int = Field(..., description="The no. of spouses")
+    bigamy_committed: bool = Field(..., description="Was bigamy committed?")
+
+
+class ListItemsSpouseCount(BaseModel):
+    items: List[ItemSpouseCount]
+
+
+# get a chunked list
+all_corrie_spouse = corrie_master_df["Spouse(s)"].dropna(
+).drop_duplicates().to_list()
+
+spouse_list = chunk_my_list(
+    all_corrie_spouse,
+    chunk_size=50
+)
+
+# check for duplicates
+assert len(set(all_corrie_spouse)) == len(all_corrie_spouse)
+
+SystemPromptMarriage = """
+You are a helpful assistant skilled at extracting and counting spouse metadata.
+
+You will be given a list of records for the spouse history of different people living in England.
+For some records, the same spouse might have been married multiple times. This can be denoted by multiple years listed inside brackets after the person's name.
+For some spouse records, the marriage was bigamous.
+For each one:
+- guess the number of times they got married. If the same spouse was married multiple times, count all times. For example 'Joe Bloggs(2000, 2012)' would have value '2'.
+- guess whether a bigamous marriage took place
+"""
+
+google_llm_class = llm_details_puller(
+    model="gemini-2.0-flash",
+    model_provider="google_genai",
+    system_prompt=SystemPromptMarriage,
+    output_class=ListItemsSpouseCount
+)
+marriage_info_gemini = google_llm_class.collect_chunked_list(
+    spouse_list,
+    temperature=0
+)
+
+corrie_marriage_fp = "./Data/marriage_data_sec_sic.csv"
+marriage_info_gemini.to_csv(corrie_marriage_fp)
 
 # %%
 # ================================================
@@ -177,9 +230,24 @@ corrie_master_df = corrie_master_df.merge(
     right_index=True
 )
 
+corrie_master_df = corrie_master_df.merge(
+    marriage_info_gemini,
+    how="left",
+    left_on="Spouse(s)",
+    right_index=True
+)
+
+# tweak some of the LLM output data
 corrie_master_df["gender"] = corrie_master_df["gender"].str.capitalize()
+corrie_master_df["no_times_married"] = corrie_master_df["no_times_married"].fillna(
+    0)
+corrie_master_df["bigamy_committed"] = corrie_master_df["bigamy_committed"].fillna(
+    False)
 
 corrie_master_df = corrie_master_df.rename(str.capitalize, axis=1)
+corrie_master_df = corrie_master_df.rename(
+    lambda x: x.replace("_", " "), axis=1)
+
 corrie_master_df = corrie_master_df.melt(
     id_vars="Character",
     var_name="Field",
@@ -187,3 +255,5 @@ corrie_master_df = corrie_master_df.melt(
 
 corrie_data_fp = "./Data/character_data_enriched.csv"
 corrie_master_df.to_csv(corrie_data_fp)
+
+# %%
