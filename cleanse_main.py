@@ -18,6 +18,12 @@ corrie_master_df = corrie_master_df.pivot(
 
 
 # %%
+# minor hacks to missing data...
+index_frankie_b = corrie_master_df[corrie_master_df["Character"]
+                                   == "Frankie Bolton"].index
+corrie_master_df.loc[index_frankie_b, "Duration"] = '2024 to present'
+
+# %%
 
 # replace date fields with the cleansed date fields from 'all_dates_clean'
 
@@ -46,7 +52,10 @@ corrie_master_df.loc[:, date_fields_to_clean] = corrie_master_df.loc[:,
                                                                      date_fields_to_clean].apply(pd.to_datetime)
 
 
-corrie_master_df = add_exit_info(corrie_master_df)
+corrie_master_df = add_exit_info(
+    corrie_master_df,
+    present_date=pd.Timestamp(year=2025, month=6, day=30)
+)
 
 
 # %%
