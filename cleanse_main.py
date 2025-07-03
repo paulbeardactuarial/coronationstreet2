@@ -57,6 +57,10 @@ corrie_master_df = add_exit_info(
     present_date=pd.Timestamp(year=2025, month=6, day=30)
 )
 
+corrie_master_df["Number of appearances"] = pd.Series(
+    corrie_master_df["Number of appearances"].str.replace(
+        "\(.*\)", "", regex=True),
+    dtype="int64")
 
 # %%
 
