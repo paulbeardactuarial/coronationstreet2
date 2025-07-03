@@ -1,9 +1,15 @@
 # %%
+from sklearn.datasets import make_blobs
 import pandas as pd
 from datetime import datetime
+import seaborn as sns
+from sklearn.cluster import KMeans
+import re
+import numpy as np
+from sklearn.metrics import silhouette_samples, silhouette_score
 
 # %%
-corrie_master_df_clean = (
+df = (
     pd.read_csv("./Data/character_data_segmented.csv")
     # .assign(YearsOnSt = lambda x: x["Start date"] - x["Exit date"])
     .query("Segment == `Max segment`")
@@ -34,21 +40,100 @@ def years_diff(start_series, end_series):
 
 df["YearsOnStreet"] = years_diff(df["Start date"], df["Exit date"])
 df["AgeEnterStreet"] = years_diff(df["Born"], df["First appearance"])
-df["AgeLeftStreet"] = years_diff(df["Born"], df["Last appearance"])
+df["AgeLastOnStreet"] = years_diff(df["Born"], df["Exit date"])
 
 
 # %%
 sum_y_o_s = df.groupby("Character")["YearsOnStreet"].transform(sum)
-(df
- .query("Segment == `Max segment`")
- .assign(Returner=lambda x: x['Max segment'] > 1)
- .drop(columns=[
-     "YearsOnStreet",
-     "Segment",
-     "Max segment"]
- )
- .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
- )
+df = (df
+      .query("Segment == `Max segment`")
+      .assign(Returner=lambda x: x['Max segment'] > 1)
+      .drop(columns=[
+          "YearsOnStreet",
+          "Segment",
+          "Max segment"]
+      )
+      .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
+      )
 
 
 # %%
+df = df.convert_dtypes()
+df = df.set_index("Character")
+
+# %%
+
+
+# %%
+# select dtypes that are numeric (in a very round-about way!)
+cluster_df = df.select_dtypes(exclude=["object", "string", "<M8[ns]", "bool"])
+
+# select only some columns
+cluster_df = cluster_df.loc[:, ["Number of appearances",
+                                "YearsOnStreet",
+                                "No children",
+                                "No times married"]]
+
+
+# remove rows that contain NA values
+cluster_df = cluster_df.loc[cluster_df.apply(
+    lambda x: not any(x.isna()), axis=1), :]
+
+kmeans = KMeans(n_clusters=3, init='k-means++')
+kmeans.fit(cluster_df)
+cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
+
+# %%
+
+# determining the silhouette score of different cluster numbers
+range_n_clusters = [2, 3, 4, 5, 6, 7, 8]
+k_cluster_df = pd.DataFrame(None, index=range_n_clusters)
+for i in range_n_clusters:
+    kmeans = KMeans(n_clusters=i, init='k-means++')
+    kmeans.fit(cluster_df)
+    k_cluster_df.loc[i, "Sil Score"] = silhouette_score(
+        cluster_df.to_numpy(),
+        kmeans.predict(cluster_df)
+    )
+k_cluster_df
+
+
+# %%
+# ok = sns.scatterplot(
+#     x="Number of appearances",
+#     y="YearsOnStreet",
+#     hue="y_kmeans",
+#     data=cluster_df
+# )
+
+fg = sns.sca(
+    data=cluster_df,
+    col="y_kmeans",
+    col_wrap=2
+)
+
+fg.map_dataframe(sns.scatterplot,
+                 x="Number of appearances",
+                 y="YearsOnStreet",
+                 hue="AgeEnterStreet"
+                 )
+
+
+# %%
+sns.scatterplot(
+    data=cluster_df,
+    # y="No times married",
+    y="No children",
+    x="Number of appearances",
+    hue="y_kmeans",
+)
+
+# %%
+sns.histplot(
+    data=cluster_df,
+    y="Number of appearances"
+    # y="No children"
+)
+
+# %%
+cluster_df.apply(np.mean)
