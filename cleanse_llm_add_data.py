@@ -161,7 +161,7 @@ occupation_info_gemini.to_csv(corrie_occ_fp)
 # %%
 
 # ================================================
-# === get no. of spouses of each profession ======
+# === get no. of spouses of each character ======
 # ================================================
 
 class ItemSpouseCount(BaseModel):
@@ -208,8 +208,61 @@ marriage_info_gemini = google_llm_class.collect_chunked_list(
     temperature=0
 )
 
-corrie_marriage_fp = "./Data/marriage_data_sec_sic.csv"
+corrie_marriage_fp = "./Data/marriage_data.csv"
 marriage_info_gemini.to_csv(corrie_marriage_fp)
+
+# %%
+
+# ================================================
+# === get no. of children of each character ======
+# ================================================
+
+
+class ItemChildCount(BaseModel):
+    input: str = Field(..., description="The original input")
+    no_children: int = Field(...,
+                             description="The no. of children attributed to a person")
+
+
+class ListItemsChildCount(BaseModel):
+    items: List[ItemChildCount]
+
+
+# get a chunked list
+all_corrie_child = corrie_master_df["Children"].dropna(
+).drop_duplicates().to_list()
+
+child_list = chunk_my_list(
+    all_corrie_child,
+    chunk_size=50
+)
+
+# check for duplicates
+assert len(set(all_corrie_child)) == len(all_corrie_child)
+
+SystemPromptChild = """
+You are a helpful assistant skilled at extracting and counting child metadata.
+
+You will be given a list of records for the children attributed to different people living in England.
+For some records, the year of birth might also be included in brackets after the child.
+For each one:
+- guess the number of children attributed to that person
+"""
+
+google_llm_class = llm_details_puller(
+    model="gemini-2.0-flash",
+    model_provider="google_genai",
+    system_prompt=SystemPromptChild,
+    output_class=ListItemsChildCount
+)
+child_info_gemini = google_llm_class.collect_chunked_list(
+    child_list,
+    temperature=0
+)
+
+corrie_child_fp = "./Data/child_data.csv"
+child_info_gemini.to_csv(corrie_child_fp)
+
 
 # %%
 # ================================================
@@ -237,23 +290,33 @@ corrie_master_df = corrie_master_df.merge(
     right_index=True
 )
 
+corrie_master_df = corrie_master_df.merge(
+    child_info_gemini,
+    how="left",
+    left_on="Children",
+    right_index=True
+)
+
 # tweak some of the LLM output data
 corrie_master_df["gender"] = corrie_master_df["gender"].str.capitalize()
 corrie_master_df["no_times_married"] = corrie_master_df["no_times_married"].fillna(
     0)
 corrie_master_df["bigamy_committed"] = corrie_master_df["bigamy_committed"].fillna(
     False)
-
+corrie_master_df["no_children"] = corrie_master_df["no_children"].fillna(
+    0)
 corrie_master_df = corrie_master_df.rename(str.capitalize, axis=1)
+
+# change names from `snake_case` style
 corrie_master_df = corrie_master_df.rename(
     lambda x: x.replace("_", " "), axis=1)
 
-corrie_master_df = corrie_master_df.melt(
+corrie_master_df_long = corrie_master_df.melt(
     id_vars="Character",
     var_name="Field",
     value_name="Value").sort_values(by="Character").dropna(how="any").set_index("Character")
 
 corrie_data_fp = "./Data/character_data_enriched.csv"
-corrie_master_df.to_csv(corrie_data_fp)
+corrie_master_df_long.to_csv(corrie_data_fp)
 
 # %%

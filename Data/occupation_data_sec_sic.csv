@@ -21,16 +21,16 @@ Waitress at Viaduct Bistro,Low,Accommodation & food services
 Waiter,Low,Accommodation & food services
 Teacher  Freelance journalist,Medium,Education
 Factory worker,Low,Manufacturing
-Accountant,Medium,Financial & insurance activities
+Accountant,High,Financial & insurance activities
 Designer,Medium,"Professional, scientific & technical activities"
 Waitress  Cleaner,Low,Accommodation & food services
-Shop supervisor,Medium,"Wholesale, retail & repair of motor vehicles"
+Shop supervisor,Low,"Wholesale, retail & repair of motor vehicles"
 Pub landlady,Medium,Accommodation & food services
 Book shop owner,Medium,"Wholesale, retail & repair of motor vehicles"
 Undertaker,Medium,Other services
 Pet shop owner,Medium,"Wholesale, retail & repair of motor vehicles"
 Paramedic (trainee),Medium,Human health & social work activities
-Butcher,Medium,"Wholesale, retail & repair of motor vehicles"
+Butcher,Low,"Wholesale, retail & repair of motor vehicles"
 Secretary,Medium,Administrative & support services
 Hairdresser (retired)Owner/Administrator of Audrey's salon,Medium,Other services
 Barmaid,Low,Accommodation & food services
@@ -110,32 +110,32 @@ Businesswoman,High,"Professional, scientific & technical activities"
 Town clerk,Medium,Public admin & defence; social security
 Criminal (retired),Low,Other services
 Part-time counter staff at The Kabin,Low,"Wholesale, retail & repair of motor vehicles"
-Former children's entertainer Electrician,Low,Construction
+Former children's entertainer  Electrician,Low,Construction
 Kitchen Fitter,Low,Construction
 Solicitor,High,"Professional, scientific & technical activities"
 Publican,Medium,Accommodation & food services
-Doctor's receptionist,Medium,Human health & social work activities
+Doctor's receptionist,Low,Human health & social work activities
 Arcade employee,Low,Other services
 Personal trainer,Medium,Other services
-Taxidermist,Medium,Manufacturing
+Taxidermist,Medium,Other services
 Childminder,Low,Education
 Teacher (retired),High,Education
 Co-owner of Websters' Auto Centre,Medium,"Wholesale, retail & repair of motor vehicles"
 Packer at Underworld,Low,Manufacturing
-Police Officer (formerly) Packer,Medium,Public admin & defence; social security
+Police Officer (formerly)  Packer,Low,Public admin & defence; social security
 Detective Constable,Medium,Public admin & defence; social security
 Nail technician,Low,Other services
 Co-owner of Speed Daal,Medium,Accommodation & food services
 Civil engineer,High,Construction
 Taxi driverRoadie,Low,Transport & storage
-Male Escort Waiter,Low,Accommodation & food services
+Male Escort  Waiter,Low,Accommodation & food services
 Detective Sergeant,Medium,Public admin & defence; social security
 BarmaidReceptionist,Low,Accommodation & food services
-Taxi driver Businessman,Medium,Transport & storage
+Taxi driver  Businessman,Medium,Transport & storage
 Florist,Medium,"Wholesale, retail & repair of motor vehicles"
 "Car Valet, Packer",Low,"Wholesale, retail & repair of motor vehicles"
 "Midwife, formerly a sonographer",High,Human health & social work activities
-Hairdresser Councillor,Medium,Other services
+Hairdresser  Councillor,Medium,Other services
 MechanicGarage owner,Medium,"Wholesale, retail & repair of motor vehicles"
 Assistant at Preston's Petals,Low,"Wholesale, retail & repair of motor vehicles"
 Doctor,High,Human health & social work activities
@@ -144,7 +144,7 @@ Trainee hairdresser,Low,Other services
 Police officer,Medium,Public admin & defence; social security
 Junior manager at Underworld,Medium,Manufacturing
 "Ice cream man, businessman (formerly)",Medium,Accommodation & food services
-Restaurateur Wedding planner,Medium,Accommodation & food services
+Restaurateur  Wedding planner,Medium,Accommodation & food services
 Mill worker (retired),Low,Manufacturing
 Practice manager of Rosamund Street Medical Centre,High,Human health & social work activities
 Practice nurse,High,Human health & social work activities
