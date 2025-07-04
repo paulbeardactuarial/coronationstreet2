@@ -1,4 +1,7 @@
 # %%
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import plotly.express as px
 from mizani.formatters import comma_format
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,6 +12,9 @@ import re
 import numpy as np
 from sklearn.metrics import silhouette_samples, silhouette_score
 from plotnine import *
+
+import plotly.express as px
+import plotly.graph_objects as go
 
 # %%
 
@@ -25,11 +31,16 @@ def years_diff(start_series, end_series):
     return years_diff_series
 
 
+def normalise(series):
+    n_series = (series - np.mean(series))/np.std(series)
+    return n_series
+
 # %%
 
 # =========================================
 # ======= read in and clean data ==========
 # =========================================
+
 
 df = pd.read_csv("./Data/character_data_segmented.csv")
 
@@ -77,26 +88,15 @@ cluster_df = cluster_df.loc[cluster_df.apply(
 # transform columns...
 cluster_df = cluster_df.assign(YearsOnStreet=lambda x: np.log(x.YearsOnStreet))
 
-
-def normalise(series):
-    n_series = (series - np.mean(series))/np.std(series)
-    return n_series
-
-
 cluster_df = cluster_df.apply(lambda x: normalise(x), axis=0)
 
 
-# =========================================
-# ======= perform k-means clustering ======
-# =========================================
-n_clusters = 3
-
-kmeans = KMeans(n_clusters=n_clusters, init='k-means++')
-kmeans.fit(cluster_df)
-cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
-
-
 # %%
+
+# =============================================
+# === check n values for k-means clustering ===
+# =============================================
+
 range_n_clusters = [2, 3, 4, 5, 6, 7, 8]
 k_cluster_df = pd.DataFrame(None, index=range_n_clusters)
 for i in range_n_clusters:
@@ -108,8 +108,15 @@ for i in range_n_clusters:
     )
     k_cluster_df.loc[i, "WSS"] = kmeans.inertia_
 
+# =========================================
+# ======= perform k-means clustering ======
+# =========================================
 
-# %%
+n_clusters = 3
+
+kmeans = KMeans(n_clusters=n_clusters, init='k-means++')
+kmeans.fit(cluster_df)
+cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
 
 df_w_clusters = df.merge(
     cluster_df["y_kmeans"],
@@ -117,90 +124,113 @@ df_w_clusters = df.merge(
     right_index=True
 )
 
-plot_layers = [theme_classic(), theme(legend_position="none")]
-p1 = (
-    ggplot(
-        data=cluster_df.assign(
-            y_kmeans=lambda x: pd.Categorical(x["y_kmeans"])),
-        mapping=aes(x="YearsOnStreet", y="AppearPerYear", color="y_kmeans")
-    )
-    + geom_point()
-    + plot_layers
-    + scale_x_continuous(
-        name="Years on Street (Transformed)"
-    )
-    + scale_y_continuous(
-        name="Number of appearances (Transformed)"
-    )
-)
-p2 = (
-    ggplot(
-        data=df_w_clusters.assign(
-            y_kmeans=lambda x: pd.Categorical(x["y_kmeans"])),
-        mapping=aes(x="YearsOnStreet",
-                    y="Number of appearances", color="y_kmeans")
-    )
-    + geom_point()
-    + plot_layers
-    + scale_x_continuous(
-        name="Years on Street",
-        breaks=range(0, 100, 10)
-    )
-    + scale_y_continuous(
-        labels=comma_format()
-    )
-)
-
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-p1.draw(ax1)
-p2.draw(ax2)
-plt.tight_layout()
-plt.show()
-
-
 # %%
-df_w_clusters = df.merge(
-    cluster_df["y_kmeans"],
-    left_index=True,
-    right_index=True
+
+# =========================================
+# ======== plot clustering results ========
+# =========================================
+
+# Prepare the data (equivalent to the assign() call)
+plot_data_transformed = cluster_df.assign(
+    y_kmeans=lambda x: pd.Categorical(x["y_kmeans"])
 )
 
-sns.scatterplot(
-    data=df_w_clusters,
+plot_data_raw = df_w_clusters.assign(
+    y_kmeans=lambda x: pd.Categorical(x["y_kmeans"]))
+
+# Create the plot
+p1 = px.scatter(
+    plot_data_transformed.reset_index(),
+    x="YearsOnStreet",
+    y="AppearPerYear",
+    color="y_kmeans",
+    hover_data={"Character": True,
+                "YearsOnStreet": False,
+                "AppearPerYear": False,
+                "y_kmeans": False},
+    labels={
+        "YearsOnStreet": "Years on Street (Transformed)",
+        "AppearPerYear": "Number of appearances (Transformed)"
+    }
+)
+
+p2 = px.scatter(
+    plot_data_raw.reset_index(),
     x="YearsOnStreet",
     y="Number of appearances",
-    hue="y_kmeans",
-    palette="Spectral"
+    color="y_kmeans",
+    hover_data={"Character": True,
+                "YearsOnStreet": False,
+                "Number of appearances": False,
+                "y_kmeans": False},
+    labels={
+        "YearsOnStreet": "Years on Street",
+        "Number of appearances": "Number of appearances"
+    }
 )
-plt.show()
+
+fig = make_subplots(
+    rows=1,
+    cols=2,
+    horizontal_spacing=0.2,
+    subplot_titles=("Plot 1", "Plot 2")
+)
+
+# Add traces from p1 to first subplot
+for trace in p1.data:
+    fig.add_trace(trace, row=1, col=1)
+
+# Add traces from p2 to second subplot
+for trace in p2.data:
+    fig.add_trace(trace, row=1, col=2)
+
+# Update layout
+fig.update_layout(
+    title_text="Combined Plots",
+    showlegend=True
+)
+
+# Update x and y axis labels
+fig.update_xaxes(title_text="Years on Street (Transformed)", row=1, col=1)
+fig.update_yaxes(
+    title_text="Number of appearances (Transformed)", row=1, col=1)
+fig.update_xaxes(title_text="Years on Street", row=1, col=2)
+fig.update_yaxes(title_text="Number of appearances", row=1, col=2)
 
 
 # %%
-df_w_clusters.groupby("y_kmeans")["AgeEnterStreet"].aggregate(np.mean)
 
+# =========================================
+# ======== plot clustering metrics ========
+# =========================================
 
-# %%
+fig = make_subplots(
+    rows=1,
+    cols=2,
+    horizontal_spacing=0.2,
+    subplot_titles=(
+        "Silhouette Score <br>for different Cluster Numbers<br>",
+        "Within-cluster Sum of Squares <br>for different Cluster Numbers<br>"
+    )
+)
 
-
-plt.figure(figsize=(12, 5))
-
-# First plot
-plt.subplot(1, 2, 1)
-sns.lineplot(
-    data=k_cluster_df.reset_index(names="n"),
-    x="n",
+p1 = px.line(
+    data_frame=k_cluster_df.reset_index(names="No. of Clusters"),
+    x="No. of Clusters",
     y="SilhouetteScore"
 )
-plt.title('Plot 1')
-
-# Second plot
-plt.subplot(1, 2, 2)
-sns.lineplot(
-    data=k_cluster_df.reset_index(names="n"),
-    x="n",
+p2 = px.line(
+    data_frame=k_cluster_df.reset_index(names="No. of Clusters"),
+    x="No. of Clusters",
     y="WSS"
 )
-plt.title('Plot 2')
 
-plt.tight_layout()
-plt.show()
+# Add traces from p1 to first subplot
+for trace in p1.data:
+    fig.add_trace(trace, row=1, col=1)
+
+# Add traces from p2 to second subplot
+for trace in p2.data:
+    fig.add_trace(trace, row=1, col=2)
+
+fig.update_layout(template='simple_white')
