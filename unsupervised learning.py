@@ -11,29 +11,13 @@ import numpy as np
 from sklearn.metrics import silhouette_samples, silhouette_score
 from scipy.stats import yeojohnson
 
-
 # %%
-df = (
-    pd.read_csv("./Data/character_data_segmented.csv")
-    # .assign(YearsOnSt = lambda x: x["Start date"] - x["Exit date"])
-    .query("Segment == `Max segment`")
-    .set_index("Character")
-    .assign(Returning=lambda x: x.Segment > 1)
-)
 
-# %%
-pd.read_csv("./Data/character_data_segmented.csv")
+# =========================================
+# =========== custom functions ============
+# =========================================
 
-
-date_cols = ['Born', 'Died', 'Exit date', 'Start date',
-             'First appearance', 'Last appearance']
-
-
-df = pd.read_csv("./Data/character_data_segmented.csv")
-
-df.loc[:, date_cols] = df.apply(
-    {col: lambda x: pd.to_datetime(x) for col in date_cols}
-)
+# calculate a series for the years difference between two date series
 
 
 def years_diff(start_series, end_series):
@@ -41,13 +25,33 @@ def years_diff(start_series, end_series):
     years_diff_series = time_delta.apply(lambda x: round(x.days/365.25, 2))
     return years_diff_series
 
+# apply the yeojohnson transformation to a series and return the transformed series
+
+
+def transform_yeojohnson(data_series):
+    transformed_data_series, _ = yeojohnson(data_series)
+    return transformed_data_series
+
+
+# %%
+
+# =========================================
+# ======= read in and clean data ==========
+# =========================================
+
+df = pd.read_csv("./Data/character_data_segmented.csv")
+
+date_cols = ['Born', 'Died', 'Exit date', 'Start date',
+             'First appearance', 'Last appearance']
+
+df.loc[:, date_cols] = df.apply(
+    {col: lambda x: pd.to_datetime(x) for col in date_cols}
+)
 
 df["YearsOnStreet"] = years_diff(df["Start date"], df["Exit date"])
 df["AgeEnterStreet"] = years_diff(df["Born"], df["First appearance"])
 df["AgeLastOnStreet"] = years_diff(df["Born"], df["Exit date"])
 
-
-# %%
 sum_y_o_s = df.groupby("Character")["YearsOnStreet"].transform(sum)
 df = (df
       .query("Segment == `Max segment`")
@@ -59,26 +63,23 @@ df = (df
       )
       .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
       .assign(AppearPerYear=lambda x: x['Number of appearances']/x['YearsOnStreet'])
-
       )
 
-
-# %%
 df = df.convert_dtypes()
 df = df.set_index("Character")
 
-# %%
-
 
 # %%
-# select dtypes that are numeric (in a very round-about way!)
-cluster_df = df.select_dtypes(exclude=["object", "string", "<M8[ns]", "bool"])
+
+# =========================================
+# ======= create data for clustering ======
+# =========================================
 
 # select only some columns
-cluster_df = cluster_df.loc[:, ["Number of appearances",
-                                "YearsOnStreet",
-                                "No children",
-                                "No times married"]]
+cluster_df = df.loc[:, ["Number of appearances",
+                        "YearsOnStreet",
+                        "No children",
+                        "No times married"]]
 
 
 # remove rows that contain NA values
@@ -86,16 +87,14 @@ cluster_df = cluster_df.loc[cluster_df.apply(
     lambda x: not any(x.isna()), axis=1), :]
 
 # transform columns...
-
-
-def transform_yeojohnson(data_series):
-    transformed_data_series, _ = yeojohnson(data_series)
-    return transformed_data_series
-
-
 cluster_df = cluster_df.apply(transform_yeojohnson)
-# cluster_df["No children"], _ = yeojohnson(cluster_df["No children"])
-# cluster_df["No times married"], _ = yeojohnson(cluster_df["No times married"])
+
+
+# %%
+
+# =========================================
+# ======= perform k-means clustering ======
+# =========================================
 
 kmeans = KMeans(n_clusters=3, init='k-means++')
 kmeans.fit(cluster_df)
@@ -117,32 +116,11 @@ k_cluster_df
 
 
 # %%
-# ok = sns.scatterplot(
-#     x="Number of appearances",
-#     y="YearsOnStreet",
-#     hue="y_kmeans",
-#     data=cluster_df
-# )
-
-fg = sns.sca(
-    data=cluster_df,
-    col="y_kmeans",
-    col_wrap=2
-)
-
-fg.map_dataframe(sns.scatterplot,
-                 x="Number of appearances",
-                 y="YearsOnStreet",
-                 hue="AgeEnterStreet"
-                 )
-
-
-# %%
 sns.scatterplot(
     data=cluster_df,
-    # y="No times married",
-    y="No children",
-    x="Number of appearances",
+    y="No times married",
+    # y="No children",
+    x="YearsOnStreet",
     hue="y_kmeans",
 )
 
