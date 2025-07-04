@@ -1,4 +1,6 @@
 # %%
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import DBSCAN
 from sklearn.datasets import make_blobs
 import pandas as pd
 from datetime import datetime
@@ -7,6 +9,8 @@ from sklearn.cluster import KMeans
 import re
 import numpy as np
 from sklearn.metrics import silhouette_samples, silhouette_score
+from scipy.stats import yeojohnson
+
 
 # %%
 df = (
@@ -54,6 +58,8 @@ df = (df
           "Max segment"]
       )
       .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
+      .assign(AppearPerYear=lambda x: x['Number of appearances']/x['YearsOnStreet'])
+
       )
 
 
@@ -78,6 +84,18 @@ cluster_df = cluster_df.loc[:, ["Number of appearances",
 # remove rows that contain NA values
 cluster_df = cluster_df.loc[cluster_df.apply(
     lambda x: not any(x.isna()), axis=1), :]
+
+# transform columns...
+
+
+def transform_yeojohnson(data_series):
+    transformed_data_series, _ = yeojohnson(data_series)
+    return transformed_data_series
+
+
+cluster_df = cluster_df.apply(transform_yeojohnson)
+# cluster_df["No children"], _ = yeojohnson(cluster_df["No children"])
+# cluster_df["No times married"], _ = yeojohnson(cluster_df["No times married"])
 
 kmeans = KMeans(n_clusters=3, init='k-means++')
 kmeans.fit(cluster_df)
@@ -129,11 +147,17 @@ sns.scatterplot(
 )
 
 # %%
+hist_df = cluster_df.copy()
+var1 = "YearsOnStreet"
+var1 = "Number of appearances"
+# var1 = "No children"
+# hist_df[var1] = np.sqrt(hist_df[var1])
 sns.histplot(
-    data=cluster_df,
-    y="Number of appearances"
-    # y="No children"
+    data=hist_df,
+    # y="Number of appearances"
+    x=var1
+    # x="No times married"
 )
 
+
 # %%
-cluster_df.apply(np.mean)
