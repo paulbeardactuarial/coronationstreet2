@@ -78,14 +78,6 @@ df = df.set_index("Character")
 
 
 # %%
-sns.scatterplot(
-    data=df.assign(YearsOnStreet=lambda x: np.log(x.YearsOnStreet)),
-    x="YearsOnStreet",
-    y="AppearPerYear"
-
-)
-
-# %%
 
 # =========================================
 # ======= create data for clustering ======
@@ -109,8 +101,50 @@ cluster_df = cluster_df.apply(normalise)
 
 # %%
 
+# ==================================================
+# ==== plots of data before/after transformation ===
+# ==================================================
+
+def add_fig_to_subplot(plot_grid, fig, row, col):
+    for trace in fig.data:
+        plot_grid.add_trace(trace, row=row, col=col)
+
+
+def construct_hist_grid_plots(df, cluster_fields):
+    plot_grid = make_subplots(
+        2, 2, False, False, horizontal_spacing=0.2, vertical_spacing=0.2)
+    k = 0
+    for histvar in cluster_fields:
+        k = k+1
+        i = 2-k % 2
+        j = 1+(k-1)//2
+        trace = go.Histogram(
+            x=df[histvar],
+            nbinsx=50,
+            marker_color='blue',
+            showlegend=False
+        )
+        plot_grid.add_trace(trace, i, j)
+        plot_grid.update_xaxes(
+            title_text=histvar, title_standoff=3, row=i, col=j)
+        plot_grid.update_yaxes(
+            title_text='count', title_standoff=3, row=i, col=j)
+    return plot_grid
+
+
+plot_grid1 = construct_hist_grid_plots(df, cluster_fields)
+plot_grid2 = construct_hist_grid_plots(cluster_df, cluster_fields)
+
+
+# %%
+
 # determining the silhouette score of different cluster numbers
-range_n_clusters = range(2, 21, 1)  # [2, 3, 4, 5, 6, 7, 8]
+range_n_clusters = range(2, 21, 1)
+
+#
+if "y_kmeans" in cluster_df.columns:
+    cluster_df = cluster_df.drop(columns="y_kmeans")
+
 k_cluster_df = pd.DataFrame(None, index=range_n_clusters)
 for i in range_n_clusters:
     kmeans = KMeans(n_clusters=i, random_state=1, n_init=100, init='k-means++')
@@ -189,10 +223,6 @@ sns.scatterplot(
 )
 
 # %%
-cluster_summary = df.groupby("y_kmeans")[cluster_fields].aggregate("mean")
-cluster_summary = cluster_summary.merge(df.value_counts(
-    "y_kmeans"), left_index=True, right_index=True)
-cluster_summary = cluster_summary.sort_values("count")
 plotly_df = (
     df
     .sort_values(["Number of appearances"])
@@ -208,11 +238,13 @@ px.scatter(
                  'Number of appearances',
                  'YearsOnStreet',
                  'No children',
-                 'No times married'],
+                 'No times married',
+                 'y_kmeans'],
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
     hovertemplate='<b>Character: %{customdata[0]}</b><br>' +
+    'Cluster: %{customdata[5]}<br>' +
                   'Number of appearances: %{customdata[1]}<br>' +
                   'Years on Street: %{customdata[2]}<br>' +
                   'No children: %{customdata[3]}<br>' +
@@ -243,11 +275,13 @@ px.scatter(
                  'Number of appearances',
                  'YearsOnStreet',
                  'No children',
-                 'No times married'],
+                 'No times married',
+                 'y_kmeans'],
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
     hovertemplate='<b>Character: %{customdata[0]}</b><br>' +
+    'Cluster: %{customdata[5]}<br>' +
                   'Number of appearances: %{customdata[1]}<br>' +
                   'Years on Street: %{customdata[2]}<br>' +
                   'No children: %{customdata[3]}<br>' +
@@ -256,23 +290,17 @@ px.scatter(
 ).update_layout(
     showlegend=False
 ).update_xaxes(
-    title="No times married"
+    title="No times married",
+    dtick=1
 ).update_yaxes(
-    title="No children"
+    title="No children",
+    dtick=1
 )
 
 # %%
-hist_df = cluster_df.copy()
-var1 = "YearsOnStreet"
-var1 = "Number of appearances"
-# var1 = "No children"
-# hist_df[var1] = np.sqrt(hist_df[var1])
-sns.histplot(
-    data=hist_df,
-    # y="Number of appearances"
-    x=var1
-    # x="No times married"
-)
-
+cluster_summary = df.groupby("y_kmeans")[cluster_fields].aggregate("mean")
+cluster_summary = cluster_summary.merge(df.value_counts(
+    "y_kmeans"), left_index=True, right_index=True)
+cluster_summary = cluster_summary.sort_values("Number of appearances")
 
 # %%
