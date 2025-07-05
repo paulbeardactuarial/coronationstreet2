@@ -1,4 +1,5 @@
 # %%
+from sklearn.decomposition import PCA
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import plotly.express as px
@@ -97,6 +98,8 @@ cluster_df = cluster_df.loc[cluster_df.apply(
 # transform columns...
 cluster_df = cluster_df.apply(transform_yeojohnson)
 cluster_df = cluster_df.apply(normalise)
+
+# note the above transformation is similar to using PowerTransformer(method='yeo-johnson')
 
 
 # %%
@@ -303,4 +306,11 @@ cluster_summary = cluster_summary.merge(df.value_counts(
     "y_kmeans"), left_index=True, right_index=True)
 cluster_summary = cluster_summary.sort_values("Number of appearances")
 
+
 # %%
+if "y_kmeans" in cluster_df.columns:
+    cluster_df = cluster_df.drop(columns="y_kmeans")
+cluster_pca = PCA()
+cluster_pca_fitted = cluster_pca.fit(cluster_df.to_numpy().T)
+cluster_pca_fitted.explained_variance_ratio_
+cluster_pca_fitted.components_
