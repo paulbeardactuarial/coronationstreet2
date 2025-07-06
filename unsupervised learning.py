@@ -14,32 +14,8 @@ import re
 import numpy as np
 from sklearn.metrics import silhouette_samples, silhouette_score
 from scipy.stats import yeojohnson
+from custom_cluster_functions import *
 
-# %%
-
-# =========================================
-# =========== custom functions ============
-# =========================================
-
-# calculate a series for the years difference between two date series
-
-
-def years_diff(start_series, end_series):
-    time_delta = end_series - start_series
-    years_diff_series = time_delta.apply(lambda x: round(x.days/365.25, 2))
-    return years_diff_series
-
-# apply the yeojohnson transformation to a series and return the transformed series
-
-
-def transform_yeojohnson(data_series):
-    transformed_data_series, _ = yeojohnson(data_series)
-    return transformed_data_series
-
-
-def normalise(series):
-    n_series = (series - np.mean(series))/np.std(series)
-    return n_series
 
 # %%
 
@@ -141,63 +117,12 @@ plot_grid2 = construct_hist_grid_plots(cluster_df, cluster_fields)
 
 # %%
 
-# determining the silhouette score of different cluster numbers
-range_n_clusters = range(2, 21, 1)
-
-#
-if "y_kmeans" in cluster_df.columns:
-    cluster_df = cluster_df.drop(columns="y_kmeans")
-
-k_cluster_df = pd.DataFrame(None, index=range_n_clusters)
-for i in range_n_clusters:
-    kmeans = KMeans(n_clusters=i, random_state=1, n_init=100, init='k-means++')
-    kmeans.fit(cluster_df)
-    k_cluster_df.loc[i, "SilhouetteScore"] = silhouette_score(
-        cluster_df.to_numpy(),
-        kmeans.predict(cluster_df)
-    )
-    k_cluster_df.loc[i, "WSS"] = kmeans.inertia_
-
-k_cluster_df
-
-
-# %%
-
 # =========================================
-# ======== plot clustering metrics ========
+# ======== clustering metrics ============
 # =========================================
 
-fig = make_subplots(
-    rows=1,
-    cols=2,
-    horizontal_spacing=0.2,
-    subplot_titles=(
-        "Silhouette Score <br>for different Cluster Numbers<br>",
-        "Within-cluster Sum of Squares <br>for different Cluster Numbers<br>"
-    )
-)
-
-p1 = px.line(
-    data_frame=k_cluster_df.reset_index(names="No. of Clusters"),
-    x="No. of Clusters",
-    y="SilhouetteScore"
-)
-p2 = px.line(
-    data_frame=k_cluster_df.reset_index(names="No. of Clusters"),
-    x="No. of Clusters",
-    y="WSS"
-)
-
-# Add traces from p1 to first subplot
-for trace in p1.data:
-    fig.add_trace(trace, row=1, col=1)
-
-# Add traces from p2 to second subplot
-for trace in p2.data:
-    fig.add_trace(trace, row=1, col=2)
-
-fig.update_layout(template='simple_white')
-
+k_cluster_df = get_cluster_scores(cluster_df)
+plot_cluster_score(k_cluster_df)
 
 # =========================================
 # ======= perform k-means clustering ======
@@ -314,3 +239,37 @@ cluster_pca = PCA()
 cluster_pca_fitted = cluster_pca.fit(cluster_df.to_numpy().T)
 cluster_pca_fitted.explained_variance_ratio_
 cluster_pca_fitted.components_
+
+
+pca_df = pd.DataFrame(
+    cluster_pca_fitted.components_[:2].T,
+    index=cluster_df.index,
+    columns=["PC1", "PC2"]
+)
+
+# %%
+pd.DataFrame(
+    {
+        "Component": range(1, 5, 1),
+        "Explained Variance Ratio": cluster_pca_fitted.explained_variance_ratio_
+    }
+)
+
+
+# %%
+
+pca_cluster_df = get_cluster_scores(pca_df)
+plot_cluster_score(pca_cluster_df)
+
+# %%
+
+if "y_kmeans" in pca_df.columns:
+    pca_df = pca_df.drop("y_kmeans")
+n_clusters = 8
+pca_kmeans = KMeans(n_clusters=n_clusters, init="k-means++", n_init=100)
+pca_kmeans.fit(pca_df)
+pca_df["y_kmeans"] = pca_kmeans.labels_
+
+pca_df = pd.concat(
+    [pca_df, df.loc[:, cluster_fields]], axis=1
+)
