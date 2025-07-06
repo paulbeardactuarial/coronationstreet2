@@ -1,4 +1,6 @@
 # %%
+from great_tables import GT
+from string import ascii_uppercase
 from sklearn.decomposition import PCA
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
@@ -128,14 +130,63 @@ plot_cluster_score(k_cluster_df)
 # %%
 n_clusters = 8
 
-kmeans = KMeans(n_clusters=n_clusters, random_state=1,
-                n_init=100, init='k-means++')
+cluster_df = cluster_df.drop(
+    ["y_kmeans", "Cluster Category"],
+    axis=1,
+    errors="ignore")
+
+kmeans = KMeans(n_clusters=n_clusters,
+                random_state=1,
+                n_init=100,
+                init='k-means++')
 kmeans.fit(cluster_df)
 cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
 
+df["y_kmeans"] = cluster_df["y_kmeans"]
+
+# cluster summary derivation... and relabel to get 'Cluster Category'
+cluster_summary = df.groupby("y_kmeans")[cluster_fields].aggregate("mean")
+cluster_summary = cluster_summary.merge(
+    df.value_counts("y_kmeans"),
+    left_index=True,
+    right_index=True
+)
+cluster_summary["count"] = cluster_summary["count"].rename("Count")
+cluster_summary = cluster_summary.sort_values(
+    ["Number of appearances", "No children"])
+
+cluster_summary["Cluster Category"] = list(
+    ascii_uppercase[:len(cluster_summary.index)])
+cluster_df = cluster_df.merge(
+    cluster_summary["Cluster Category"],
+    left_on="y_kmeans",
+    right_index=True
+)
+
+df["Cluster Category"] = cluster_df["Cluster Category"]
+
 
 # %%
-df["y_kmeans"] = cluster_df["y_kmeans"]
+(
+    GT(cluster_summary)
+    .fmt_number(
+        columns=["YearsOnStreet", "No children", "No times married"],
+        decimals=2
+    )
+    .fmt_number(
+        columns=["Number of appearances", "count"],
+        decimals=0
+    )
+
+)
+
+
+# %%
+
+# =========================================
+# ======= plot k-means clustering ======
+# =========================================
+
 
 plotly_df = (
     df
@@ -147,13 +198,13 @@ px.scatter(
     data_frame=plotly_df.reset_index(),
     y="Number of appearances",
     x="YearsOnStreet",
-    color='y_kmeans',
+    color='Cluster Category',
     custom_data=['Character',
                  'Number of appearances',
                  'YearsOnStreet',
                  'No children',
                  'No times married',
-                 'y_kmeans'],
+                 'Cluster Category'],
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
@@ -184,13 +235,13 @@ px.scatter(
     data_frame=plotly_df_jitter,
     y="No_children_jitter",
     x="No_times_married_jitter",
-    color='y_kmeans',
+    color='Cluster Category',
     custom_data=['Character',
                  'Number of appearances',
                  'YearsOnStreet',
                  'No children',
                  'No times married',
-                 'y_kmeans'],
+                 'Cluster Category'],
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
@@ -211,14 +262,13 @@ px.scatter(
     dtick=1
 )
 
-# %%
-cluster_summary = df.groupby("y_kmeans")[cluster_fields].aggregate("mean")
-cluster_summary = cluster_summary.merge(df.value_counts(
-    "y_kmeans"), left_index=True, right_index=True)
-cluster_summary = cluster_summary.sort_values("Number of appearances")
-
 
 # %%
+
+# =========================================
+# ======= perform PCA decomposition ======
+# =========================================
+
 if "y_kmeans" in cluster_df.columns:
     cluster_df = cluster_df.drop(columns="y_kmeans")
 cluster_pca = PCA()
@@ -234,28 +284,33 @@ pca_df = pd.DataFrame(
 )
 
 # %%
-pd.DataFrame(
+wf_df = pd.DataFrame(
     {
         "Component": range(1, 5, 1),
         "Explained Variance Ratio": cluster_pca_fitted.explained_variance_ratio_
     }
 )
 
+# Create the waterfall chart
+fig = go.Figure(go.Waterfall(
+    name="Waterfall",
+    orientation="v",  # vertical orientation
+    x=wf_df['Component'],  # your key column
+    textposition="outside",
+    # show values on bars
+    text=[f"{val:+.3f}" for val in wf_df['Explained Variance Ratio']],
+    y=wf_df['Explained Variance Ratio'],
+    connector={"line": {"color": "black", "width": 0.8}},
+    increasing={"marker": {"color": "green"}}
+))
 
-# %%
-
-pca_cluster_df = get_cluster_scores(pca_df)
-plot_cluster_score(pca_cluster_df)
-
-# %%
-
-if "y_kmeans" in pca_df.columns:
-    pca_df = pca_df.drop("y_kmeans")
-n_clusters = 8
-pca_kmeans = KMeans(n_clusters=n_clusters, init="k-means++", n_init=100)
-pca_kmeans.fit(pca_df)
-pca_df["y_kmeans"] = pca_kmeans.labels_
-
-pca_df = pd.concat(
-    [pca_df, df.loc[:, cluster_fields]], axis=1
+fig.update_layout(
+    title="Principal Component Analysis",
+    xaxis_title="Component",
+    yaxis_title="Explained Variance Ratio",
+    showlegend=False,
+    template="plotly_white"
 )
+
+
+# %%
