@@ -12,8 +12,6 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 import re
 import numpy as np
-from sklearn.metrics import silhouette_samples, silhouette_score
-from scipy.stats import yeojohnson
 from custom_cluster_functions import *
 
 
@@ -138,19 +136,7 @@ cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
 
 # %%
 df["y_kmeans"] = cluster_df["y_kmeans"]
-df.groupby("y_kmeans")
 
-sns.scatterplot(
-    data=cluster_df,
-    # y="No times married",
-    # y="No children",
-    y="Number of appearances",
-    x="YearsOnStreet",
-    hue="y_kmeans",
-    palette="Set1"
-)
-
-# %%
 plotly_df = (
     df
     .sort_values(["Number of appearances"])
