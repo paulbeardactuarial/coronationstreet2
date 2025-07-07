@@ -1,0 +1,419 @@
+Character,Gender,NumberOfAppearances,FirstAppearance,LastAppearance,ExitStatus,Born,Died,AgeEnterStreet,AgeLastOnStreet,YearsOnStreet,Returner,NumberTimesMarried,NumberChildren,Occupation,Industry,BigamyCommitted
+Aadi Alahan,Male,516,2006-01-13,,Alive,2006-01-13,,0.0,19.46,16.46,True,0,0,Assistant at the corner shop,"Wholesale, retail & repair of motor vehicles",False
+Aaron Sandford,Male,140,2022-04-22,2023-06-16,Exit,,,,,1.15,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Abi Webster,Female,724,2017-10-02,,Alive,,,,,7.74,False,1,4,Mechanic at Webster's Autocentre,"Wholesale, retail & repair of motor vehicles",False
+Adam Barlow,Male,1107,2001-01-14,,Alive,1988-05-03,,12.7,37.16,15.46,True,1,0,Solicitor at Barlow Legal Services,"Professional, scientific & technical activities",False
+Aggie Bailey,Female,257,2019-06-12,2023-06-12,Exit,,,,,4.0,False,1,3,Nurse,Human health & social work activities,False
+Aidan Connor,Male,370,2015-08-21,2018-05-07,Death,1983-04-09,2018-05-07,32.37,35.08,2.71,False,0,1,,,False
+Aidan Critchley,Male,70,2002-04-12,2003-03-17,Exit,1987-02-01,,15.19,16.12,0.93,False,0,0,,,False
+Alan Bradley,Male,221,1986-01-15,1989-12-08,Death,1939-07-20,1989-12-08,46.49,50.39,3.9,False,1,1,Owner of Weatherfield Security Systems,Administrative & support services,False
+Alan Howard,Male,256,1969-12-01,1974-01-16,Exit,1924-04-23,,45.61,49.73,4.13,False,1,1,Businessman,Financial & insurance activities,False
+Alan McKenna,Male,87,1996-11-08,1997-11-10,Exit,,,,,1.0,False,0,1,Detective,Public admin & defence; social security,False
+Albert Tatlock,Male,1304,1960-12-09,1984-01-23,Death,1895-08-10,1984-05-14,65.33,88.76,23.43,False,1,1,Town Hall clerk (retired),Public admin & defence; social security,False
+Alec Gilroy,Male,850,1972-06-26,1998-12-30,Exit,1935-05-22,,37.1,63.61,9.51,True,2,1,Landlord  Theatrical agent  Nightclub manager,Real estate activities,False
+Aled Winter-Brown,Male,105,2019-10-30,,Alive,2019-10-30,,0.0,5.67,5.67,False,0,0,,,False
+Alex Warner,Male,152,2015-09-13,,Alive,1987-07-21,,28.15,37.94,9.8,False,0,0,Waiter at Roy's Rolls,Accommodation & food services,False
+Alf Roberts,Male,1780,1961-02-08,1999-01-01,Death,1926-10-07,1999-01-01,34.34,72.24,29.900000000000002,True,3,0,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Alfie Franklin,Male,65,2022-03-07,,Alive,2022-03-06,,0.0,3.32,3.32,False,0,0,,,False
+Ali Neeson,Male,215,2007-12-17,2020-03-13,Exit,1992-01-14,,15.92,28.16,2.24,True,0,0,Trainee general practitioner,Human health & social work activities,False
+Alina Pop,Female,180,2019-04-22,2024-09-18,Exit,1998-10-01,,20.56,25.97,2.41,True,0,1,Telesales agent,"Wholesale, retail & repair of motor vehicles",False
+Alison Webster,Female,133,1998-12-28,2000-06-07,Death,,2000-06-07,,,1.44,False,1,1,Factory machinist,Manufacturing,False
+Alma Halliwell,Female,1135,1981-06-22,2001-06-20,Death,1945-10-18,2001-06-17,35.68,55.66,13.98,True,2,0,Caterer,Accommodation & food services,False
+Alya Nazir,Female,940,2014-06-25,,Alive,1993-02-17,,21.35,32.36,11.01,False,0,0,Co-owner of Speed Daal  Solicitor (trainee),Accommodation & food services,False
+Amber Kalirai,Female,250,2005-11-09,2012-03-23,Exit,1991-01-09,,14.83,21.2,4.37,True,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Amy Barlow,Female,1164,2004-02-09,,Alive,2004-02-09,,0.0,21.39,21.39,False,0,0,Waitress at Viaduct Bistro,Accommodation & food services,False
+Andrea Beckett,Female,148,2013-12-23,2015-09-25,Exit,,,,,1.75,False,1,2,,,False
+Andrea Clayton,Female,41,1985-01-30,2001-11-07,Exit,1967-08-03,,17.49,34.26,1.77,True,0,1,,,False
+Andy Carver,Male,213,2014-11-21,2017-10-27,Death,1985-06-08,2017-10-27,29.45,32.39,2.93,False,0,0,Waiter,Accommodation & food services,False
+Andy McDonald,Male,610,1989-12-06,2009-08-20,Exit,1974-06-26,,15.45,35.15,7.699999999999999,True,0,0,Teacher  Freelance journalist,Education,False
+Angela Harris,Female,306,2002-11-13,2005-05-02,Exit,1964-07-18,,38.32,40.79,2.47,False,1,2,Factory worker,Manufacturing,False
+Angie Appleton,Female,94,2017-08-21,2019-01-07,Exit,1986-03-09,,31.45,32.83,1.38,False,1,1,Accountant,Financial & insurance activities,False
+Angie Freeman,Female,345,1990-10-08,1998-04-10,Exit,1967-06-20,,23.3,30.81,4.51,True,0,0,Designer,"Professional, scientific & technical activities",False
+Anna Windass,Female,1059,2008-11-14,2018-06-01,Exit,1967-05-30,,41.46,51.01,9.54,False,1,2,Waitress  Cleaner,Accommodation & food services,False
+Anne Malone,Female,100,1995-09-08,1998-10-11,Death,,1998-10-09,,,3.09,False,0,0,Shop supervisor,"Wholesale, retail & repair of motor vehicles",False
+Annie Walker,Female,1723,1960-12-09,1983-10-12,Exit,1909-08-11,,51.33,74.17,22.84,False,1,2,Pub landlady,Accommodation & food services,False
+Anthony Stephens,Male,67,2000-07-28,2001-07-01,Exit,,,,,0.93,False,1,2,Book shop owner,"Wholesale, retail & repair of motor vehicles",False
+Archie Shuttleworth,Male,116,2002-02-17,2010-05-10,Exit,1934-09-14,2018-12-12,67.43,75.65,1.36,True,2,2,Undertaker,Other services,False
+Arnold Swain,Male,42,1980-04-23,1981-03-11,Death,,1981-12-27,,,1.68,False,2,0,Pet shop owner,"Wholesale, retail & repair of motor vehicles",True
+Asha Alahan,Female,596,2006-01-13,,Alive,2006-01-13,,0.0,19.46,16.46,True,0,0,Paramedic (trainee),Human health & social work activities,False
+Ashley Peacock,Male,1274,1995-02-01,2010-12-08,Death,1976-01-24,2010-12-06,19.02,34.87,15.84,False,2,2,Butcher,"Wholesale, retail & repair of motor vehicles",False
+Audrey Fleming,Female,120,1968-06-05,1970-05-13,Exit,1951-05-19,,17.05,18.98,1.94,False,1,0,Secretary,Administrative & support services,False
+Audrey Roberts,Female,3439,1979-04-16,,Alive,1940-07-23,,38.73,84.94,44.21,True,1,2,Hairdresser (retired)Owner/Administrator of Audrey's salon,Other services,False
+Becky Mallett,Female,68,1998-12-25,2000-10-01,Exit,1998-12-25,,0.0,1.77,1.77,False,0,0,,,False
+Becky McDonald,Female,709,2005-08-24,2012-01-23,Exit,1980-08-01,,25.06,31.48,6.41,False,1,0,Barmaid,Accommodation & food services,False
+Becky Palmer,Female,51,1996-05-20,1997-03-16,Exit,1982-12-09,,13.45,14.27,0.82,False,0,0,,,False
+Ben Watts,Male,88,2001-12-26,2003-09-01,Exit,2001-12-26,,0.0,1.68,1.68,False,0,0,,,False
+Bernard Butler,Male,37,1969-11-17,1970-06-29,Exit,,,,,0.61,False,0,0,Hairdresser,Other services,False
+Bernie Winter,Female,537,2019-07-24,,Alive,,,,,5.94,False,0,3,Assistant at Prima DonerWaitress at Roy's Rolls,Accommodation & food services,False
+Bert Tilsley,Male,221,1979-01-29,1983-07-27,Death,1935-06-08,1984-01-16,43.64,48.61,4.96,False,1,1,Fitter,Manufacturing,False
+Bertie Osbourne,Male,144,2019-01-14,,Alive,2019-01-14,,0.0,6.46,6.46,False,0,0,,,False
+Bet Lynch,Female,1979,1966-05-25,2003-11-30,Exit,1940-05-04,,26.06,63.57,26.520000000000003,True,1,1,Landlady,Real estate activities,False
+Beth Sutherland,Female,988,2011-08-05,2024-08-30,Exit,1974-11-21,,36.7,49.77,13.07,False,1,1,Machinist,Manufacturing,True
+Bethany Platt,Female,1050,2000-06-04,,Alive,2000-06-04,,0.0,25.07,14.07,True,0,0,Magazine writer,Information & communication,False
+Betsy Swain,Female,133,2024-05-28,,Alive,2008-06-01,,15.99,17.08,1.09,False,0,0,Machinist,Manufacturing,False
+Betty Williams,Female,2734,1969-06-02,2011-05-27,Death,1920-02-04,2012-04-16,49.33,92.2,42.87,False,1,1,Barmaid,Accommodation & food services,False
+Bev Unwin,Female,376,2003-03-24,2015-07-15,Exit,1955-06-01,,47.81,60.12,3.31,True,1,2,Barmaid,Accommodation & food services,False
+Bill Webster,Male,558,1984-02-06,2011-12-29,Exit,1942-11-02,2023-04-03,41.26,69.16,8.9,True,3,3,Builder (Retired),Construction,False
+Billy Mallett,Male,63,1998-12-25,2000-10-01,Exit,1998-12-25,,0.0,1.77,1.77,False,0,0,,,False
+Billy Mayhew,Male,982,2014-12-05,,Alive,1979-02-23,,35.78,46.35,10.57,False,1,0,Archdeacon,Education,False
+Billy Walker,Male,405,1961-01-27,1984-12-05,Exit,1938-09-08,,22.39,46.24,11.85,True,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Billy Williams,Male,60,1995-05-08,1997-02-14,Death,1921-08-18,1997-11-03,73.72,76.21,2.49,False,1,1,,,False
+Blanche Hunt,Female,844,1974-08-19,2009-12-11,Death,1936-01-22,2010-05-03,38.57,74.28,17.7,True,1,1,Corset maker (retired),Manufacturing,False
+Bobbi Lewis,Female,134,2000-03-20,2002-04-05,Exit,,,,,2.04,False,0,0,Factory machinist,Manufacturing,False
+Bobby Crawford,Male,122,2023-12-27,,Alive,2002-05-03,,21.65,23.16,1.51,False,0,0,Underworld sales clerk,"Wholesale, retail & repair of motor vehicles",False
+Brian Packham,Male,647,2010-04-15,,Alive,1963-08-20,,46.65,61.86,13.21,True,1,0,Co-owner of The Kabin,"Wholesale, retail & repair of motor vehicles",False
+Brian Tilsley,Male,524,1978-12-27,1989-02-15,Death,1958-10-15,1989-02-15,20.2,30.34,10.14,False,2,2,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Bryn Winter-Brown,Male,91,2019-10-30,,Alive,2019-10-30,,0.0,5.67,3.67,True,0,0,,,False
+Callum Logan,Male,114,2014-10-03,2015-09-23,Death,1987-11-01,2015-09-21,26.92,27.89,0.97,False,0,2,,,False
+Candice Stowe,Female,400,1999-11-05,2005-11-07,Exit,1986-09-20,,13.13,19.13,6.01,False,1,0,Hairdresser,Other services,False
+Carla Connor,Female,2128,2006-12-01,,Alive,1975-01-03,,31.91,50.49,18.58,False,4,0,Factory manager,Manufacturing,False
+Carys Winter-Brown,Female,91,2019-10-30,,Alive,2019-10-30,,0.0,5.67,3.67,True,0,0,,,False
+Cassie Plummer,Female,189,2023-06-28,,Alive,1966-02-01,,57.4,59.41,2.01,False,0,1,Carer,Human health & social work activities,False
+Cathy Matthews,Female,472,2015-04-20,2022-06-17,Exit,1961-04-12,,54.02,61.18,7.16,False,1,0,Retail assistant,"Wholesale, retail & repair of motor vehicles",False
+Caz Hammond,Female,72,2015-11-16,2016-12-02,Exit,,,,,1.05,False,0,0,Soldier (former),Public admin & defence; social security,False
+Chalkie Whitely,Male,60,1982-02-15,1983-08-03,Exit,1924-12-21,,57.15,58.61,1.46,False,1,1,Binman,Administrative & support services,False
+Charlie Moffitt,Male,101,1964-05-20,1965-12-15,Exit,,,,,1.57,False,0,0,Comedian,Other services,False
+Charlie Ramsden,Male,103,2000-11-22,2002-04-16,Exit,1970-09-01,,30.23,31.62,1.4,False,1,0,Teacher,Education,False
+Charlie Stubbs,Male,421,2003-11-10,2007-01-15,Death,1971-11-17,2007-01-15,31.98,35.16,3.18,False,1,2,Builder,Construction,False
+Charlie Whelan,Male,59,1993-12-27,1994-10-14,Exit,,,,,0.8,False,0,0,Lorry driver,Transport & storage,False
+Cheryl Gray,Female,147,2010-04-09,2011-11-18,Exit,1981-01-17,,29.22,30.83,1.61,False,1,1,Waitress,Accommodation & food services,False
+Chesney Winter-Brown,Male,1594,2003-11-10,,Alive,1994-07-26,,9.29,30.93,21.64,False,1,5,Assistant at Prima Doner,Accommodation & food services,False
+Chris Collins,Male,137,1997-03-03,1998-03-29,Exit,1976-03-01,,21.0,22.08,1.07,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Chris Gray,Male,109,2010-07-01,2011-11-21,Exit,,,,,1.39,False,1,1,Builder,Construction,False
+Christine Appleby,Female,123,1960-12-14,1963-07-03,Exit,1939-04-19,,21.66,24.21,2.55,False,1,0,Machinist,Manufacturing,False
+Ciaran McCarthy,Male,407,2002-08-07,2011-11-25,Exit,1973-02-01,,29.51,38.81,4.3,True,0,0,Chef,Accommodation & food services,False
+Cilla Battersby-Brown,Female,329,2003-10-20,2014-11-14,Exit,1965-12-17,,37.84,48.91,4.07,True,1,3,Barmaid,Accommodation & food services,False
+Claire Palmer,Female,59,1996-05-08,1997-04-14,Exit,,,,,0.93,False,1,1,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Claire Peacock,Female,673,2003-04-09,2011-01-14,Exit,1981-01-14,,22.23,30.0,7.77,False,1,2,Taxi controller,Transport & storage,False
+Claudia Colby,Female,149,2009-12-18,2022-08-15,Exit,,,,,5.66,True,0,0,Owner of Perm Suspect,Other services,False
+Concepta Regan,Female,317,1960-12-23,1975-12-31,Exit,1926-01-15,,34.94,49.96,4.02,True,2,1,Barmaid,Accommodation & food services,False
+Connie Clayton,Female,41,1985-01-28,2000-12-10,Exit,,,,,0.87,True,1,2,Dressmaker,Manufacturing,False
+Craig Harris,Male,294,2002-11-13,2006-10-16,Exit,1990-09-18,,12.15,16.08,3.92,False,0,0,,,False
+Craig Tinker,Male,771,2011-08-05,,Alive,1998-09-02,,12.92,26.83,13.9,False,0,0,Police Constable,Public admin & defence; social security,False
+Curly Watts,Male,1563,1983-07-11,2003-09-01,Exit,1963-06-28,,20.04,40.18,20.14,False,2,2,Retail manager,"Wholesale, retail & repair of motor vehicles",False
+Cyril Turpin,Male,74,1969-06-04,1972-07-19,Exit,1920-07-01,1974-02-20,48.93,52.05,1.12,True,1,0,Police sergeant,Public admin & defence; social security,False
+Daisy Midgeley,Female,635,2020-11-27,2025-05-02,Exit,1996-12-01,,23.99,28.42,4.43,False,0,0,Barmaid at the Rovers Return Inn,Accommodation & food services,False
+Dan Mason,Male,108,2007-12-03,2008-11-14,Exit,1976-09-01,,31.25,32.2,0.95,False,0,0,Bookmaker,Other services,False
+Daniel Osbourne,Male,1173,1995-01-04,,Alive,1995-01-04,,0.0,30.49,11.49,True,1,1,Teacher and journalist,Education,False
+Danny Baldwin,Male,392,2004-05-31,2006-12-31,Exit,1960-05-20,,44.03,46.61,2.58,False,2,2,Businessman,Financial & insurance activities,False
+Danny Hargreaves,Male,148,1999-04-28,2001-04-22,Exit,,,,,1.98,False,0,0,Market trader,"Wholesale, retail & repair of motor vehicles",False
+Darryl Morton,Male,219,2007-03-18,2009-10-16,Exit,1989-04-10,,17.94,20.52,2.58,False,0,0,Shop manager,"Wholesale, retail & repair of motor vehicles",False
+David Barlow,Male,251,1960-12-09,1968-04-10,Exit,1942-07-04,1970-04-08,18.43,25.77,5.34,True,1,1,Footballer,Other services,False
+David Platt,Male,3135,1990-12-26,,Alive,1990-12-25,,0.0,34.51,34.51,False,2,2,Hairdresser,Other services,False
+Debbie Webster,Female,451,1984-06-11,,Alive,1968-09-07,,15.76,56.81,7.05,True,0,0,Hotelier and restaurateur,Accommodation & food services,False
+Debs Brownlow,Female,75,2000-02-06,2000-11-10,Exit,,,,,0.76,False,0,0,Hairdresser,Other services,False
+Dee-Dee Bailey,Female,429,2022-09-28,,Alive,1995-07-14,,27.21,29.96,2.75,False,0,1,Solicitor at Barlow Legal Services,"Professional, scientific & technical activities",False
+Deirdre Barlow,Female,3346,1972-11-20,2014-10-08,Death,1955-07-08,2015-07-08,17.37,60.0,42.63,False,4,1,Receptionist,Administrative & support services,False
+Denise Osbourne,Female,289,1992-12-04,2017-06-09,Exit,1955-12-01,,37.01,61.52,4.57,True,2,1,Hairdresser,Other services,False
+Dennis Stringer,Male,167,2000-02-07,2002-01-02,Death,,2002-01-02,,,1.9,False,1,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Dennis Tanner,Male,677,1960-12-09,2014-07-30,Exit,1942-04-01,2020-12-01,18.69,72.33,10.64,True,2,0,,,False
+Derek Wilton,Male,726,1976-02-23,1997-04-07,Death,1936-08-07,1997-04-07,39.55,60.67,16.12,True,2,0,Salesman,"Wholesale, retail & repair of motor vehicles",False
+Des Barnes,Male,772,1990-02-12,1998-11-18,Death,1965-04-24,1998-11-18,24.8,33.57,8.76,False,2,0,Bookmaker,Other services,False
+Dev Alahan,Male,2063,1999-11-10,,Alive,1964-03-02,,35.69,61.33,25.64,False,1,5,"Owner of the Corner Shop, Prima Doner and For Your Fries Only",Accommodation & food services,False
+Dickie Fleming,Male,117,1968-06-05,1970-05-06,Exit,1949-07-17,,18.89,20.8,1.92,False,1,0,Electrician,Construction,False
+Diggory Compton,Male,50,2005-02-02,2006-07-17,Exit,,,,,1.45,False,0,1,Baker,Manufacturing,False
+Don Brennan,Male,735,1987-09-07,1997-10-08,Death,1937-11-30,1997-10-08,49.77,59.85,10.09,False,2,3,Taxi driver,Transport & storage,False
+Doreen Fenwick,Female,51,2007-02-05,2007-12-02,Exit,1939-10-01,,67.35,68.17,0.82,False,2,0,Exotic dancer (retired),Other services,False
+Doreen Heavey,Female,75,1999-07-02,2004-11-08,Exit,1953-01-13,,46.46,51.82,2.36,True,1,1,Beautician,Other services,False
+Doreen Lostock,Female,145,1961-01-18,1963-10-02,Exit,1941-02-01,,19.96,22.66,2.7,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Doug Murray,Male,62,1992-10-23,1993-06-18,Exit,,,,,0.65,False,0,0,Businessman,Financial & insurance activities,False
+Duggie Ferguson,Male,252,1999-10-15,2002-02-06,Death,,2002-02-04,,,2.31,False,1,1,Businessman,Financial & insurance activities,False
+Dylan Wilson,Male,202,2008-02-22,,Alive,2008-02-22,,0.0,17.35,6.35,True,0,0,,,False
+Ed Bailey,Male,460,2019-06-10,,Alive,1964-09-20,,54.72,60.77,6.06,False,1,3,Builder,Construction,False
+Eddie Windass,Male,187,2008-11-14,2011-04-25,Exit,,,,,2.44,False,1,1,Taxi driver,Transport & storage,False
+Eddie Yeats,Male,511,1974-12-23,1987-12-02,Exit,1941-08-22,,33.34,46.28,8.94,True,1,1,Binman,Administrative & support services,False
+Edna Miller,Female,50,1998-06-24,2001-09-19,Death,1952-09-01,2001-09-19,45.81,49.05,1.24,True,3,0,Factory workerBarmaid,Manufacturing,False
+Effie Spicer,Female,43,1968-06-26,1969-03-26,Exit,1900-01-30,,68.4,69.15,0.75,False,1,0,Retired,Other services,False
+Eileen Grimshaw,Female,2422,2000-05-03,,Alive,1961-10-07,,38.57,63.73,25.16,False,1,2,Switch operator at Street Cars  Office administrator,Administrative & support services,False
+Elaine Jones,Female,185,2020-07-20,2023-10-23,Exit,1951-10-11,,68.77,72.03,3.26,False,1,1,Former waitress and shop assistant,Accommodation & food services,False
+Eliza Woodrow,Female,90,2022-08-24,2024-04-17,Exit,2011-05-19,,11.27,12.91,1.65,False,0,0,,,False
+Elsie Tanner,Female,1606,1960-12-09,1984-01-04,Exit,1923-03-05,2004-06-01,37.77,60.84,20.07,True,4,2,Retail clerk,"Wholesale, retail & repair of motor vehicles",False
+Emily Bishop,Female,3303,1960-12-21,2019-10-09,Exit,1929-10-18,,31.18,89.97,55.800000000000004,True,2,0,Shop assistant (retired),"Wholesale, retail & repair of motor vehicles",True
+Emma Brooker,Female,391,2018-04-20,2022-04-08,Exit,1999-05-03,,18.97,22.93,3.97,False,0,0,Barmaid  Hairdresser,Accommodation & food services,False
+Emma Watts,Female,265,2000-04-10,2003-09-01,Exit,,,,,3.39,False,1,1,Police sergeant,Public admin & defence; social security,False
+Ena Sharples,Female,1136,1960-12-09,1980-04-02,Exit,1899-11-24,,61.04,80.35,19.31,False,1,3,Caretaker (retired),Administrative & support services,False
+Erica Holroyd,Female,157,2014-12-15,2017-08-04,Exit,1965-06-24,,49.48,52.11,2.64,False,0,0,Waitress,Accommodation & food services,False
+Ernest Bishop,Male,410,1967-09-06,1978-01-11,Death,1930-08-11,1978-01-11,37.07,47.42,8.53,True,1,0,Photographer,"Professional, scientific & technical activities",False
+Esther Hayes,Female,64,1960-12-14,1972-04-05,Exit,1924-05-10,,36.6,47.9,3.31,True,0,0,Civil servant,Public admin & defence; social security,False
+Eunice Gee,Female,72,1981-03-23,1999-05-24,Exit,1937-10-01,,43.47,61.64,1.27,True,2,1,Barmaid,Accommodation & food services,False
+Eva Price,Female,785,2011-06-17,2018-08-03,Exit,1988-02-10,,23.35,30.48,7.13,False,0,1,,,False
+Evelyn Elliott,Female,117,2000-10-20,2002-05-10,Exit,,,,,1.55,False,2,5,Barmaid,Accommodation & food services,True
+Evelyn Plummer,Female,526,2018-09-12,,Alive,1946-03-17,,72.49,79.29,6.8,False,1,1,,,False
+Faye Windass,Female,759,2011-01-24,2023-05-24,Exit,2002-03-13,,8.87,21.2,12.33,False,0,1,Telesales agent,"Wholesale, retail & repair of motor vehicles",False
+Felicity Khan,Female,35,1990-02-14,1990-08-01,Exit,,,,,0.46,False,0,0,Student,Education,False
+Finlay Bryant,Male,52,2007-04-06,2008-09-29,Exit,2000-10-07,,6.49,7.98,1.48,False,0,0,,,False
+Fiona Middleton,Female,493,1992-12-14,2019-08-21,Exit,1975-12-02,,17.03,43.72,5.68,True,1,2,Hairdresser,Other services,False
+Fiz Dobbs,Female,2512,2001-04-20,,Alive,1984-09-25,,16.57,40.76,24.19,False,3,1,Antiques dealer  Machinist,"Wholesale, retail & repair of motor vehicles",False
+Florrie Lindley,Female,310,1960-12-09,1965-06-02,Exit,1922-06-12,,38.49,42.97,4.48,False,1,0,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Frank Barlow,Male,273,1960-12-09,1971-02-03,Exit,1913-10-19,,47.14,57.29,3.56,True,1,2,Retired Postman and DIY shop owner,"Wholesale, retail & repair of motor vehicles",False
+Frank Foster,Male,138,2011-01-20,2012-03-08,Death,1971-07-01,2012-03-05,39.56,40.68,1.12,False,0,0,Businessman,Financial & insurance activities,False
+Frankie Baldwin,Female,340,2004-06-06,2006-12-31,Exit,,,,,2.57,False,2,1,,,False
+Frankie Bolton,Female,45,2024-08-05,,Alive,2024-08-02,,0.01,0.91,0.9,False,0,0,,,False
+Fred Elliott,Male,1065,1994-08-26,2006-10-11,Death,1938-10-27,2006-10-09,55.83,67.95,12.12,False,3,1,Butcher,"Wholesale, retail & repair of motor vehicles",True
+Fred Gee,Male,561,1975-09-29,1984-11-28,Exit,1929-10-06,1998-11-01,45.98,55.15,9.17,False,2,0,Barman,Accommodation & food services,False
+Freddie Peacock,Male,144,2006-07-17,2011-01-14,Exit,2006-07-17,,0.0,4.5,4.5,False,0,0,,,False
+Freddie Smith,Male,66,2016-03-11,2017-04-21,Exit,,,,,1.11,False,1,0,Mechanic (retired),"Wholesale, retail & repair of motor vehicles",False
+Gail Chadwick,Female,4606,1974-07-29,2024-12-25,Exit,1958-04-16,,16.28,66.69,50.41,False,7,3,,,False
+Gary Mallett,Male,424,1995-10-02,2000-10-01,Exit,,,,,5.0,False,1,2,Builder,Construction,False
+Gary Windass,Male,1451,2008-11-14,,Alive,1986-03-19,,22.66,39.28,16.62,False,1,2,Debt collector,Financial & insurance activities,False
+Geena Gregory,Female,331,2000-02-09,2002-10-11,Exit,1977-07-24,,22.55,25.22,2.67,False,0,0,Barmaid,Accommodation & food services,False
+Gemma Winter-Brown,Female,955,2014-10-01,,Alive,1990-08-24,,24.1,34.85,10.75,False,1,4,Barmaid,Accommodation & food services,False
+Geoff Metcalfe,Male,237,2018-03-28,2020-12-11,Death,1950-04-24,2020-12-09,67.93,70.63,2.7,False,3,1,DJ  Restaurateur,Accommodation & food services,False
+George Appleton,Male,48,2017-08-14,2019-01-07,Exit,2017-02-01,,0.53,1.93,1.4,False,0,0,,,False
+George Shuttleworth,Male,349,2020-09-16,,Alive,,,,,4.79,False,0,0,Undertaker,Other services,False
+George Wardle,Male,59,1985-03-11,1986-02-12,Exit,,,,,0.93,False,1,0,Van driver,Transport & storage,False
+Gina Seddon,Female,213,1988-03-14,2019-04-01,Exit,1969-11-01,,18.37,49.41,3.05,True,2,1,,,False
+Glenda Shuttleworth,Female,261,2022-08-05,,Alive,,,,,2.9,False,0,0,BarmaidStage school manager,Accommodation & food services,False
+Gloria Price,Female,172,2012-09-05,2014-02-21,Exit,1942-06-01,,70.26,71.73,1.46,False,0,1,Waitress,Accommodation & food services,False
+Gloria Todd,Female,231,1985-01-16,1988-11-30,Exit,1958-04-20,,26.74,30.61,3.87,False,0,0,Barmaid,Accommodation & food services,False
+Glory Bailey,Female,32,2021-05-14,,Alive,2021-03-17,,0.16,4.29,4.13,False,0,0,,,False
+Gordon Clegg,Male,104,1968-04-15,2012-04-20,Exit,1950-05-20,,17.91,61.92,3.21,True,1,1,Accountant,Financial & insurance activities,False
+Grace Vickers,Female,80,2019-11-20,2022-03-16,Exit,,,,,2.32,False,0,1,,,False
+Graeme Proctor,Male,261,2008-04-18,2011-06-13,Exit,1990-07-01,,17.8,20.95,3.15,False,1,0,Window Cleaner,Administrative & support services,False
+Greg Kelly,Male,117,1998-04-01,1999-05-16,Exit,1972-06-01,,25.83,26.95,1.12,False,0,0,,,False
+Gwen Davies,Female,91,1999-10-11,2000-06-16,Exit,,,,,0.68,False,1,1,Factory machinist,Manufacturing,False
+Harry Clayton,Male,35,1985-01-28,1985-09-04,Exit,,,,,0.6,False,1,2,Milkman,Transport & storage,False
+Harry Flagg,Male,121,2002-09-06,2004-08-06,Exit,,,,,1.92,False,1,1,Cleaner,Administrative & support services,False
+Harry Hewitt,Male,305,1960-12-14,1967-09-06,Death,1921-02-24,1967-09-04,39.8,46.52,4.72,True,2,2,Bus driver,Transport & storage,False
+Harry Mason,Male,85,2007-12-03,2008-09-26,Exit,,,,,0.82,False,3,1,Bookmaker,Other services,False
+Harry Platt,Male,162,2016-03-21,,Alive,2016-03-21,,0.0,9.28,9.28,False,0,0,,,False
+Hayley Cropper,Female,1447,1998-01-26,2014-01-22,Death,1966-05-07,2014-01-20,31.72,47.71,15.98,False,1,1,Factory supervisor/Café assistant,Manufacturing,False
+Hilda Ogden,Female,1614,1964-07-08,1987-12-25,Exit,1924-02-02,,40.43,63.89,23.46,False,1,4,Cleaner,Administrative & support services,False
+Hope Dobbs,Female,613,2010-12-09,,Alive,2010-12-06,,0.01,14.57,14.56,False,0,0,,,False
+Ida Barlow,Female,41,1960-12-09,1961-09-06,Death,1916-12-16,1961-09-11,43.98,44.74,0.76,False,1,2,Cleaner,Administrative & support services,False
+Ida Clough,Female,255,1978-04-03,1998-08-19,Exit,1937-11-15,,40.38,60.76,13.38,True,1,2,Machinist,Manufacturing,False
+Idris Hopkins,Male,44,1974-07-08,1975-02-10,Exit,,,,,0.59,False,1,1,Foundry worker,Manufacturing,False
+Imran Habeeb,Male,437,2017-11-17,2022-06-01,Death,1989-12-21,2022-05-30,27.91,32.44,4.53,False,2,1,Solicitor at Barlow Legal Services,"Professional, scientific & technical activities",False
+Irma Barlow,Female,393,1964-01-27,1971-12-08,Exit,1946-09-28,,17.33,25.19,7.86,False,1,1,Shop owner,"Wholesale, retail & repair of motor vehicles",False
+Ivan Cheveski,Male,76,1960-12-14,1967-12-27,Exit,1936-02-14,,24.83,31.87,4.03,True,1,2,,,False
+Ivy Brennan,Female,1167,1971-06-14,1994-03-25,Exit,1936-04-08,1995-08-23,35.18,57.96,20.78,True,2,1,Factory worker,Manufacturing,False
+Izzy Armstrong,Female,865,2010-04-16,,Alive,1986-01-24,,24.22,39.43,15.21,False,0,1,Machinist at Underworld,Manufacturing,False
+Jack Duckworth,Male,2093,1979-11-28,2010-11-08,Death,1936-11-07,2010-11-07,43.06,74.0,29.36,True,1,1,Barman,Accommodation & food services,False
+Jack Walker,Male,793,1960-12-14,1970-06-24,Death,1900-04-26,1970-06-30,60.64,70.18,9.54,False,1,2,Pub landlord,Accommodation & food services,False
+Jack Webster,Male,293,2010-09-06,,Alive,2010-09-06,,0.0,14.81,14.81,False,0,0,,,False
+Jackie Dobbs,Female,65,1998-03-29,2010-03-18,Exit,1954-08-24,2018-07-23,43.59,55.56,2.96,True,1,0,,,False
+Jackie Ingram,Female,75,1990-08-08,1992-06-15,Exit,,,,,1.85,False,2,0,Businesswoman,"Professional, scientific & technical activities",False
+Jacob Hay,Male,99,2021-02-01,2023-01-13,Exit,,,,,1.95,False,0,0,,,False
+Jake Windass,Male,131,2013-05-27,,Alive,2013-05-27,,0.0,12.09,10.09,True,0,0,,,False
+Jamie Armstrong,Male,107,1994-03-07,1997-05-02,Exit,1984-02-18,,10.05,13.2,3.15,False,0,0,,,False
+Jamie Baldwin,Male,416,2004-07-19,2011-04-24,Exit,1980-06-27,,24.06,30.82,3.95,True,0,0,Taxi driver,Transport & storage,False
+Janet Barlow,Female,71,1969-06-16,1977-02-21,Death,1942-11-28,1977-02-21,26.55,34.23,2.04,True,1,0,Town clerk,Public admin & defence; social security,False
+Janice Battersby,Female,1557,1997-01-06,2011-03-25,Exit,1965-06-17,,31.56,45.77,14.21,False,1,1,Machinist,Manufacturing,False
+Jason Grimshaw,Male,1509,2000-12-25,2016-06-29,Exit,1983-06-27,,17.5,33.01,15.51,False,1,0,Builder,Construction,False
+Jed Stone,Male,128,1961-04-24,2009-02-02,Exit,1940-03-06,,21.13,68.91,2.77,True,0,0,Criminal (retired),Other services,False
+Jenna Kamara,Female,154,2012-09-19,2014-08-13,Exit,1984-04-24,,28.41,30.3,1.9,False,0,0,,,False
+Jenny Connor,Female,1390,1986-01-06,,Alive,1971-03-04,,14.84,54.32,15.48,True,2,1,Part-time counter staff at The Kabin,"Wholesale, retail & repair of motor vehicles",False
+Jerry Booth,Male,651,1962-07-23,1975-10-29,Death,1941-08-02,1975-11-10,20.97,34.27,10.3,True,1,1,Builder,Construction,False
+Jerry Morton,Male,168,2007-03-18,2008-09-29,Exit,1957-11-12,,49.34,50.88,1.54,False,1,4,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Jesse Chadwick,Male,90,2008-12-15,2024-12-25,Exit,1969-11-20,,39.07,55.1,2.0300000000000002,True,3,0,Former children's entertainer  Electrician,Construction,False
+Jessie Jackson,Female,63,2005-02-28,2006-01-27,Exit,,,,,0.91,False,0,0,Factory worker,Manufacturing,False
+Jim McDonald,Male,1168,1989-10-27,2018-10-12,Exit,1955-11-14,,33.95,62.91,16.95,True,2,3,,,False
+Joanne Jackson,Female,218,2005-02-28,2007-07-20,Exit,1987-01-05,,18.15,20.54,2.39,False,0,0,Factory worker,Manufacturing,False
+Jodie Morton,Female,63,2007-01-29,2007-11-11,Exit,1978-12-21,,28.11,28.89,0.78,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Joe Carter,Male,135,2002-05-26,2003-06-20,Exit,,,,,1.07,False,0,0,Businessman,Financial & insurance activities,False
+Joe McIntyre,Male,175,2008-05-26,2010-02-08,Death,1960-04-11,2010-02-08,48.12,49.83,1.71,False,2,1,Kitchen Fitter,Construction,False
+Joel Deering,Male,125,2023-09-07,2024-09-27,Death,,2024-09-27,,,1.06,False,1,3,Solicitor,"Professional, scientific & technical activities",False
+John Stape,Male,346,2007-05-06,2011-10-28,Death,1978-11-22,2011-10-28,28.45,32.93,4.48,False,1,2,Teacher,Education,False
+Johnny Connor,Male,587,2015-10-05,2021-10-22,Death,1953-07-30,2021-10-18,62.18,68.22,6.04,False,2,3,Publican,Accommodation & food services,False
+Joseph Brown,Male,319,2011-12-23,,Alive,2011-12-23,,0.0,13.52,11.52,True,0,0,,,False
+Joshua Peacock,Male,328,2002-04-08,2011-01-14,Exit,2002-04-08,,0.0,8.77,8.77,False,0,0,,,False
+Josie Clarke,Female,101,1995-01-16,1996-08-16,Exit,,,,,1.58,False,1,1,Doctor's receptionist,Human health & social work activities,False
+Joyce Smedley,Female,71,1996-02-23,1997-02-21,Death,,1997-02-21,,,1.0,False,0,1,Cleaner,Administrative & support services,False
+Jude Appleton,Male,91,2016-12-25,2019-01-02,Exit,1984-11-28,,32.07,34.09,2.02,False,1,1,,,False
+Judy Mallett,Female,355,1995-10-02,1999-09-26,Death,1971-08-14,1999-09-24,24.13,28.11,3.98,False,1,2,Arcade employee,Other services,False
+Julie Carp,Female,707,2008-04-25,2025-05-05,Death,1977-05-01,2025-05-05,30.98,48.01,7.18,True,1,0,Factory machinist,Manufacturing,False
+Kal Nazir,Male,146,2013-12-08,2015-05-28,Death,1972-03-01,2015-05-25,41.77,43.23,1.46,False,1,2,Personal trainer,Other services,False
+Karen McDonald,Female,496,2000-06-21,2004-12-26,Exit,1975-07-14,,24.94,29.45,4.51,False,2,0,Machinist,Manufacturing,False
+Karl Munro,Male,305,2011-06-17,2013-09-13,Exit,1963-04-27,,48.14,50.38,2.24,False,1,0,Barman,Accommodation & food services,False
+Kate Connor,Female,447,2015-10-05,2019-09-13,Exit,1989-11-16,,25.88,29.82,3.94,False,0,0,,,False
+Katy Armstrong,Female,396,2010-07-30,2015-03-20,Exit,1994-09-10,2017-10-18,15.89,20.52,4.64,False,0,1,Receptionist,Administrative & support services,False
+Katy Harris,Female,282,2002-11-13,2005-04-20,Death,1986-09-26,2005-04-20,16.13,18.57,2.43,False,0,0,,,False
+Kayleigh Morton,Female,72,2007-03-18,2008-09-29,Exit,1994-12-01,,12.29,13.83,1.54,False,0,0,,,False
+Keith Appleyard,Male,128,2005-03-23,2006-07-30,Exit,,,,,1.35,False,1,3,Taxidermist,Other services,False
+Kelly Crabtree,Female,514,2004-09-06,2010-03-19,Exit,1979-04-24,,25.37,30.9,5.53,False,0,0,Factory machinist,Manufacturing,False
+Kelly Neelan,Female,215,2019-06-28,2022-09-23,Exit,2005-05-22,,14.1,17.34,3.24,False,0,0,,,False
+Kelly Thomson,Female,53,1996-02-09,1996-12-20,Exit,1977-10-01,,18.36,19.22,0.86,False,0,0,Childminder,Education,False
+Ken Barlow,Male,4909,1960-12-09,,Alive,1939-10-09,,21.17,85.72,64.56,False,4,5,Teacher (retired),Education,False
+Kevin Webster,Male,3576,1983-10-19,,Alive,1965-09-03,,18.12,59.82,41.7,False,4,4,Co-owner of Websters' Auto Centre,"Wholesale, retail & repair of motor vehicles",False
+Kimberley Taylor,Female,105,1989-10-25,1992-11-27,Exit,,,,,3.09,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Kirk Sutherland,Male,1711,2000-05-22,,Alive,1982-01-28,,18.31,43.42,25.11,False,1,0,Packer at Underworld,Manufacturing,True
+Kirsty Soames,Female,196,2011-09-07,2013-04-03,Exit,1983-05-24,2021-09-01,28.29,29.86,1.57,False,0,1,Police Officer (formerly)  Packer,Public admin & defence; social security,False
+Kit Green,Unknown,198,2024-05-13,,Alive,1993-05-20,,30.98,32.11,1.13,False,0,0,Detective Constable,Public admin & defence; social security,False
+Kylie Platt,Female,624,2010-08-26,2016-07-20,Death,1987-08-22,2016-07-15,23.01,28.9,5.89,False,1,2,Nail technician,Other services,False
+Lauren Bolton,Female,226,2022-11-02,,Alive,2005-12-01,,16.92,19.58,2.66,False,0,1,,,False
+Leanne Battersby,Female,2800,1997-07-04,,Alive,1981-07-02,,16.01,43.99,23.990000000000002,True,3,2,Co-owner of Speed Daal,Accommodation & food services,False
+Len Fairclough,Male,1764,1961-01-25,1983-05-11,Death,1924-11-05,1983-12-07,36.22,59.09,22.86,False,2,1,Builder,Construction,False
+Leo Thompkins,Male,67,2021-09-27,2022-09-26,Death,,2022-09-26,,,1.0,False,0,0,Civil engineer,Construction,False
+Leonard Swindley,Male,197,1960-12-16,1965-05-31,Exit,1916-12-09,,44.02,48.47,4.45,False,0,0,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Les Battersby-Brown,Male,1022,1997-07-04,2008-05-05,Exit,1955-08-28,2024-11-27,41.85,52.69,10.84,False,3,2,Taxi driverRoadie,Transport & storage,False
+Lewis Archer,Male,186,2009-12-18,2019-01-01,Death,1950-10-02,2019-01-01,59.21,68.25,2.04,True,0,0,Male Escort  Waiter,Accommodation & food services,False
+Liam Connor,Male,332,2006-08-30,2008-10-17,Death,1974-02-25,2008-10-16,32.51,34.64,2.13,False,1,2,Businessman,Financial & insurance activities,False
+Liam Connor (son of Maria Connor),Male,312,2009-07-03,,Alive,2009-07-01,,0.01,16.0,15.99,False,0,0,,,False
+Lily Platt,Female,301,2013-08-26,,Alive,2013-08-26,,0.0,11.84,11.84,False,0,0,,,False
+Linda Baldwin,Female,329,1998-10-14,2001-09-05,Exit,1975-06-23,,23.31,26.2,2.89,False,1,0,Machinist,Manufacturing,False
+Linda Cheveski,Female,107,1960-12-09,1984-06-20,Exit,1940-01-08,,20.92,44.45,4.55,True,1,2,Factory worker,Manufacturing,False
+Lionel Petty,Male,47,1965-05-31,1966-01-26,Exit,,,,,0.66,False,1,1,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Lisa Duckworth,Female,75,1992-02-05,1993-02-12,Death,1970-11-16,1993-02-12,21.22,22.24,1.02,False,1,1,,,False
+Lisa Swain,Female,247,2021-05-07,,Alive,,,,,4.15,False,1,1,Detective Sergeant,Public admin & defence; social security,False
+Liz McDonald,Female,2420,1989-10-27,2020-06-17,Exit,1957-11-03,,31.98,62.62,24.64,True,3,3,BarmaidReceptionist,Accommodation & food services,False
+Llio Winter-Brown,Female,92,2019-10-30,,Alive,2019-10-30,,0.0,5.67,3.67,True,0,0,,,False
+Lloyd Mullaney,Male,954,2005-06-20,2015-09-25,Exit,1964-08-01,,40.88,51.15,10.26,False,0,2,Taxi driver  Businessman,Transport & storage,False
+Lorraine Brownlow,Female,73,1997-11-03,1999-03-12,Exit,,,,,1.35,False,0,0,Barmaid,Accommodation & food services,False
+Lucille Hewitt,Female,744,1960-12-21,1974-07-01,Exit,1949-05-04,,11.63,25.16,13.52,False,0,0,Factory worker,Manufacturing,False
+Lucy Barlow,Female,95,2002-09-22,2003-11-07,Exit,1975-07-25,2008-10-02,27.16,28.29,1.13,False,1,1,Florist,"Wholesale, retail & repair of motor vehicles",False
+Luke Britton,Male,293,2014-03-03,2018-01-05,Death,1990-12-29,2018-01-05,23.18,27.02,3.84,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Luke Strong,Male,78,2009-02-20,2009-10-19,Exit,1975-05-01,,33.81,34.47,0.66,False,0,0,Businessman,Financial & insurance activities,False
+Maddie Heath,Female,131,2013-12-25,2015-06-01,Death,1997-02-03,2015-06-01,16.89,18.32,1.43,False,0,0,"Car Valet, Packer","Wholesale, retail & repair of motor vehicles",False
+Maggie Cooke,Female,414,1968-04-01,1975-01-13,Exit,1924-06-12,,43.8,50.59,6.78,False,2,1,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Mandy Kamara,Female,81,2012-09-14,2013-08-09,Exit,,,,,0.9,False,1,1,Chef,Accommodation & food services,False
+Marcus Dent,Male,318,2007-09-07,2014-07-14,Exit,1977-10-01,,29.93,36.78,3.85,True,0,0,"Midwife, formerly a sonographer",Human health & social work activities,False
+Maria Connor,Female,2144,2000-05-19,,Alive,1983-05-05,,17.04,42.15,25.11,False,3,2,Hairdresser  Councillor,Other services,False
+Marion Yeats,Female,103,1982-02-15,1983-12-07,Exit,1950-12-18,,31.16,32.97,1.81,False,1,1,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Mark Casey,Male,106,1989-04-03,1991-11-11,Exit,1969-10-15,,19.47,22.07,2.61,False,0,0,MechanicGarage owner,"Wholesale, retail & repair of motor vehicles",False
+Mark Redman,Male,158,1983-10-31,2006-04-17,Exit,1983-05-09,,0.48,22.94,5.0,True,0,0,,,False
+Martha Longhurst,Female,299,1960-12-14,1964-05-13,Death,1896-09-02,1964-05-13,64.28,67.69,3.41,False,1,2,Cleaner,Administrative & support services,False
+Martin Cheveski,Male,34,1980-06-16,1980-12-31,Exit,1964-07-01,,15.96,16.5,0.54,False,0,0,,,False
+Martin Platt,Male,1645,1985-01-28,2018-03-26,Exit,1968-06-02,,16.66,49.81,20.42,True,1,4,Nurse,Human health & social work activities,False
+Mary Taylor,Female,1091,2008-11-26,,Alive,1970-06-01,,38.49,55.08,16.59,False,1,1,Assistant at Preston's Petals,"Wholesale, retail & repair of motor vehicles",False
+Mason Radcliffe,Male,114,2023-09-11,2025-01-06,Death,2008-06-01,2025-01-06,15.28,16.6,1.32,False,0,0,,,False
+Matt Ramsden,Male,138,2000-11-22,2006-07-17,Exit,,,,,1.6500000000000001,True,2,1,Doctor,Human health & social work activities,False
+Maud Grimes,Female,462,1993-04-02,1999-11-01,Exit,1922-04-01,,71.0,77.59,6.58,False,1,2,Shop assistant (retired),"Wholesale, retail & repair of motor vehicles",False
+Maureen Webster,Female,401,1993-03-12,2006-12-27,Exit,1945-01-13,,48.16,61.95,4.79,True,4,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Mavis Wilton,Female,1788,1971-08-11,1997-10-10,Exit,1937-04-07,,34.34,60.51,26.17,False,1,0,NewsagentBed and Breakfast Manager,Accommodation & food services,False
+Max Turner,Male,889,2010-08-29,2025-03-12,Exit,2006-09-05,,3.98,18.52,14.54,False,0,0,Trainee hairdresser,Other services,False
+Maxine Peacock,Female,662,1995-05-03,2003-01-13,Death,1975-11-10,2003-01-13,19.48,27.18,7.7,False,1,1,Hairdresser,Other services,False
+Maya Sharma,Female,123,2003-09-19,2004-11-24,Exit,,,,,1.18,False,6,0,Solicitor,"Professional, scientific & technical activities",True
+Megan Hopkins,Female,42,1974-07-10,1975-02-10,Exit,,,,,0.59,False,1,1,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Mel Morton,Female,116,2007-03-18,2008-10-03,Exit,1989-04-10,,17.94,19.48,1.55,False,0,0,Police officer,Public admin & defence; social security,False
+Michael Bailey,Male,465,2019-06-12,,Alive,1990-03-01,,29.28,35.33,6.05,False,0,1,Junior manager at Underworld,Manufacturing,False
+Michael Rodwell,Male,249,2014-03-24,2016-11-21,Death,1955-09-13,2016-11-18,58.53,61.18,2.66,False,2,1,"Ice cream man, businessman (formerly)",Accommodation & food services,False
+Michelle Connor,Female,1665,2006-04-03,2019-12-27,Exit,1976-04-21,,29.95,43.68,13.73,False,2,3,Restaurateur  Wedding planner,Accommodation & food services,False
+Mick Hopwood,Male,66,2002-10-21,2003-09-03,Exit,1962-11-11,,39.94,40.81,0.87,False,0,0,Police Constable,Public admin & defence; social security,False
+Mike Baldwin,Male,2350,1976-10-11,2006-04-07,Death,1942-02-16,2006-04-07,34.65,64.14,29.49,False,5,3,Businessman,Financial & insurance activities,False
+Minnie Caldwell,Female,987,1960-12-14,1976-04-07,Exit,1900-09-30,,60.21,75.52,15.31,False,1,0,Mill worker (retired),Manufacturing,False
+Moira Pollock,Female,74,2017-07-12,2020-01-06,Exit,,,,,2.49,False,1,0,Practice manager of Rosamund Street Medical Centre,Human health & social work activities,False
+Molly Dobbs,Female,473,2005-09-05,2010-12-09,Death,1984-10-21,2010-12-06,20.87,26.12,5.25,False,1,1,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Molly Hardcastle,Female,80,2000-11-05,2002-05-20,Exit,,,,,1.54,False,0,0,Practice nurse,Human health & social work activities,False
+Myra Booth,Female,60,1963-09-04,1968-02-21,Exit,,,,,0.82,True,1,1,Typist,Administrative & support services,False
+Natalie Barnes,Female,489,1997-02-26,2000-12-31,Exit,1957-10-12,,39.38,43.22,3.84,False,2,2,Landlady,Real estate activities,False
+Natasha Blakeman,Female,192,2008-05-12,2021-10-25,Death,1981-02-16,2021-10-19,27.23,40.67,3.4299999999999997,True,0,1,Salon owner,Other services,False
+Nathan Cooper,Male,99,2005-04-01,2006-07-19,Exit,,,,,1.3,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Nick Tilsley,Male,2642,1981-01-05,,Alive,1980-12-31,,0.01,44.5,36.480000000000004,True,4,1,Co-owner of Viaduct Bistro,Accommodation & food services,False
+Nicola Rubinstein,Female,98,2017-06-12,2019-02-01,Exit,1990-05-15,,27.08,28.72,1.64,False,0,1,Social Worker,Human health & social work activities,False
+Nina Lucas,Female,515,2019-11-11,,Alive,2002-04-24,,17.55,23.18,5.63,False,0,0,StudentWaitress at Roy's Rolls,Accommodation & food services,False
+Nita Desai,Female,122,1999-01-08,2000-05-19,Exit,1975-04-30,,23.69,25.05,1.36,False,1,0,Shop manager,"Wholesale, retail & repair of motor vehicles",False
+Norma Ford,Female,121,1972-05-29,1974-07-10,Exit,1945-07-03,,26.9,29.02,2.11,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Norris Cole,Male,1654,1994-03-11,2020-06-24,Exit,1940-03-05,2021-09-15,54.02,80.3,22.29,True,3,0,Newsagent (retired),"Wholesale, retail & repair of motor vehicles",False
+Oliver Battersby,Male,139,2017-02-20,2020-11-27,Death,2017-02-20,2020-11-27,0.0,3.77,3.77,False,0,0,,,False
+Owen Armstrong,Male,547,2010-06-09,2015-04-15,Exit,1958-09-20,,51.72,56.57,4.85,False,1,2,,,False
+Pam Hobsworth,Female,129,2008-07-16,2012-05-03,Exit,,,,,3.8,False,4,0,Saleswoman,"Wholesale, retail & repair of motor vehicles",False
+Pat Phelan,Male,359,2013-10-02,2018-06-01,Death,1963-10-30,2018-05-28,49.92,54.58,2.65,True,2,1,Businessman  Builder,Construction,False
+Patrick Tussel,Male,72,2002-12-15,2005-01-23,Exit,1965-06-07,,37.52,39.63,2.11,False,0,2,Taxi driver,Transport & storage,False
+Paul Clayton,Male,113,2000-11-29,2008-05-25,Exit,1986-02-16,,14.78,22.27,1.48,True,0,0,Chef,Accommodation & food services,False
+Paul Connor,Male,103,2006-09-06,2007-06-06,Death,1969-02-01,2007-06-06,37.59,38.34,0.75,False,1,0,Businessman,Financial & insurance activities,False
+Paul Foreman,Male,605,2018-05-11,2024-09-09,Death,1990-08-24,2024-09-09,27.71,34.05,6.33,False,1,0,,,False
+Paul Kershaw,Male,179,2010-12-08,2013-08-21,Exit,,,,,2.7,False,1,0,Firefighter,Public admin & defence; social security,False
+Paula Martin,Female,90,2018-08-17,2020-06-10,Exit,1967-07-01,,51.13,52.94,1.82,False,1,2,Solicitor,"Professional, scientific & technical activities",False
+Penny King,Female,118,2003-08-08,2006-04-17,Exit,,,,,2.69,False,1,0,Businesswoman,"Professional, scientific & technical activities",False
+Percy Sugden,Male,982,1983-08-22,1997-10-20,Exit,1922-04-08,,61.37,75.53,14.16,False,1,0,Caretaker (retired),Administrative & support services,False
+Peter Barlow,Male,1911,1965-04-05,2023-12-26,Exit,1965-04-05,,0.0,58.72,28.72,True,6,2,,,True
+Phil Jennings,Male,63,1990-09-19,1991-07-29,Exit,,,,,0.86,False,1,0,Businessman,Financial & insurance activities,False
+Phil Nail,Male,61,2005-08-15,2006-03-27,Exit,,,,,0.61,False,0,0,Reflexologist,Human health & social work activities,False
+Phill Whittaker,Male,80,2021-07-16,2022-07-25,Exit,1975-12-08,,45.6,46.63,1.02,False,2,0,,,False
+Phyllis Pearce,Female,505,1982-09-20,1996-05-01,Exit,1921-02-07,,61.62,75.23,13.61,False,1,1,Cleaner (retired)previously Waitress,Other services,False
+Poppy Morales,Female,60,2008-12-17,2009-06-08,Exit,,,,,0.47,False,0,0,Barmaid,Accommodation & food services,False
+Rana Habeeb,Female,244,2016-02-19,2019-03-20,Death,1991-11-01,2019-03-19,24.3,27.38,3.08,False,1,0,Nurse,Human health & social work activities,False
+Raquel Watts,Female,533,1991-01-23,2000-01-02,Exit,1966-05-26,,24.66,33.6,5.43,True,2,2,Barmaid,Accommodation & food services,False
+Ray Crosby,Male,117,2019-07-05,2021-11-19,Exit,1968-01-01,,51.51,53.88,2.38,False,0,1,Hotelier,Accommodation & food services,False
+Ray Langton,Male,798,1966-02-21,2005-04-10,Death,1947-02-18,2005-04-08,19.01,58.14,10.35,True,2,2,Builder,Construction,False
+Reg Holdsworth,Male,410,1989-10-25,1995-11-24,Exit,1942-03-14,,47.62,53.7,6.08,False,2,1,Retail manager,"Wholesale, retail & repair of motor vehicles",False
+Renee Roberts,Female,237,1976-05-10,1980-07-30,Death,1943-03-03,1980-07-30,33.19,37.41,4.22,False,1,0,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Richard Hillman,Male,220,2001-06-20,2003-03-14,Death,1951-12-20,2003-03-14,49.5,51.23,1.73,False,3,0,Businessman,Financial & insurance activities,False
+Rita Tanner,Female,3966,1964-12-02,,Alive,1932-02-25,,32.77,93.34,53.0,True,4,0,Newsagent at The Kabin,"Wholesale, retail & repair of motor vehicles",False
+Rob Donovan,Male,346,2012-07-09,2025-03-26,Exit,1979-11-01,,32.69,45.4,4.97,True,0,1,,,False
+Roger Stiles,Male,66,2007-01-01,2008-10-08,Exit,,,,,1.77,False,0,0,Plumber,Construction,False
+Ronnie Bailey,Male,285,2021-02-19,,Alive,1969-10-18,,51.34,55.7,4.36,False,2,0,Developer,Real estate activities,False
+Ronnie Clayton,Male,56,2005-10-03,2006-06-11,Exit,1975-06-30,,30.26,30.95,0.69,False,1,0,Taxi driver,Transport & storage,False
+Rosie Webster,Female,1365,1990-12-25,2018-06-08,Exit,1990-12-24,,0.0,27.46,22.450000000000003,True,0,0,Game show assistant,Other services,False
+Roy Cropper,Male,2823,1995-07-19,,Alive,1954-09-21,,40.82,70.77,29.95,False,2,0,Proprietor of Roy's Rolls,Accommodation & food services,False
+Ruby Dobbs,Female,409,2012-09-09,,Alive,2012-09-09,,0.0,12.8,12.8,False,0,0,,,False
+Russ Gray,Male,51,2010-05-28,2011-11-18,Exit,,,,,1.48,False,0,0,,,False
+Ryan Connor,Male,943,2006-08-30,,Alive,1992-01-14,,14.63,33.46,11.83,True,0,0,DJ Rovers' barman,Accommodation & food services,False
+Sally Metcalfe,Female,3856,1986-01-27,,Alive,1967-07-11,,18.55,57.97,39.42,False,4,2,Machinery Supervisor at Underworld,Manufacturing,True
+Sam Blakeman,Male,296,2020-10-02,,Alive,2011-04-28,,9.43,14.17,4.74,False,0,0,,,False
+Sam Kingston,Male,139,2000-06-19,2002-06-07,Exit,,,,,1.97,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Samantha Failsworth,Female,225,1996-07-17,1998-06-15,Exit,1976-03-05,,20.37,22.28,1.91,False,1,0,Barmaid,Accommodation & food services,False
+Samir Rachid,Male,67,1994-08-24,1995-06-02,Death,1973-01-14,1995-06-02,21.61,22.38,0.77,False,1,0,Waiter,Accommodation & food services,False
+Sandra Butler,Female,51,1969-11-17,1970-08-31,Exit,1952-10-01,,17.13,17.91,0.79,False,0,0,Hairdresser,Other services,False
+Sandra Petty,Female,39,1964-11-04,1965-12-01,Exit,1946-06-21,,18.37,19.45,1.07,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Sandra Stubbs,Female,53,1988-05-02,1989-02-22,Exit,,,,,0.81,False,1,1,Cleaner,Administrative & support services,False
+Sarah Platt,Female,2725,1987-02-02,,Alive,1987-02-02,,0.0,38.41,31.41,True,2,3,Underworld manager,Manufacturing,False
+Scooter Makuna,Male,50,2005-01-26,2005-11-06,Exit,1985-04-01,,19.82,20.6,0.78,False,0,0,,,False
+Sean Skinner,Male,103,1994-08-01,1997-05-05,Exit,,,,,2.76,False,1,0,Bookmaker,Other services,False
+Sean Tully,Male,2128,2003-07-13,,Alive,1976-09-13,,26.83,48.79,21.97,False,0,1,Machinist,Manufacturing,False
+Seb Franklin,Male,315,2016-10-10,2021-05-07,Death,2001-03-06,2021-05-07,15.6,20.17,4.57,False,0,0,Handyman,Construction,False
+Shannon Tattersall,Female,61,1997-08-27,1998-04-17,Death,1997-08-27,1998-04-17,0.0,0.64,0.64,False,0,0,,,False
+Sharif Nazir,Male,165,2014-02-24,2016-11-04,Exit,,,,,2.69,False,1,1,Businessman,Financial & insurance activities,False
+Sharon Bentley,Female,209,1982-03-01,2021-06-25,Exit,1965-03-22,,16.94,56.26,2.33,True,1,0,,,False
+Sheila Crossley,Female,161,1961-01-04,1974-10-02,Exit,1940-04-23,,20.7,34.44,2.74,True,1,1,Factory worker,Manufacturing,False
+Shelley Unwin,Female,763,2001-05-09,2006-09-29,Exit,1973-11-19,,27.47,32.86,5.39,False,1,0,Manageress,Administrative & support services,True
+Shirley Armitage,Female,153,1983-09-05,1989-04-12,Exit,1961-04-11,,22.4,28.0,5.6,False,0,0,Machinist,Manufacturing,False
+Shona Platt,Female,873,2016-12-16,,Alive,1987-10-06,,29.2,37.73,8.54,False,1,1,Assistant at Roy's Rolls,Accommodation & food services,False
+Sian Powers,Female,206,2009-01-26,2011-12-30,Exit,1993-12-28,,15.08,18.0,2.92,False,0,0,,,False
+Simon Barlow,Male,931,2003-07-06,2024-06-03,Exit,2003-07-06,,0.0,20.91,15.93,True,0,0,,,False
+Sinead Osbourne,Female,591,2013-04-19,2019-10-25,Death,1994-03-10,2019-10-25,19.11,25.63,6.52,False,1,1,,,False
+Sonia Marshall,Female,126,2003-06-16,2005-03-20,Exit,,,,,1.76,False,0,0,Factory machinist,Manufacturing,False
+Sophie Webster,Female,1566,1994-11-04,2019-10-09,Exit,1994-11-04,,0.0,24.93,24.93,False,0,0,,,False
+Spider Nugent,Male,340,1997-12-15,2023-07-19,Exit,1972-01-04,,25.95,51.54,4.59,True,1,0,Detective Constable,Public admin & defence; social security,False
+Stan Ogden,Male,1226,1964-06-29,1984-03-07,Death,1919-05-17,1984-11-21,45.12,65.52,20.4,False,1,4,Window cleaner (retired),Other services,False
+Stella Price,Female,455,2011-06-16,2014-04-02,Exit,1963-08-11,,47.85,50.64,2.8,False,1,2,Waitress,Accommodation & food services,False
+Steph Barnes,Female,130,1990-02-12,1995-10-04,Exit,1965-06-11,,24.67,30.31,2.6399999999999997,True,1,1,Store assistant,"Wholesale, retail & repair of motor vehicles",False
+Steph Britton,Female,319,2013-02-18,2018-02-07,Exit,1995-02-22,,17.99,22.96,4.97,False,0,0,Waitress,Accommodation & food services,False
+Stephen Reid,Male,299,1996-01-29,2023-10-13,Death,1957-02-06,2023-10-10,38.98,66.67,2.7,True,1,0,Businessman,Financial & insurance activities,False
+Steve Fisher,Male,112,1977-08-29,1979-12-10,Exit,1957-05-08,,20.31,22.59,2.28,False,0,0,Trainee/Assistant Manager at Baldwin's Casuals,"Wholesale, retail & repair of motor vehicles",False
+Steve McDonald,Male,3780,1989-12-06,,Alive,1974-06-26,,15.45,51.01,35.56,False,7,4,Co-owner of Street Cars,Transport & storage,False
+Steve Tanner,Male,57,1967-05-03,1967-12-27,Death,1924-10-30,1968-09-25,42.51,43.9,1.4,False,2,0,Soldier,Public admin & defence; social security,False
+Stu Carpenter,Male,255,2021-10-06,2024-10-14,Exit,1955-06-10,,66.32,69.35,3.02,False,1,1,Chef,Accommodation & food services,False
+Sue Clayton,Female,27,1985-01-30,1985-08-28,Exit,,,,,0.57,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Summer Spellman,Female,562,2017-06-16,,Alive,2004-08-29,,12.8,20.84,8.04,False,0,0,,,False
+Sunita Alahan,Female,757,2001-03-21,2013-04-03,Death,1978-08-01,2013-04-03,22.64,34.67,9.04,True,1,2,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Susan Barlow,Female,177,1965-04-05,2001-02-11,Death,1965-04-05,2001-02-11,0.0,35.85,11.23,True,1,1,,,False
+Suzie Birchall,Female,195,1977-01-10,1983-06-29,Exit,1958-05-03,,18.69,25.16,2.47,True,1,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Sylvia Goodwin,Female,161,2011-04-11,2013-08-02,Exit,1933-10-14,2019-01-23,77.49,79.8,2.31,False,2,2,Waitress,Accommodation & food services,False
+Tanya Pooley,Female,143,1993-05-31,1994-09-23,Exit,,,,,1.31,False,0,0,Barmaid,Accommodation & food services,False
+Tara Mandal,Female,54,2008-09-15,2009-05-11,Exit,,,,,0.65,False,0,0,Art gallery proprietor,Other services,False
+Ted Page,Male,73,2008-04-28,2010-01-29,Exit,1940-02-01,2021-02-20,68.24,69.99,1.75,False,1,1,Businessman (Retired),Financial & insurance activities,False
+Teresa Bryant,Female,105,2007-03-28,2010-05-14,Exit,1958-10-01,,48.49,51.62,3.13,False,1,5,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Terry Bradshaw,Male,48,1976-02-02,1976-12-22,Exit,,,,,0.89,False,0,0,Soldier,Public admin & defence; social security,False
+Terry Duckworth,Male,365,1983-08-01,2012-05-11,Exit,1964-06-04,,19.16,47.93,9.91,True,1,3,Businessman,Financial & insurance activities,False
+Tim Metcalfe,Male,1276,2013-01-21,,Alive,1972-01-28,,40.98,53.42,12.44,False,3,1,Co-owner of Street Cars,Transport & storage,True
+Tina Fowler,Female,152,1989-03-13,1990-09-03,Exit,,,,,1.48,False,0,0,Barmaid,Accommodation & food services,False
+Tina McIntyre,Female,870,2008-01-07,2014-06-02,Death,1991-02-18,2014-06-02,16.88,23.29,6.4,False,0,1,Barmaid,Accommodation & food services,False
+Todd Grimshaw,Male,1253,2001-01-14,,Alive,1985-01-13,,16.0,40.46,12.46,True,0,1,Undertaker,Other services,False
+Tom Ferguson,Male,58,1999-03-03,2000-01-28,Exit,1980-07-10,,18.64,19.55,0.91,False,0,0,Hairdresser,Other services,False
+Tom Kerrigan,Male,69,2008-02-06,2009-04-24,Exit,1977-09-01,,30.43,31.64,1.21,False,0,0,Businessman,Financial & insurance activities,False
+Tommy Duckworth,Male,445,1992-09-09,2013-10-13,Exit,1992-09-09,,0.0,21.09,7.09,True,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Tommy Harris,Male,238,2002-11-13,2005-03-07,Death,1964-01-08,2005-03-04,38.85,41.15,2.31,False,1,2,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Tony Gordon,Male,286,2007-09-16,2010-06-09,Death,1971-05-01,2010-06-01,36.38,39.09,2.71,False,2,0,Businessman,Financial & insurance activities,False
+Tony Horrocks,Male,97,1995-11-22,1998-12-11,Death,1975-06-16,1999-02-06,20.44,23.64,3.21,False,0,0,Mechanic,"Wholesale, retail & repair of motor vehicles",False
+Tony Stewart,Male,254,2003-03-02,2015-11-18,Death,1966-03-14,2016-04-22,36.97,50.11,2.14,True,0,1,Electrician,Construction,False
+Toyah Habeeb,Female,1494,1997-07-04,,Alive,1982-05-28,,15.1,43.09,14.99,True,2,2,Counsellor  Waitress,Human health & social work activities,False
+Tracy McDonald,Female,2601,1977-01-24,,Alive,1977-01-24,,0.0,48.43,38.43,True,4,1,Manager of Preston's Petals,"Wholesale, retail & repair of motor vehicles",False
+Trevor Dean,Male,63,2010-01-28,2011-03-25,Exit,,,,,1.15,False,0,0,Bin man  Dishwasher  Factory worker,Manufacturing,False
+Tricia Armstrong,Female,193,1994-03-07,1997-05-02,Exit,1960-02-22,,34.04,37.19,3.15,False,1,2,Cleaner,Administrative & support services,False
+Tricia Hopkins,Female,122,1973-09-24,1976-06-09,Exit,1957-03-05,,16.56,19.26,2.71,False,0,0,Shop worker,"Wholesale, retail & repair of motor vehicles",False
+Tyrone Dobbs,Male,2645,1998-11-30,,Alive,1982-12-17,,15.95,42.54,26.58,False,2,2,Co-owner of Websters' Auto Centre,"Wholesale, retail & repair of motor vehicles",False
+Umed Alahan,Male,42,2009-03-09,2009-10-16,Exit,,,,,0.61,False,0,0,Shop owner,"Wholesale, retail & repair of motor vehicles",False
+Valerie Barlow,Female,632,1961-08-07,1971-01-27,Death,1942-11-26,1971-01-27,18.7,28.17,9.47,False,1,2,Hairdresser,Other services,False
+Vera Duckworth,Female,2275,1974-08-19,2008-01-18,Death,1937-09-03,2008-01-18,36.96,70.37,31.55,True,1,1,Waitress (retired),Accommodation & food services,False
+Vera Hopkins,Female,31,1973-09-26,1975-02-10,Exit,1926-08-31,,47.07,48.45,1.37,False,1,1,Shopkeeper,"Wholesale, retail & repair of motor vehicles",False
+Vernon Tomlin,Male,238,2005-12-02,2008-09-22,Exit,,,,,2.81,False,1,0,Musician,Other services,False
+Vicky McDonald,Female,260,1990-01-05,1998-12-30,Exit,1977-01-08,,12.99,21.97,6.98,True,2,0,Wine bar proprietor,Accommodation & food services,False
+Vikram Desai,Male,330,1999-02-07,2002-12-18,Exit,1979-02-20,,19.96,23.82,3.86,False,0,0,Shop assistant,"Wholesale, retail & repair of motor vehicles",False
+Vinny Sorrell,Male,145,1999-08-02,2000-11-10,Exit,,,,,1.28,False,0,2,Barman,Accommodation & food services,False
+Violet Wilson,Female,491,2004-10-08,2024-04-10,Exit,1980-01-01,,24.77,44.27,3.73,True,0,1,Barmaid,Accommodation & food services,False
+Warren Baldwin,Male,73,2004-08-13,2006-11-22,Exit,1986-12-31,,17.62,19.89,2.28,False,0,0,Footballer,Other services,False
+Wiki Dankowska,Female,145,2007-03-02,2009-02-06,Exit,,,,,1.94,False,0,1,Factory worker,Manufacturing,False
+Yasmeen Metcalfe,Female,839,2014-07-04,2025-03-10,Exit,1953-09-16,,60.8,71.48,10.68,False,2,1,Charity worker,Other services,False
+Zeedan Nazir,Male,420,2014-09-05,2023-02-20,Exit,1995-11-25,,18.78,27.24,5.46,True,2,0,Co-owner of Speed Daal Chef,Accommodation & food services,False
+Zoe Tattersall,Female,126,1997-05-19,1998-12-16,Exit,1981-09-13,,15.68,17.26,1.58,False,0,1,,,False
