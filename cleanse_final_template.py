@@ -7,7 +7,6 @@ from cleaner_functions import clean_column_names, years_diff
 input_fp = "./Data/character_data_segmented.parquet"
 output_fp = "./Data/character_data_clean.parquet"
 
-
 df = pd.read_parquet(input_fp)
 
 # calculate a series for the years difference between two date series
@@ -15,6 +14,7 @@ df["AgeEnterStreet"] = years_diff(df["Born"], df["FirstAppearance"])
 df["AgeLastOnStreet"] = years_diff(df["Born"], df["ExitDate"])
 df["YearsOnStreet"] = years_diff(df["StartDate"], df["ExitDate"])
 
+df = df.reset_index()
 sum_y_o_s = df.groupby("Character")["YearsOnStreet"].transform(sum)
 df = (df
       .query("Segment == MaxSegment")
@@ -27,9 +27,7 @@ df = (df
       .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
       .assign(AppearPerYear=lambda x: x['NumberOfAppearances']/x['YearsOnStreet'])
       )
-
-df = df.convert_dtypes()
-df = df.set_index("Character")
+df = df.set_index('Character')
 
 # %%
 # Save DataFrame as Parquet with metadata (data date: 30/06/25)
