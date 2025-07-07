@@ -4,20 +4,13 @@ import pandas as pd
 from datetime import datetime
 from cleaner_functions import clean_column_names, years_diff
 
-input_fp = "./Data/character_data_segmented.csv"
+input_fp = "./Data/character_data_segmented.parquet"
 output_fp = "./Data/character_data_clean.parquet"
 
 
-df = pd.read_csv(input_fp)
+df = pd.read_parquet(input_fp)
 
 # calculate a series for the years difference between two date series
-
-date_cols = ['Born', 'Died', 'ExitDate', 'StartDate',
-             'FirstAppearance', 'LastAppearance']
-
-df.loc[:, date_cols] = df.apply(
-    {col: lambda x: pd.to_datetime(x) for col in date_cols}
-)
 df["AgeEnterStreet"] = years_diff(df["Born"], df["FirstAppearance"])
 df["AgeLastOnStreet"] = years_diff(df["Born"], df["ExitDate"])
 df["YearsOnStreet"] = years_diff(df["StartDate"], df["ExitDate"])

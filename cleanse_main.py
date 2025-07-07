@@ -191,7 +191,12 @@ corrie_master_df_clean = corrie_master_df_clean.set_index("Character")
 
 corrie_master_df_clean.columns = clean_column_names(
     corrie_master_df_clean.columns)
+date_cols = ['Born', 'Died', 'ExitDate', 'StartDate',
+             'FirstAppearance', 'LastAppearance']
 
+corrie_master_df_clean.loc[:, date_cols] = corrie_master_df_clean.apply(
+    {col: lambda x: pd.to_datetime(x) for col in date_cols}
+)
 corrie_master_df_clean["AgeEnterStreet"] = years_diff(
     corrie_master_df_clean["Born"], corrie_master_df_clean["FirstAppearance"])
 
