@@ -1,4 +1,5 @@
 # %%
+
 if __name__ == "__main__":
     import pandas as pd
     import numpy as np
@@ -8,6 +9,7 @@ if __name__ == "__main__":
 
 from cleanse_data import *
 from cleanse_absences import *
+from cleaner_functions import clean_column_names, years_diff
 
 
 # %%
@@ -186,7 +188,59 @@ corrie_master_df_clean = corrie_master_df_clean.set_index("Character")
 
 # %%
 
+
+corrie_master_df_clean.columns = clean_column_names(
+    corrie_master_df_clean.columns)
+
+corrie_master_df_clean["AgeEnterStreet"] = years_diff(
+    corrie_master_df_clean["Born"], corrie_master_df_clean["FirstAppearance"])
+
+
+corrie_master_df_clean.loc[
+    corrie_master_df_clean["ExitStatus"] != "Death",
+    "Died"
+] = pd.NA
+corrie_master_df_clean = corrie_master_df_clean.rename(
+    {
+        "Sic": "Industry"
+    },
+    axis=1
+)
+corrie_master_df_clean["Returner"] = corrie_master_df_clean['MaxSegment'] > 1
 corrie_master_df_clean.to_csv(
     "./Data/character_data_segmented.csv", index=True)
+
+# %%
+column_metadata = {
+    "Gender": "Character gender (M/F)",
+    "NumberOfAppearances": "Total number of appearances",
+    "FirstAppearance": "Datetime of first appearance",
+    "LastAppearance": "Datetime of last appearance",
+    "ExitStatus": "Character's exit status (Alive/Death/Exit)",
+    "Born": "Datetime of character's birth (if known)",
+    "Died": "Datetime of character's death (if occcurred)",
+    "AgeEnterStreet": "Age at first appearance (years)",
+    "Returner": "Boolean, True if character returned after exit",
+    "NumberTimesMarried": "Number of times character married",
+    "NumberChildren": "Number of children character has",
+    "Occupation": "Character's occupation",
+    "Industry": "Industry sector of occupation",
+    "BigamyCommitted": "Whether character was involved in bigamous marriage (boolean)",
+    "StartDate": "Datetime when the character started this segment on the show",
+    "ExitDate": "Datetime when the character exited the show for this segment",
+    "Segment": "Sequential number for each continuous appearance block for the character",
+    "MaxSegment": "Total number of appearance segments for the character"
+}
+
+# Add metadata to DataFrame
+corrie_master_df_clean.attrs['column_metadata'] = column_metadata
+corrie_master_df_clean.attrs['data_date'] = "2025-06-30"
+
+
+corrie_master_df_clean = corrie_master_df_clean[list(column_metadata.keys())]
+
+# Save to Parquet
+corrie_master_df_clean.to_parquet(
+    "./Data/character_data_segmented.parquet", engine="pyarrow")
 
 # %%
