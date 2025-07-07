@@ -17,52 +17,21 @@ import numpy as np
 from custom_cluster_functions import *
 
 
-# %%
-
 # =========================================
 # ======= read in and clean data ==========
 # =========================================
 
+input_fp = "./Data/character_data_clean.parquet"
+df = pd.read_parquet(input_fp)
 
-df = pd.read_csv("./Data/character_data_segmented.csv")
-
-date_cols = ['Born', 'Died', 'Exit date', 'Start date',
-             'First appearance', 'Last appearance']
-
-df.loc[:, date_cols] = df.apply(
-    {col: lambda x: pd.to_datetime(x) for col in date_cols}
-)
-
-df["YearsOnStreet"] = years_diff(df["Start date"], df["Exit date"])
-df["AgeEnterStreet"] = years_diff(df["Born"], df["First appearance"])
-df["AgeLastOnStreet"] = years_diff(df["Born"], df["Exit date"])
-
-sum_y_o_s = df.groupby("Character")["YearsOnStreet"].transform(sum)
-df = (df
-      .query("Segment == `Max segment`")
-      .assign(Returner=lambda x: x['Max segment'] > 1)
-      .drop(columns=[
-          "YearsOnStreet",
-          "Segment",
-          "Max segment"]
-      )
-      .merge(sum_y_o_s, how="inner", left_index=True, right_index=True)
-      .assign(AppearPerYear=lambda x: x['Number of appearances']/x['YearsOnStreet'])
-      )
-
-df = df.convert_dtypes()
-df = df.set_index("Character")
-
-
-# %%
 
 # =========================================
 # ======= create data for clustering ======
 # =========================================
-cluster_fields = ["Number of appearances",
+cluster_fields = ["NumberOfAppearances",
                   "YearsOnStreet",
-                  "No children",
-                  "No times married"]
+                  "NumberChildren",
+                  "NumberTimesMarried"]
 # select only some columns
 cluster_df = df.loc[:, cluster_fields]
 
@@ -131,7 +100,7 @@ plot_cluster_score(k_cluster_df)
 n_clusters = 8
 
 cluster_df = cluster_df.drop(
-    ["y_kmeans", "Cluster Category"],
+    ["KClusterNumber", "ClusterCategory"],
     axis=1,
     errors="ignore")
 
@@ -140,41 +109,42 @@ kmeans = KMeans(n_clusters=n_clusters,
                 n_init=100,
                 init='k-means++')
 kmeans.fit(cluster_df)
-cluster_df["y_kmeans"] = kmeans.predict(cluster_df)
+cluster_df["KClusterNumber"] = kmeans.predict(cluster_df)
 
-df["y_kmeans"] = cluster_df["y_kmeans"]
+df["KClusterNumber"] = cluster_df["KClusterNumber"]
 
-# cluster summary derivation... and relabel to get 'Cluster Category'
-cluster_summary = df.groupby("y_kmeans")[cluster_fields].aggregate("mean")
+# cluster summary derivation... and relabel to get 'ClusterCategory'
+cluster_summary = df.groupby("KClusterNumber")[
+    cluster_fields].aggregate("mean")
 cluster_summary = cluster_summary.merge(
-    df.value_counts("y_kmeans"),
+    df.value_counts("KClusterNumber"),
     left_index=True,
     right_index=True
 )
 cluster_summary["count"] = cluster_summary["count"].rename("Count")
 cluster_summary = cluster_summary.sort_values(
-    ["Number of appearances", "No children"])
+    ["NumberOfAppearances", "NumberChildren"])
 
-cluster_summary["Cluster Category"] = list(
+cluster_summary["ClusterCategory"] = list(
     ascii_uppercase[:len(cluster_summary.index)])
 cluster_df = cluster_df.merge(
-    cluster_summary["Cluster Category"],
-    left_on="y_kmeans",
+    cluster_summary["ClusterCategory"],
+    left_on="KClusterNumber",
     right_index=True
 )
 
-df["Cluster Category"] = cluster_df["Cluster Category"]
+df["ClusterCategory"] = cluster_df["ClusterCategory"]
 
 
 # %%
 (
     GT(cluster_summary)
     .fmt_number(
-        columns=["YearsOnStreet", "No children", "No times married"],
+        columns=["YearsOnStreet", "NumberChildren", "NumberTimesMarried"],
         decimals=2
     )
     .fmt_number(
-        columns=["Number of appearances", "count"],
+        columns=["NumberOfAppearances", "count"],
         decimals=0
     )
 
@@ -187,34 +157,46 @@ df["Cluster Category"] = cluster_df["Cluster Category"]
 # ======= plot k-means clustering ======
 # =========================================
 
+def create_character_hover_template():
+    """
+    Create standardized hover template for character data plots.
+
+    Returns:
+        String containing the hover template with proper formatting
+    """
+    return ('<b>Character: %{customdata[0]}</b><br>' +
+            'Cluster: %{customdata[5]}<br>' +
+            'NumberOfAppearances: %{customdata[1]}<br>' +
+            'YearsOnStreet: %{customdata[2]:.1f}<br>' +
+            'NumberChildren: %{customdata[3]}<br>' +
+            'NumberTimesMarried: %{customdata[4]}<br>' +
+            '<extra></extra>')
+
+
+# Standard custom_data configuration for character plots
+CHARACTER_CUSTOM_DATA = ['Character',
+                         'NumberOfAppearances',
+                         'YearsOnStreet',
+                         'NumberChildren',
+                         'NumberTimesMarried',
+                         'ClusterCategory']
 
 plotly_df = (
     df
-    .sort_values(["Number of appearances"])
-    .assign(y_kmeans=lambda x: pd.Categorical(x["y_kmeans"]))
+    .sort_values(["NumberOfAppearances"])
+    .assign(KClusterNumber=lambda x: pd.Categorical(x["KClusterNumber"]))
 )
 
 px.scatter(
     data_frame=plotly_df.reset_index(),
-    y="Number of appearances",
+    y="NumberOfAppearances",
     x="YearsOnStreet",
-    color='Cluster Category',
-    custom_data=['Character',
-                 'Number of appearances',
-                 'YearsOnStreet',
-                 'No children',
-                 'No times married',
-                 'Cluster Category'],
+    color='ClusterCategory',
+    custom_data=CHARACTER_CUSTOM_DATA,
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
-    hovertemplate='<b>Character: %{customdata[0]}</b><br>' +
-    'Cluster: %{customdata[5]}<br>' +
-                  'Number of appearances: %{customdata[1]}<br>' +
-                  'Years on Street: %{customdata[2]}<br>' +
-                  'No children: %{customdata[3]}<br>' +
-                  'No times married: %{customdata[4]}<br>' +
-                  '<extra></extra>'
+    hovertemplate=create_character_hover_template()
 ).update_layout(showlegend=False
                 ).update_xaxes(dtick=10
                                )
@@ -226,39 +208,28 @@ np.random.seed(42)  # For reproducible jitter
 jitter_amount = 0.15  # Small jitter for discrete 0-6 range
 
 plotly_df_jitter = plotly_df.reset_index().copy()
-plotly_df_jitter['No_times_married_jitter'] = plotly_df_jitter['No times married'] + \
+plotly_df_jitter['No_times_married_jitter'] = plotly_df_jitter['NumberTimesMarried'] + \
     np.random.uniform(-jitter_amount, jitter_amount, len(plotly_df_jitter))
-plotly_df_jitter['No_children_jitter'] = plotly_df_jitter['No children'] + \
+plotly_df_jitter['No_children_jitter'] = plotly_df_jitter['NumberChildren'] + \
     np.random.uniform(-jitter_amount, jitter_amount, len(plotly_df_jitter))
 
 px.scatter(
     data_frame=plotly_df_jitter,
     y="No_children_jitter",
     x="No_times_married_jitter",
-    color='Cluster Category',
-    custom_data=['Character',
-                 'Number of appearances',
-                 'YearsOnStreet',
-                 'No children',
-                 'No times married',
-                 'Cluster Category'],
+    color='ClusterCategory',
+    custom_data=CHARACTER_CUSTOM_DATA,
     template='plotly_white',
     color_continuous_scale='viridis'
 ).update_traces(
-    hovertemplate='<b>Character: %{customdata[0]}</b><br>' +
-    'Cluster: %{customdata[5]}<br>' +
-                  'Number of appearances: %{customdata[1]}<br>' +
-                  'Years on Street: %{customdata[2]}<br>' +
-                  'No children: %{customdata[3]}<br>' +
-                  'No times married: %{customdata[4]}<br>' +
-                  '<extra></extra>'
+    hovertemplate=create_character_hover_template()
 ).update_layout(
     showlegend=False
 ).update_xaxes(
-    title="No times married",
+    title="NumberTimesMarried",
     dtick=1
 ).update_yaxes(
-    title="No children",
+    title="NumberChildren",
     dtick=1
 )
 
@@ -269,8 +240,8 @@ px.scatter(
 # ======= perform PCA decomposition ======
 # =========================================
 
-if "y_kmeans" in cluster_df.columns:
-    cluster_df = cluster_df.drop(columns="y_kmeans")
+cluster_df = cluster_df.drop(columns=["KClusterNumber", "ClusterCategory"],
+                             errors="ignore")
 cluster_pca = PCA()
 cluster_pca_fitted = cluster_pca.fit(cluster_df.to_numpy().T)
 cluster_pca_fitted.explained_variance_ratio_
@@ -287,7 +258,7 @@ pca_df = pd.DataFrame(
 wf_df = pd.DataFrame(
     {
         "Component": range(1, 5, 1),
-        "Explained Variance Ratio": cluster_pca_fitted.explained_variance_ratio_
+        "ExplainedVarianceRatio": cluster_pca_fitted.explained_variance_ratio_
     }
 )
 
@@ -298,19 +269,25 @@ fig = go.Figure(go.Waterfall(
     x=wf_df['Component'],  # your key column
     textposition="outside",
     # show values on bars
-    text=[f"{val:+.3f}" for val in wf_df['Explained Variance Ratio']],
-    y=wf_df['Explained Variance Ratio'],
+    text=[f"{val:+.3f}" for val in wf_df['ExplainedVarianceRatio']],
+    y=wf_df['ExplainedVarianceRatio'],
     connector={"line": {"color": "black", "width": 0.8}},
     increasing={"marker": {"color": "green"}}
 ))
 
+
 fig.update_layout(
     title="Principal Component Analysis",
     xaxis_title="Component",
-    yaxis_title="Explained Variance Ratio",
+    yaxis_title="ExplainedVarianceRatio",
     showlegend=False,
-    template="plotly_white"
+    template="plotly_white",
+    yaxis=dict(tickformat='.0%'),
+    margin=dict(t=60, b=40, l=40, r=40)
+).update_traces(
+    hovertemplate='Principal Component: %{x}<br>' +
+    'Cumulative Variance Explained: %{y:.2%}<extra></extra>'
 )
 
-
+fig
 # %%

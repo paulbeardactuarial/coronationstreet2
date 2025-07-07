@@ -50,8 +50,8 @@ def get_cluster_scores(cluster_df, range_n_clusters=range(2, 21, 1)):
     Returns:
         DataFrame with silhouette scores and WSS for each cluster number
     """
-    if "y_kmeans" in cluster_df.columns:
-        cluster_df = cluster_df.drop(columns="y_kmeans")
+    if "KClusterNumber" in cluster_df.columns:
+        cluster_df = cluster_df.drop(columns="KClusterNumber")
 
     k_cluster_df = pd.DataFrame(None, index=range_n_clusters)
     for i in range_n_clusters:
