@@ -10,28 +10,46 @@ import plotly.express as px
 # =========== custom functions ============
 # =========================================
 
-# calculate a series for the years difference between two date series
-
-
-def years_diff(start_series, end_series):
-    time_delta = end_series - start_series
-    years_diff_series = time_delta.apply(lambda x: round(x.days/365.25, 2))
-    return years_diff_series
-
-# apply the yeojohnson transformation to a series and return the transformed series
-
 
 def transform_yeojohnson(data_series):
+    """
+    Apply Yeo-Johnson transformation to normalize data distribution.
+
+    Args:
+        data_series: Input data series to transform
+
+    Returns:
+        Transformed data series with normalized distribution
+    """
     transformed_data_series, _ = yeojohnson(data_series)
     return transformed_data_series
 
 
 def normalise(series):
+    """
+    Standardize data series using z-score normalization.
+
+    Args:
+        series: Input data series
+
+    Returns:
+        Normalized series with mean=0 and std=1
+    """
     n_series = (series - np.mean(series))/np.std(series)
     return n_series
 
 
 def get_cluster_scores(cluster_df, range_n_clusters=range(2, 21, 1)):
+    """
+    Calculate clustering evaluation metrics for different cluster numbers.
+
+    Args:
+        cluster_df: DataFrame containing features for clustering
+        range_n_clusters: Range of cluster numbers to test (default: 2-20)
+
+    Returns:
+        DataFrame with silhouette scores and WSS for each cluster number
+    """
     if "y_kmeans" in cluster_df.columns:
         cluster_df = cluster_df.drop(columns="y_kmeans")
 
@@ -54,6 +72,15 @@ def get_cluster_scores(cluster_df, range_n_clusters=range(2, 21, 1)):
 
 
 def plot_cluster_score(k_cluster_df):
+    """
+    Create dual-plot visualization of clustering evaluation metrics.
+
+    Args:
+        k_cluster_df: DataFrame with clustering scores from get_cluster_scores()
+
+    Returns:
+        Plotly figure with silhouette score and WSS subplots
+    """
     fig = make_subplots(
         rows=1,
         cols=2,
