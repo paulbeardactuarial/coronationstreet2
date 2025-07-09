@@ -18,9 +18,4 @@ eg = ExposureGenerator(
 output = eg.construct_exposure_full()
 output
 
-# eg.assign_exposure(df)
-
-# (df["PeriodEndDate"]-df["PeriodStartDate"]).dt.days
-
-
 # %%

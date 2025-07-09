@@ -187,10 +187,9 @@ class ExposureGenerator():
             df[self.experience_end_field].max().year + 1,
             1)
         exposure_full = []
-        for i in years_to_analyse:
-            period_start = pd.Timestamp(datetime.date(i, month, day))
-            exposure_full.append(
-                self.construct_exposure_single_period(period_start)
-            )
+        period_starts = [
+            pd.Timestamp(datetime.date(i, month, day)) for i in years_to_analyse]
+        exposure_full = [self.construct_exposure_single_period(
+            period_start) for period_start in period_starts]
 
         return pd.concat(exposure_full)
