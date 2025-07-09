@@ -18,21 +18,21 @@ df = df[~df["Born"].isna()]
 # %%
 
 # def carve_experience_single_year(df):
-exp_year = 2006
+# exp_year = 2006
 
 
-period_start = pd.Timestamp(datetime.date(exp_year, 1, 1))
+# period_start = pd.Timestamp(datetime.date(exp_year, 1, 1))
 
-experience_start_field = "StartDate"
-experience_end_field = "ExitDate"
-date_fields = ["Born", "FirstAppearance"]
-date_field = "Born"
+# experience_start_field = "StartDate"
+# experience_end_field = "ExitDate"
+# date_fields = ["Born", "FirstAppearance"]
+# date_field = "Born"
 
-# filter for rows that have experience within period
-in_force_df = df[
-    (df[experience_start_field] <= period_end) & (
-        df[experience_end_field] >= period_start)
-].copy()
+# # filter for rows that have experience within period
+# in_force_df = df[
+#     (df[experience_start_field] <= period_end) & (
+#         df[experience_end_field] >= period_start)
+# ].copy()
 
 
 class ExposureGenerator():
@@ -163,44 +163,38 @@ class ExposureGenerator():
 
     def construct_exposure_single_period(self, period_start):
         period_df = self.initialise_period_df(period_start)
+        if len(period_df) == 0:
+            return None
         period_df = self.carve_by_dates(period_df, period_start)
         period_df = self.clip_period_dates(period_df)
         period_df = self.assign_exposure(period_df)
         period_df = self.assign_death(period_df)
         return period_df
 
+    def construct_exposure_full(self, month=1, day=1):
+        years_to_analyse = range(
+            df[self.experience_start_field].min().year - 1,
+            df[self.experience_end_field].max().year + 1,
+            1)
+        exposure_full = []
+        for i in years_to_analyse:
+            period_start = pd.Timestamp(datetime.date(i, month, day))
+            exposure_full.append(
+                self.construct_exposure_single_period(period_start)
+            )
+
+        return pd.concat(exposure_full)
+
 
 # for date_field in date_fields:
-eg = ExposureGenerator(in_force_df, ["StartDate", "FirstAppearance", "Born"])
+eg = ExposureGenerator(df, ["StartDate", "FirstAppearance", "Born"])
 
-df = eg.construct_exposure_single_period(period_start)
+output = eg.construct_exposure_full()
+output
 
 # eg.assign_exposure(df)
 
 # (df["PeriodEndDate"]-df["PeriodStartDate"]).dt.days
 
-
-# %%
-date_field = "Born"
-
-
-splits = carve_by_date(in_force_df, date_field, period_start)
-exp_table = pd.concat(splits)
-exp_table
-
-# clip the start and end dates based on...
-# 1. period start/end
-# 2. row start/end of initial data
-
-# then join it to exp_table and clip that!
-
-
-# apply carve_by_date() recursively for every date_field to get 2^n dataframes
-# ... and stitch back together
-for field in [experience_start_field, experience_end_field]:
-    exp_table[field] = exp_table[field].clip(
-        lower=period_start,
-        upper=period_end
-    )
 
 # %%
