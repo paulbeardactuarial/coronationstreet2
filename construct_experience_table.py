@@ -52,11 +52,11 @@ class ExposureGenerator():
     def set_date_fields(self, date_fields):
         self.date_fields = date_fields
 
-    def extract_anniversary(self, date_field, period_start):
-        month = self.df[date_field].dt.month
-        day = self.df[date_field].dt.day
+    def extract_anniversary(self, period_df, date_field, period_start):
+        month = period_df[date_field].dt.month
+        day = period_df[date_field].dt.day
         is_feb_29 = (month == 2) & (day == 29)
-        anniv_year = pd.Series(period_start.year, index=self.df.index)
+        anniv_year = pd.Series(period_start.year, index=period_df.index)
         anniversary = pd.to_datetime({
             'year': anniv_year,
             'month': month,
@@ -76,12 +76,12 @@ class ExposureGenerator():
         anniversary.name = f"Anniv{date_field}"
         return anniversary
 
-    def extract_years_at_start(self, date_field, period_start):
+    def extract_years_at_start(self, period_df, date_field, period_start):
         integer_years_at_start = pd.Series(
-            self.df[date_field].apply(
+            period_df[date_field].apply(
                 lambda d: relativedelta(period_start, d).years),
             name=f"YearsSince{date_field}",
-            index=self.df.index
+            index=period_df.index
         )
         return integer_years_at_start
 
@@ -104,18 +104,12 @@ class ExposureGenerator():
         new_field_name = f"YearsSince{date_field}"
         pre_df = period_df.copy()
         post_df = period_df.copy()
-        ann = self.extract_anniversary(date_field, period_start)
-        yea = self.extract_years_at_start(date_field, period_start)
-        pre_df["PeriodEndDate"] = pd.Series(
-            ann,
-            name="PeriodEndDate"
-        )
-        pre_df[new_field_name] = pd.Series(yea)
-        post_df["PeriodStartDate"] = pd.Series(
-            ann,
-            name="PeriodStartDate"
-        )
-        post_df[new_field_name] = pd.Series(yea + 1)
+        ann = self.extract_anniversary(period_df, date_field, period_start)
+        yea = self.extract_years_at_start(period_df, date_field, period_start)
+        pre_df["PeriodEndDate"] = ann
+        pre_df[new_field_name] = yea
+        post_df["PeriodStartDate"] = ann
+        post_df[new_field_name] = yea + 1
         output = pd.concat([pre_df, post_df])
         new_index = [*period_df.index.names, new_field_name]
         output = output.reset_index().set_index(new_index)
@@ -126,19 +120,20 @@ class ExposureGenerator():
             period_df = self.carve_by_date(period_df, date_field, period_start)
         return period_df
 
-    def clip_period_dates(self, df):
+    def clip_period_dates(self, period_df):
         for field in ["PeriodStartDate", "PeriodEndDate"]:
-            df[field] = df[field].clip(
-                lower=df[experience_start_field],
-                upper=df[experience_end_field]
+            period_df[field] = period_df[field].clip(
+                lower=period_df[self.experience_start_field],
+                upper=period_df[self.experience_end_field]
             )
-        return df
+        return period_df
 
-    def assign_exposure(self, df):
-        df = df.assign(
-            Exposure=((df["PeriodEndDate"]-df["PeriodStartDate"]).days)/365.25
+    def assign_exposure(self, period_df):
+        period_df = period_df.assign(
+            Exposure=((period_df["PeriodEndDate"] -
+                      period_df["PeriodStartDate"]).days)/365.25
         )
-        return df
+        return period_df
 
     def construct_exposure_single_period(self, period_start):
         period_df = self.initialise_period_df(period_start)
@@ -149,10 +144,11 @@ class ExposureGenerator():
 
 
 # for date_field in date_fields:
-eg = ExposureGenerator(in_force_df, ["Born", "FirstAppearance"])
-
+eg = ExposureGenerator(in_force_df, ["FirstAppearance", "Born"])
 
 df = eg.construct_exposure_single_period(period_start)
+
+
 # (df["PeriodEndDate"]-df["PeriodStartDate"]).dt.days/365.25
 
 
