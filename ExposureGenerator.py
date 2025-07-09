@@ -162,12 +162,12 @@ class ExposureGenerator():
         return period_df
 
     def assign_death(self, period_df):
-        period_df["Death"] = (
+        period_df["DeathCount"] = (
             (period_df["ExitStatus"] == "Death") &
             (period_df[self.experience_end_field] < period_df["PeriodEndDate"]) &
             (period_df[self.experience_end_field]
              >= period_df["PeriodStartDate"])
-        )
+        ).astype(int)
         return period_df
 
     def construct_exposure_single_period(self, period_start):
