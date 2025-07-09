@@ -18,7 +18,7 @@ df = df[~df["Born"].isna()]
 # %%
 
 # def carve_experience_single_year(df):
-exp_year = 2000
+exp_year = 2006
 
 
 period_start = pd.Timestamp(datetime.date(exp_year, 1, 1))
@@ -102,15 +102,29 @@ class ExposureGenerator():
 
     def carve_by_date(self, period_df, date_field, period_start):
         new_field_name = f"YearsSince{date_field}"
-        pre_df = period_df.copy()
-        post_df = period_df.copy()
+        # get the anniversary and years at start
         ann = self.extract_anniversary(period_df, date_field, period_start)
         yea = self.extract_years_at_start(period_df, date_field, period_start)
-        pre_df["PeriodEndDate"] = ann
-        pre_df[new_field_name] = yea
-        post_df["PeriodStartDate"] = ann
-        post_df[new_field_name] = yea + 1
-        output = pd.concat([pre_df, post_df])
+
+        # split the dataframe into 3
+
+        rows_to_cut = (
+            period_df["PeriodStartDate"] < ann) & (
+            period_df["PeriodEndDate"] > ann
+        )
+        uncut_df = period_df[~rows_to_cut].copy()
+        pre_df = period_df[rows_to_cut].copy()
+        post_df = pre_df.copy()
+
+        uncut_df[new_field_name] = yea[~rows_to_cut]
+
+        pre_df["PeriodEndDate"] = ann[rows_to_cut]
+        pre_df[new_field_name] = yea[rows_to_cut]
+
+        post_df["PeriodStartDate"] = ann[rows_to_cut]
+        post_df[new_field_name] = yea[rows_to_cut] + 1
+
+        output = pd.concat([uncut_df, pre_df, post_df])
         new_index = [*period_df.index.names, new_field_name]
         output = output.reset_index().set_index(new_index)
         return output
@@ -124,14 +138,26 @@ class ExposureGenerator():
         for field in ["PeriodStartDate", "PeriodEndDate"]:
             period_df[field] = period_df[field].clip(
                 lower=period_df[self.experience_start_field],
-                upper=period_df[self.experience_end_field]
+                upper=period_df[self.experience_end_field] +
+                pd.Timedelta(days=1)
             )
         return period_df
 
     def assign_exposure(self, period_df):
-        period_df = period_df.assign(
-            Exposure=((period_df["PeriodEndDate"] -
-                      period_df["PeriodStartDate"]).days)/365.25
+        period_df["Exposure"] = (
+            (period_df["PeriodEndDate"] -
+             period_df["PeriodStartDate"])
+            .dt
+            .days
+            .clip(lower=0))/365.25
+        return period_df
+
+    def assign_death(self, period_df):
+        period_df["Death"] = (
+            (period_df["ExitStatus"] == "Death") &
+            (period_df[self.experience_end_field] < period_df["PeriodEndDate"]) &
+            (period_df[self.experience_end_field]
+             >= period_df["PeriodStartDate"])
         )
         return period_df
 
@@ -139,17 +165,19 @@ class ExposureGenerator():
         period_df = self.initialise_period_df(period_start)
         period_df = self.carve_by_dates(period_df, period_start)
         period_df = self.clip_period_dates(period_df)
-        # period_df = self.assign_exposure(period_df)
+        period_df = self.assign_exposure(period_df)
+        period_df = self.assign_death(period_df)
         return period_df
 
 
 # for date_field in date_fields:
-eg = ExposureGenerator(in_force_df, ["FirstAppearance", "Born"])
+eg = ExposureGenerator(in_force_df, ["StartDate", "FirstAppearance", "Born"])
 
 df = eg.construct_exposure_single_period(period_start)
 
+# eg.assign_exposure(df)
 
-# (df["PeriodEndDate"]-df["PeriodStartDate"]).dt.days/365.25
+# (df["PeriodEndDate"]-df["PeriodStartDate"]).dt.days
 
 
 # %%
