@@ -18,3 +18,5 @@ output = eg.construct_exposure_full()
 output = output[output["Exposure"] > 0]
 output_fp = "./Data/exposure_table.parquet"
 output.to_parquet(output_fp, engine="pyarrow")
+
+# %%
